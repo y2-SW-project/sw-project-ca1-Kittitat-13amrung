@@ -33,7 +33,7 @@
                     <tr data-id="{{ $car->id }}">
                       <td>{{ $car->id }}</td>
                       <td>
-                        <img src="../public/image/{{ $car->image_location }}" alt="test" width="50px">
+                        <img src="{{ $storagePaths }}{{ $car->image_location }}" alt="test" width="50px">
                       </td>
                       <td>{{ $car->make }}</td>
                       <td>{{ $car->model }}</td>

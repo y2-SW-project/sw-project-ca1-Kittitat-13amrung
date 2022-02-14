@@ -46,7 +46,8 @@ class CarController extends Controller
         return view($car, [
             //the data receive from Car::all will
             // be assigned to 'cars'
-            'cars' => $cars
+            'cars' => $cars,
+            'storagePaths' => $storagePaths
         ]);
     }
 
