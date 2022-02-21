@@ -27,6 +27,7 @@ class CarController extends Controller
     {
 
         $storagePath = storage_path('image/');
+        // dd($storagePath);
         // authentication
         $user = Auth::user();
         $car = 'home'; // declaring a local variable
@@ -47,7 +48,7 @@ class CarController extends Controller
             //the data receive from Car::all will
             // be assigned to 'cars'
             'cars' => $cars,
-            'storagePaths' => $storagePaths
+            'storagePath' => $storagePath
         ]);
     }
 

@@ -17,7 +17,7 @@
           </div>
           <div class="card-body">
             @if (count($cars)=== 0)
-              <p>There are no Cars!</p>
+              <p>There are no Art posts to be displayed!</p>
             @else
             <table id="table-cars" class="table table-hover">
                 <thead>
@@ -33,7 +33,7 @@
                     <tr data-id="{{ $car->id }}">
                       <td>{{ $car->id }}</td>
                       <td>
-                        <img src="{{ $storagePaths }}{{ $car->image_location }}" alt="test" width="50px">
+                        <img src="/storage/image/{{ $car->image_location }}" alt="test" width="100px" height="100px">
                       </td>
                       <td>{{ $car->make }}</td>
                       <td>{{ $car->model }}</td>

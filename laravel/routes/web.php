@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 // importing controllers to be used in routing pages
 use App\Http\Controllers\User\CarController as UserCarController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
+use App\Http\Controllers\ChatsController as ChatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,9 @@ use App\Http\Controllers\Admin\CarController as AdminCarController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/chat' ,function() {
     return view('counter');
@@ -54,5 +55,10 @@ Route::put('/admin/cars/{id}', [AdminCarController::class, 'update'])->name('adm
 // 
 Route::delete('/admin/cars/{id}', [AdminCarController::class, 'destroy'])->name('admin.cars.destroy');
 Auth::routes();
+
+
+Route::get('/', [ChatsController::class , 'index']);
+Route::get('messages', [ChatsController::class , 'fetchMessages']);
+Route::post('messages', [ChatsController::class , 'sendMessage']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
