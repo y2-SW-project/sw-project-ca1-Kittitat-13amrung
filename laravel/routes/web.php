@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\CarController as UserCarController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\ChatsController as ChatsController;
+use App\Http\Controllers\arts as Arts;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,8 +54,9 @@ Route::delete('/admin/cars/{id}', [AdminCarController::class, 'destroy'])->name(
 Auth::routes();
 
 
-Route::get('/', [ChatsController::class , 'index']);
-Route::get('messages', [ChatsController::class , 'fetchMessages']);
-Route::post('messages', [ChatsController::class , 'sendMessage']);
+// Route::get('/', [ChatsController::class , 'index']);
+// Route::get('messages', [ChatsController::class , 'fetchMessages']);
+// Route::post('messages', [ChatsController::class , 'sendMessage']);
 
+Route::get('/', [Arts::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
