@@ -261,9 +261,6 @@
                                     
                                 </ul>
                         @endguest
-                        <ul class="navbar-nav me-auto">
-                            test
-                        </ul>
                     </ul>
                 </div>
             </div>
