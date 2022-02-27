@@ -22,6 +22,10 @@ use App\Http\Controllers\arts as Arts;
 //     return view('welcome');
 // });
 
+Route::get('/chat' ,function() {
+    return view('counter');
+});
+
 // Authentication to check for roles
 Auth::routes();
 
