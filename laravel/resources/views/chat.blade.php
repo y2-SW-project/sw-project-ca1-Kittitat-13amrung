@@ -3,8 +3,8 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script> -->
-<!-- <div class="container">
+
+<div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -22,5 +22,5 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 @endsection

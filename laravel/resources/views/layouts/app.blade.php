@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">k
     <!-- resources/views/layouts/app.blade.php -->
 
     <!-- <style>
@@ -62,15 +63,59 @@
 </head>
 <body>
     <div id="app">
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="menu" aria-labelledby="menuLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Colored with scrolling</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <p>Try scrolling the rest of the page to see this option in action.</p>
-            </div>
-        </div>
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu" aria-labelledby="menuLabel">
+            <div class="offcanvas-header">
+                <div class="offcanvas-title fs-1 offset-md-3" id="offcanvasScrollingLabel">                        
+                    <div class="username">
+                                @guest
+                                        @if (Route::has('login'))
+                                        <i class="fs-2 bi bi-person-circle pe-2 "></i>
+                                        <div class="h3">{{ __('Login') }}</div>
+                                        @endif
+                                        @else
+                                        <div class="h3">
+                                            {{ Auth::user()->name }}
+                                            <div class="navbar-item dropdown">
+                                                <a class="fs-6 nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    <span>
+                                                        <i class="fs-1 bi bi-dot"></i>
+                                                    </span>
+                                                    available
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statusDropdown">
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="text-primary fs-1 bi bi-dot"></i>
+                                                        available
+                                                    </a>
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="text-danger fs-1 bi bi-dot"></i>
+                                                        busy
+                                                    </a>
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="text-secondary fs-1 bi bi-dot"></i>
+                                                        appeared away
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                @endguest
+                                        </div>
+                                    </div>
+                                    <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="navbar-nav mb-2 mx-5 mv-lg-0">
+                                        <li class="navbar-item">
+                                            <a href="#" class="nav-link nav-size active fs-1">
+                                                <span>
+                                                    <i class="bi bi-house-fill"></i>
+                                                </span>
+                                                Home
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="login modal" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered" role="document">

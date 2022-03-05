@@ -1,8 +1,17 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+// LOGO fonts
+@import url("https://fonts.googleapis.com/css2?family=Rampart+One&display=swap");
+// headings fonts
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Patua+One&family=Rampart+One&display=swap");
+// paragraphs fonts
+@import url("https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Rampart+One&display=swap");
 
 // Variables
-@import 'variables';
+@import "variables";
+
+// Bootstraps icons
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";

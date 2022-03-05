@@ -1,7 +1,24 @@
 // Body
-$body-bg: #f8fafc;
+$body-bg: #dcdcdc;
 
 // Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-logo: "Rampart One", cursive;
+$font-family-sans-serif: "Patua One", cursive;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
+fill(candleColors[0]);
+rect(this.barWidth * i + (this.barSpacing*i), 0, this.barWidth, this.scaleData(-this.data[i].openPrice));
+translate(0, this.scaleData(-this.data[i].openPrice));
+fill(candleColors[1]);
+rect(this.barWidth * i + (this.barSpacing*i), 0, this.barWidth, -this.scaleData(this.data[i].openPrice - this.data[i].closePrice));
+// console.log(this.scaleData(-this.data[i].value[j], this.tempArray[i]));
+// display bar values on top of each bar
+// if (this.showValue == true) {
+//     fill(60);
+//     textSize(this.valueSize);
+//     let stackValue = this.data[i].value[j];
+//     text(stackValue, this.barWidth / 2 + this.barWidth * i + (this.barSpacing*i), this.scaleData(this.data[i].value[j]) / 2);
+//     // console.log((this.tempArray[i] / this.data[i].value[j]) * 100)
+// }
+

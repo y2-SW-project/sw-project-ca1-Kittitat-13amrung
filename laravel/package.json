@@ -19,13 +19,7 @@
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
-<<<<<<< HEAD
         "vue-loader": "^16.2.0"
-=======
-        "vue": "^2.6.12",
-        "vue-loader": "^16.2.0",
-        "vue-template-compiler": "^2.6.12"
->>>>>>> 09bf3e838aa2e1061a51813c59c27e88e6a00ccc
     },
     "dependencies": {
         "laravel-echo": "^1.11.3",
