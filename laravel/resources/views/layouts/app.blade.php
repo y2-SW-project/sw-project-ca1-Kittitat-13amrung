@@ -19,7 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">k
+    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
     <!-- resources/views/layouts/app.blade.php -->
 
     <!-- <style>
@@ -61,11 +61,11 @@
     }
     </style> -->
 </head>
-<body>
+<body class="">
     <div id="app">
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu" aria-labelledby="menuLabel">
             <div class="offcanvas-header">
-                <div class="offcanvas-title fs-1 offset-md-3" id="offcanvasScrollingLabel">                        
+                <div class="offcanvas-title fs-1 offset-md-3" id="offcanvasScrollingLabel">                       
                     <div class="username">
                                 @guest
                                         @if (Route::has('login'))
@@ -76,15 +76,15 @@
                                         <div class="h3">
                                             {{ Auth::user()->name }}
                                             <div class="navbar-item dropdown">
-                                                <a class="fs-6 nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                    <span>
-                                                        <i class="fs-1 bi bi-dot"></i>
+                                                <a class="fs-4 nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                    <span class="text-dark">
+                                                        <i class="text-success fs-1 bi bi-dot"></i>
+                                                        available
                                                     </span>
-                                                    available
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statusDropdown">
                                                     <a class="dropdown-item" href="#">
-                                                        <i class="text-primary fs-1 bi bi-dot"></i>
+                                                        <i class="text-success fs-1 bi bi-dot"></i>
                                                         available
                                                     </a>
                                                     <a class="dropdown-item" href="#">
@@ -93,7 +93,7 @@
                                                     </a>
                                                     <a class="dropdown-item" href="#">
                                                         <i class="text-secondary fs-1 bi bi-dot"></i>
-                                                        appeared away
+                                                        away
                                                     </a>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
         </div>
         <nav class="navbar navbar-expand-md navbar-light">
             <div class="container">
-                <a class="navbar-brand fw-bold fs-1" href="{{ url('/') }}">
+                <a class="logo-brand fw-bold" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -219,23 +219,23 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
+                        <ul class="navbar-nav h4 mb-2 mx-5 mb-lg-0">
+                            <li class="navbar-item">
+                            <div class="btn-group">
+                                <a type="button" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
+                                    <i class="fs-2 bi bi-compass"></i>
+                                    Explore 
+                                </a>        
+                                <ul class="dropdown-menu dropdown-menu-lg-end">
+                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                </ul>
+                            </div>
+                            </li>
                         @guest
                             @if (Route::has('login'))
 
-                            <ul class="navbar-nav mb-2 mx-5 mb-lg-0">
-                                <li class="navbar-item">
-                                <div class="btn-group">
-                                    <a type="button" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
-                                        <i class="fs-2 bi bi-compass"></i>
-                                        Explore 
-                                    </a>        
-                                    <ul class="dropdown-menu dropdown-menu-lg-end">
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    </ul>
-                                </div>
-                                </li>
                                 
                                 <li class="navbar-item">
                                         <a href="#" class="nav-link nav-size active" data-bs-toggle="modal" data-bs-target="#loginModal">
@@ -243,73 +243,50 @@
                                         </a>
                                 </li>
 
-                                <li class="navbar-item">
+                                @endif
+                            @else
+                            <li class="navbar-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fs-2 bi bi-person-circle pe-2 "></i>
+                                    {{ Auth::user()->name }}
+                                </a>
+    
+                                <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                            
+                            <li class="navbar-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fs-3 bi bi-bell"></i>
+                                </a>
+                            </li>
+                            @endguest
+                            
+                            <li class="navbar-item">
                                 <a class="nav-link nav-size active" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
                                 <i class="fs-2 bi bi-list fw-bold"></i>
                                 </a>
                                 </li>
 
+                                
                             </ul>
 
-                            
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li> -->
-                            @endif
-                        @else
-                        <ul class="navbar-nav mb-2 mx-5 mb-lg-0">
-                            <li class="navbar-item">
-                                    <div class="btn-group">
-                                        <a type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
-                                            <i class="fs-2 bi bi-compass"></i>
-                                            Explore 
-                                        </a>        
-                                        <ul class="dropdown-menu dropdown-menu-lg-end">
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                            <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                        </ul>
-                                    </div>
-                                    </li>
-
-                                    <li class="navbar-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            <i class="fs-2 bi bi-person-circle pe-2 "></i>
-                                            {{ Auth::user()->name }}
-                                        </a>
-            
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-            
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-
-                                    <li class="navbar-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fs-3 bi bi-bell"></i>
-                                        </a>
-                                    </li>
-
-                                    <li class="navbar-item">
-                                    <a class="nav-link nav-size" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
-                                    <i class="fs-2 bi bi-list fw-bold"></i>
-                                    </a>
-                                    </li>
-
                                     
-                                </ul>
-                        @endguest
                     </ul>
+
                 </div>
             </div>
         </nav>
+
 
         <main class="py-4">
             @yield('content')
