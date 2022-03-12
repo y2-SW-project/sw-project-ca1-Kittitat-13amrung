@@ -2,41 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Car;
-use Auth;
 
-class arts extends Controller
+class UserSettingController extends Controller
 {
-    // use auth to secure session and ensuring 
-    // that users are routed to their respective role's index page 
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-
         // authentication
-        // $user = Auth::user();
-        $car = 'index'; // declaring a local variable
+        $user = Auth::user();
+        $profile = 'profile'; // declaring a local variable
 
+        // check if user is an admin
+        if($user->hasRole('admin')) {
+            $profile = 'user.settings.profile'; //if so route to admin page
+        }
 
-        //get all from the Car Table
-        $cars = Car::all();
-        return view($car, [
-            //the data receive from Car::all will
-            // be assigned to 'cars'
-            'cars' => $cars
-        ]);
+        // if user is an ordinary user
+        else if ($user->hasRole('user')) {
+            $profile = 'user.settings.profile'; //route to user page
+        }
+        return redirect()->route($profile);
     }
 
     /**
@@ -68,13 +58,7 @@ class arts extends Controller
      */
     public function show($id)
     {
-        // find the id passed through and display it
-        $car = Car::findOrFail($id);
-
-        // put these findings above and show it on the page
-        return view('user.cars.show', [
-            'car' => $car
-        ]);
+        //
     }
 
     /**
@@ -95,9 +79,19 @@ class arts extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //validation rules
+
+        $request->validate([
+            'name' =>'required|min:4|string|max:255',
+            'email'=>'required|email|string|max:255'
+        ]);
+        $user =Auth::user();
+        $user->name = $request['name'];
+        $user->email = $request['email'];
+        $user->save();
+        return back()->with('message','Profile Updated');
     }
 
     /**

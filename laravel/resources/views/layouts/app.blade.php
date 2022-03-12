@@ -14,104 +14,105 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
-    <!-- resources/views/layouts/app.blade.php -->
 
-    <!-- <style>
-    .chat {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .chat li {
-        margin-bottom: 10px;
-        padding-bottom: 5px;
-        border-bottom: 1px dotted #B3A9A9;
-    }
-
-    .chat li .chat-body p {
-        margin: 0;
-        color: #777777;
-    }
-
-    .panel-body {
-        overflow-y: scroll;
-        height: 350px;
-    }
-
-    ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-        background-color: #F5F5F5;
-    }
-
-    ::-webkit-scrollbar {
-        width: 12px;
-        background-color: #F5F5F5;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-        background-color: #555;
-    }
-    </style> -->
 </head>
 <body class="">
     <div id="app">
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu" aria-labelledby="menuLabel">
             <div class="offcanvas-header">
-                <div class="offcanvas-title fs-1 offset-md-3" id="offcanvasScrollingLabel">                       
+                <div class="offcanvas-title" id="offcanvasScrollingLabel">                       
                     <div class="username">
                                 @guest
                                         @if (Route::has('login'))
-                                        <i class="fs-2 bi bi-person-circle pe-2 "></i>
-                                        <div class="h3">{{ __('Login') }}</div>
+                                        <div class="mx-4 display-5 my-5">
+                                            <i class="bi bi-person-circle pe-2"></i>
+                                            {{ __('Login') }}
+                                        </div>
                                         @endif
                                         @else
-                                        <div class="h3">
-                                            {{ Auth::user()->name }}
-                                            <div class="navbar-item dropdown">
-                                                <a class="fs-4 nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                    <span class="text-dark">
-                                                        <i class="text-success fs-1 bi bi-dot"></i>
-                                                        available
-                                                    </span>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="statusDropdown">
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="text-success fs-1 bi bi-dot"></i>
-                                                        available
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="text-danger fs-1 bi bi-dot"></i>
-                                                        busy
-                                                    </a>
-                                                    <a class="dropdown-item" href="#">
-                                                        <i class="text-secondary fs-1 bi bi-dot"></i>
-                                                        away
-                                                    </a>
+                                        
+                                        <div class="row my-5">
+                                            <div class="d-flex col-lg-12">
+                                                <div class="col-lg-5">
+                                                    @if(Auth::user()->image)
+                                                        <img class="img-fluid rounded-circle" src="{{asset('/storage/image/'.Auth::user()->image)}}" alt="profile_image">
+                                                    @endif
                                                 </div>
-                                            </div>
+                        
+                                                        {{ Auth::user()->name }}
+                                                            <div class="navbar-item dropdown">
+                                                                <a class="nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                                <span class="text-dark">
+                                                                    <i class="text-success fs-3 bi bi-dot"></i>
+                                                                    available
+                                                                </span>
+                                                            </a>
+                                                            <div class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="statusDropdown">
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="text-danger fs-3 bi bi-dot"></i>
+                                                                    busy
+                                                                </a>
+                                                                <a class="dropdown-item" href="#">
+                                                                    <i class="text-secondary fs-3 bi bi-dot"></i>
+                                                                    away
+                                                                </a>
+                                                            </div>
+                                                            
+                                                    </div>
                                         </div>
+                                </div>
+                                                    
                                 @endguest
                                         </div>
                                     </div>
                                     <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
                                 </div>
-                                <div class="offcanvas-body">
-                                    <ul class="navbar-nav mb-2 mx-5 mv-lg-0">
-                                        <li class="navbar-item">
-                                            <a href="#" class="nav-link nav-size active fs-1">
-                                                <span>
-                                                    <i class="bi bi-house-fill"></i>
-                                                </span>
-                                                Home
+                                <div class="border-0 border-primary border-bottom border-top fs-2">
+                                    <ul class="navbar-nav">
+                                        
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                                                <i class="mx-5 bi bi-compass-fill"></i>
+                                                {{ __('Explore') }}
                                             </a>
+                                        </li>
+                                        
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a href="{{ route('user.profile') }}" class="nav-link nav-size text-dark">
+                                                <i class="mx-5 bi bi-person-badge-fill"></i>
+                                                {{ __('Profile') }}
+                                            </a>
+                                        </li>
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                                                <i class="mx-5 bi bi-chat-square-fill"></i>
+                                                {{ __('Messages') }}
+                                            </a>
+                                        </li>
+
+
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                                                <i class="mx-5 bi bi-gear-fill"></i>
+                                                {{ __('Settings') }}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a class="nav-link nav-size text-dark" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                         document.getElementById('logout-form').submit();">
+                                            <i class="mx-5 bi bi-box-arrow-right"></i>
+                                            {{ __('Logout') }}
+                                        </a>
+                                        
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
                                         </li>
                                     </ul>
                                 </div>
@@ -201,7 +202,7 @@
             </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-md navbar-light">
+        <nav class="navbar bg-primary navbar-expand-md navbar-light">
             <div class="container">
                 <a class="logo-brand fw-bold" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -217,19 +218,19 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav me-5 ms-auto">
                         <!-- Authentication Links -->
-                        <ul class="navbar-nav h4 mb-2 mx-5 mb-lg-0">
-                            <li class="navbar-item">
+                        <ul class="navbar-nav fs-2 h4 mb-2 me-5 mb-lg-0">
+                            <li class="navbar-item mx-2">
                             <div class="btn-group">
                                 <a type="button" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
-                                    <i class="fs-2 bi bi-compass"></i>
+                                    <i class="bi bi-compass-fill"></i>
                                     Explore 
                                 </a>        
-                                <ul class="dropdown-menu dropdown-menu-lg-end">
-                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
-                                    <li><a class="dropdown-item" href="#">Menu item</a></li>
+                                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">{{ __('Artists') }}</a></li>
+                                    <li><a class="dropdown-item" href="#">{{ __('Requests') }}</a></li>
+                                    <li><a class="dropdown-item" href="#">{{ __('Marketplace') }}</a></li>
                                 </ul>
                             </div>
                             </li>
@@ -237,7 +238,7 @@
                             @if (Route::has('login'))
 
                                 
-                                <li class="navbar-item">
+                                <li class="navbar-item mx-2">
                                         <a href="#" class="nav-link nav-size active" data-bs-toggle="modal" data-bs-target="#loginModal">
                                         <i class="fs-2 bi bi-person-circle pe-2 "></i> Log in
                                         </a>
@@ -245,13 +246,17 @@
 
                                 @endif
                             @else
-                            <li class="navbar-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fs-2 bi bi-person-circle pe-2 "></i>
+                            <li class="navbar-item mx-2 dropdown">
+                                <a id="navbarDropdown" class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    @if(Auth::user()->image)
+                                        <img class="image rounded-circle border border-3" src="{{asset('/storage/image/'.Auth::user()->image)}}" alt="profile_image" height="40px" width="40px">
+                                    @endif
                                     {{ Auth::user()->name }}
                                 </a>
     
                                 <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('user.profile') }}" class="dropdown-item">{{ __('Profile') }}</a>
+                                    <a href="" class="dropdown-item">{{ __('Setting') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -261,17 +266,18 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
                                 </div>
                             </li>
                             
-                            <li class="navbar-item">
+                            <li class="navbar-item mx-2">
                                 <a href="#" class="nav-link">
                                     <i class="fs-3 bi bi-bell"></i>
                                 </a>
                             </li>
                             @endguest
                             
-                            <li class="navbar-item">
+                            <li class="navbar-item mx-2">
                                 <a class="nav-link nav-size active" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
                                 <i class="fs-2 bi bi-list fw-bold"></i>
                                 </a>
@@ -283,12 +289,30 @@
                                     
                     </ul>
 
+                    
                 </div>
+
+                
+            </div>
+        </nav>
+
+        <nav class="navbar bg-primary navbar-expand-md">
+            <div class="container">
+                <div class="col-lg-11">
+                    <div class="col-lg-5 float-end">
+                        <form class="d-flex">
+                            <div class="input-group">
+                                <input class="form-control" type="search" id="autoSizingInputGroup" placeholder="search for artists, requests, and clients here..." aria-label="search for artists, requests, and clients here...">
+                                <button class="input-group-text" type="submit"><i class="bi bi-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
             </div>
         </nav>
 
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>

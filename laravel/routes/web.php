@@ -1,11 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Routes;
+use App\User;
 // importing controllers to be used in routing pages
 use App\Http\Controllers\User\CarController as UserCarController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\ChatsController as ChatsController;
 use App\Http\Controllers\arts as Arts;
+use App\Http\Controllers\User\UserSettingController as UserSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +42,9 @@ Route::get('/user/cars/', [UserCarController::class, 'index'])->name('user.cars.
 // view car details
 Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.cars.show');
 
+Route::get('/user/profile/', [UserSetting::class, 'index'])->name('user.profile');
+Route::get('/admin/profile/', [UserSetting::class, 'index'])->name('admin.profile');
+
 // For Admin auth, go to these routes
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
 // display car info with editing power
@@ -64,3 +70,5 @@ Auth::routes();
 
 Route::get('/', [Arts::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/home', [App\Http\Controllers\HomeController::class, 'upload']);

@@ -20,7 +20,7 @@ class CarSeeder extends Seeder
         $car_01->model = "COOPER";
         $car_01->price = "13500";
         $car_01->engine_size = "1.6";
-        $car_01->image_location = "zqkeJShYPSrq1ky9ll3P4gaHhNBcrobjgz09gwyl.jpg";
+        $car_01->image_location = "";
         $car_01->save();
 
         // seeding data of car 2 into the car table
@@ -29,7 +29,7 @@ class CarSeeder extends Seeder
         $car_02->model = "Yaris";
         $car_02->price = "23900";
         $car_02->engine_size = "2.0";
-        $car_02->image_location = "xj490DlG0HkSoqBq3EulJpCWTs5C7B4Y3ZGvZAZD.jpg";
+        $car_02->image_location = "";
         $car_02->save();
     }
 }

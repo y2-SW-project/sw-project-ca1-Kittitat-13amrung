@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
 
         // seeding data of new user into the users table
         $admin = new User();
-        $admin->name = "s";
+        $admin->name = "sad.tanukiz";
         $admin->email = "n00201327@iadt.ie";
         $admin->password = Hash::make('password');
         $admin->save();
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
         // seeding data of new user role into the users table
         $user = new User();
         $user->name = "Louise Carte";
-        $user->email = "Louisec@gmail.com";
+        $user->email = "louisec@gmail.com";
         $user->password = Hash::make('password');
         $user->save();
 

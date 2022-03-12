@@ -41,5 +41,15 @@ class HomeController extends Controller
             $home = 'user.home'; //route to user page
         }
         return redirect()->route($home);
+    }
+
+    public function upload(Request $request)
+    {
+        if($request->hasFile('image')){
+            $filename = $request->image->getClientOriginalName();
+            $request->image->storeAs('image',$filename,'public');
+            Auth()->user()->update(['image'=>$filename]);
         }
+        return redirect()->back();
+    }
 }

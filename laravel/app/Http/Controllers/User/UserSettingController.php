@@ -1,42 +1,34 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Car;
-use Auth;
 
-class arts extends Controller
+class UserSettingController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+
     // use auth to secure session and ensuring 
     // that users are routed to their respective role's index page 
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
     }
+
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
-
-        // authentication
-        // $user = Auth::user();
-        $car = 'index'; // declaring a local variable
-
-
-        //get all from the Car Table
-        $cars = Car::all();
-        return view($car, [
-            //the data receive from Car::all will
-            // be assigned to 'cars'
-            'cars' => $cars
-        ]);
+        return view('user.profile');
     }
 
     /**
@@ -68,13 +60,7 @@ class arts extends Controller
      */
     public function show($id)
     {
-        // find the id passed through and display it
-        $car = Car::findOrFail($id);
-
-        // put these findings above and show it on the page
-        return view('user.cars.show', [
-            'car' => $car
-        ]);
+        //
     }
 
     /**

@@ -1,69 +1,64 @@
 @extends('layouts.app')
 
 @section ('content')
+<div class="container-fluid bg-primary">
     <main class="container">
-        <div class="row mt-5 mb-4">
+        <div class="main-header row pt-5 mb-4">
             <!-- left main -->
             <div class="col-lg-6">
-                <h1 class="display-2">{{ __('LOREM IPSUM?') }}</h1>
-                <p class="paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolor non tempore dicta sed, facere aspernatur maxime velit sint quis vel, aperiam voluptate assumenda delectus voluptates et in molestiae distinctio? Exercitationem sunt incidunt velit error fugit nam, quas, similique cum a distinctio corrupti veniam libero ipsum explicabo at vitae accusamus quidem nesciunt accusantium earum. A obcaecati, impedit quidem maxime architecto tempore similique animi cupiditate.</p>
+                <h1 class="display-2 text-uppercase">{{ __('art.request?') }}</h1>
+                <p class="paragraph col-lg-11">{{ __('art.description') }}</p>
+                <div class="my-5">
+                    <button class="text-uppercase col-5 btn px-5 py-3 btn-success rounded-pill">
+                        <i class="fs-3 bi bi-compass"></i>
+                        <span class="fs-4">{{ __('Explore') }}</span>
+                    </button>
+                    <span class="mx-3"></span>
+                    <button class="text-uppercase col-5 btn px-5 py-3 btn-outline-dark rounded-pill">
+                    <i class="fs-3 bi bi-pencil-square"></i>
+                    <span class="fs-4">{{ __('Request') }}</span>
+                    </button>
+                </div>
             </div>
             <!-- right main -->
-            <div class="col-lg-5 my-5">
-
+            <div class="col-lg-3">
+            <img src="{{asset('/storage/image/sideMain.svg')}}" class="" style="postion: relative;" alt="">
             </div>
         </div>
 
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <button class="text-uppercase col-4 btn px-5 py-3 btn-primary rounded-pill">
-                    <i class="fs-3 bi bi-compass"></i>
-                    <span class="fs-4">{{ __('Explore') }}</span>
-                </button>
-                <span class="mx-3"></span>
-                <button class="text-uppercase col-4 btn px-5 py-3 btn-secondary rounded-pill">
-                <i class="fs-3 bi bi-pencil-square"></i>
-                <span class="fs-4">{{ __('Request') }}</span>
-                </button>
-            </div>
+        <div class="row mt-5 align-items-center">
         </div>
     </main>
+</div>
 
+<div class="container-fluid">
     <section class="container">
 
-        <div class="my-5">
+        <div class="py-5">
         <span class="display-5 text-uppercase">
         <i class="bi bi-file-image"></i>
                 Recent Search
                 </span>
             <div class="d-flex mt-5">
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            test
-                        </div>
+                @foreach ($cars as $car)
+                    @continue($car->id == 0)
+                <div data-id="{{ $car->id }}" class="col-3 my-2 mx-5">
+                    <a href="{{ route('user.cars.show', $car->id) }}">
+                        @if ($car->image_location)
+                        <img src="{{ asset('/storage/image/'.$car->image_location )}}" class="img-fluid my-2 mx-2" alt="{{ ' ' . $car->make . ' ' . $car->model}}">
+                        @else
+                        <img src="{{ asset('/storage/image/img-preview.svg') }}" class="img-fluid my-2 mx-2" alt="{{ ' ' . $car->make . ' ' . $car->model}}">
+                        @endif
+                    </a>
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            test
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card">
-                        <div class="card-body">
-                            test
-                        </div>
-                    </div>
+                    @break($car->id == 3)
+                    @endforeach
                 </div>
             </div>
 </section>
+</div>
 
-            <div class="division dropdown-divider">
-
-            </div>
+            <hr>
 
             <section class="container my-5">
                 <div class="text-center">
@@ -77,7 +72,11 @@
                     <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            test
+                        <form action="{{route('home')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="image">
+                        <input type="submit" value="Upload">
+                    </form>
                         </div>
                     </div>
                 </div>
