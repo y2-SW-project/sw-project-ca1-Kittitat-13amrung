@@ -39,7 +39,7 @@
                                             <div class="d-flex col-lg-12">
                                                 <div class="col-lg-5">
                                                     @if(Auth::user()->image)
-                                                        <img class="img-fluid rounded-circle" src="{{asset('/storage/image/'.Auth::user()->image)}}" alt="profile_image">
+                                                        <img class="img-fluid rounded-circle" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="profile_image">
                                                     @endif
                                                 </div>
                         
@@ -78,6 +78,13 @@
                                             <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
                                                 <i class="mx-5 bi bi-compass-fill"></i>
                                                 {{ __('Explore') }}
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-menu navbar-item py-4">
+                                            <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                                            <i class="mx-5 bi bi-heart"></i>
+                                                {{ __('Favourites') }}
                                             </a>
                                         </li>
                                         
@@ -204,14 +211,26 @@
         </div>
         <nav class="navbar bg-primary navbar-expand-md navbar-light">
             <div class="container">
-                <a class="logo-brand fw-bold" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="logo-brand d-flex" href="{{ url('/') }}">
+                    <h3 class="logo-brand">
+                    <i class="display-6 align-self-center bi bi-brush"></i>
+                        {{ config('app.name', 'Laravel') }}
+                        
+                    </h3>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav d-none d-sm-block d-md-none me-auto">
+                        <li class="navbar-item">
+                            test
+                        </li>
+                    </ul>
+                </div>
+
+                <div class=" collapse navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
 
@@ -220,7 +239,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav me-5 ms-auto">
                         <!-- Authentication Links -->
-                        <ul class="navbar-nav fs-2 h4 mb-2 me-5 mb-lg-0">
+                        <ul class="navbar-nav fs-4 h4 mb-2 me-5 mb-lg-0">
                             <li class="navbar-item mx-2">
                             <div class="btn-group">
                                 <a type="button" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
@@ -240,7 +259,7 @@
                                 
                                 <li class="navbar-item mx-2">
                                         <a href="#" class="nav-link nav-size active" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                        <i class="fs-2 bi bi-person-circle pe-2 "></i> Log in
+                                        <i class="bi bi-person-circle pe-2 "></i> Log in
                                         </a>
                                 </li>
 
@@ -249,7 +268,7 @@
                             <li class="navbar-item mx-2 dropdown">
                                 <a id="navbarDropdown" class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::user()->image)
-                                        <img class="image rounded-circle border border-3" src="{{asset('/storage/image/'.Auth::user()->image)}}" alt="profile_image" height="40px" width="40px">
+                                        <img class="rounded-circle border border-3" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="profile_image" height="30px" width="30px">
                                     @endif
                                     {{ Auth::user()->name }}
                                 </a>
@@ -272,14 +291,14 @@
                             
                             <li class="navbar-item mx-2">
                                 <a href="#" class="nav-link">
-                                    <i class="fs-3 bi bi-bell"></i>
+                                    <i class="bi bi-bell"></i>
                                 </a>
                             </li>
                             @endguest
                             
                             <li class="navbar-item mx-2">
                                 <a class="nav-link nav-size active" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
-                                <i class="fs-2 bi bi-list fw-bold"></i>
+                                <i class="bi bi-list fw-bold"></i>
                                 </a>
                                 </li>
 
@@ -296,7 +315,7 @@
             </div>
         </nav>
 
-        <nav class="navbar bg-primary navbar-expand-md">
+        <!-- <nav class="navbar bg-primary navbar-expand-md">
             <div class="container">
                 <div class="col-lg-11">
                     <div class="col-lg-5 float-end">
@@ -309,7 +328,7 @@
                     </div>
                     </div>
             </div>
-        </nav>
+        </nav> -->
 
 
         <main class="">

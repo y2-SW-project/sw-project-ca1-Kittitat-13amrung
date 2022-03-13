@@ -21,8 +21,8 @@
                 </div>
             </div>
             <!-- right main -->
-            <div class="col-lg-3">
-            <img src="{{asset('/storage/image/sideMain.svg')}}" class="" style="postion: relative;" alt="">
+            <div class="col-lg-6">
+            <img src="{{asset('/storage/image/sideMain.svg')}}" class="img-fluid" style="postion: relative;" alt="">
             </div>
         </div>
 

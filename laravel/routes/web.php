@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\ChatsController as ChatsController;
 use App\Http\Controllers\arts as Arts;
 use App\Http\Controllers\User\UserSettingController as UserSetting;
+use App\Http\Controllers\Admin\UserSettingController as AdminSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,9 @@ Route::get('/user/cars/', [UserCarController::class, 'index'])->name('user.cars.
 // view car details
 Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.cars.show');
 
-Route::get('/user/profile/', [UserSetting::class, 'index'])->name('user.profile');
-Route::get('/admin/profile/', [UserSetting::class, 'index'])->name('admin.profile');
+Route::get('/user/profile', [UserSetting::class, 'index'])->name('user.profile');
+Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
+Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
 // For Admin auth, go to these routes
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');

@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin;
 
+
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use Auth;
 
 class UserSettingController extends Controller
 {
-    // use auth to secure session and ensuring 
-    // that users are routed to their respective role's index page 
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,39 +23,74 @@ class UserSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function index()
     {
         // authentication
         $user = Auth::user();
-        $car = 'home'; // declaring a local variable
+        $role = 'home'; // declaring a local variable
 
         // check if user is an admin
         if($user->hasRole('admin')) {
-            $car = 'admin.settings.profile'; //if so route to admin page
+            $role = 'admin.settings.profile'; //if so route to admin page
         }
 
         // if user is an ordinary user
         else if ($user->hasRole('user')) {
-            $car = 'user.settings.profile'; //route to user page
+            $role = 'user.settings.profile'; //route to user page
         }
 
-        return view($car);
+        return view($role);
     }
 
     public function profileUpdate(Request $request){
+        $user =Auth::user();
         //validation rules
-
+        
         $request->validate([
             'name' =>'required|min:4|string|max:255',
-            'email'=>'required|email|string|max:255'
+            'email'=>'required|email|string|max:255',
         ]);
-        $user =Auth::user();
+        
+        if($request->hasFile('image')){
+            $request->validate([
+                'image' => 'required|mimes:jpg,png'
+            ]);
+            $this->deleteOldImage(); 
+            $filename = $request['image']->getClientOriginalName();
+            $request['image']->storeAs('profile',$filename,'public');
+            $user->update(['image'=>$filename]);
+        }
+
+        if($request->filled(['oldPassword', 'newPassword'])) {
+            $request->validate([
+                'oldPassword' => 'required|min:6|string|max:255',
+                'newPassword' => 'required|min:6|string|max:255'
+            ]);
+            
+            $oldPassword = $request['oldPassword'];
+            // dd($oldPassword);
+            $hashedPassword = $user->password;
+            
+            if (Hash::check($oldPassword, $hashedPassword)) {
+                // The passwords match...
+                $user->password = Hash::make($request['newPassword']);
+            } else {
+                return back()->withError("Password do not matched");
+            }
+        }
+        
         $user->name = $request['name'];
         $user->email = $request['email'];
         $user->save();
         return back()->with('message','Profile Updated');
     }
+
+    protected function deleteOldImage()
+    {
+      if (auth()->user()->image !== 'user.png'){
+        Storage::delete('/public/profile/'.auth()->user()->image);
+      }
+     }
 
     /**
      * Show the form for creating a new resource.
