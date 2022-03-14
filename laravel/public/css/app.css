@@ -28,6 +28,10 @@
   white-space: nowrap;
 }
 
+.bg-tertiary {
+  background: #6b7697;
+}
+
 .logo-brand:hover {
   color: #6b7697;
 }
@@ -46,6 +50,16 @@
 
 .nav-menu:hover {
   background: #e0d4ac;
+}
+
+.row.display-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.display-flex > [class*=col-] {
+  display: flex;
+  flex-direction: column;
 }
 
 /*!

@@ -13,6 +13,7 @@ $input-bg: #e8e8e8;
 
 $primary: #f1e0ac;
 $secondary: #98b4aa;
+$tertiary: #6b7697;
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=League+Spartan:wght@300;400;600;700&family=Oleo+Script+Swash+Caps&family=Patua+One&display=swap");
 @import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css);
@@ -43,6 +44,10 @@ $secondary: #98b4aa;
     white-space: nowrap;
 }
 
+.bg-tertiary {
+    background: $tertiary;
+}
+
 .logo-brand:hover {
     color: #6b7697;
 }
@@ -61,4 +66,13 @@ $secondary: #98b4aa;
 
 .nav-menu:hover {
     background: #e0d4ac;
+}
+
+.row.display-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row.display-flex > [class*="col-"] {
+    display: flex;
+    flex-direction: column;
 }

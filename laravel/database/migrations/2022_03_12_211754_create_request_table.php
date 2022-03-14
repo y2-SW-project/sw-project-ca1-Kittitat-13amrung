@@ -16,7 +16,9 @@ class CreateRequestTable extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->string('title', '64');
-            $table->enum('commission', ['traditional art', 'digital art', 'pixel art']);
+            $table->boolean('traditional_art');
+            $table->boolean('digital_art');
+            $table->boolean('pixel_art');
             $table->enum('commercial_use', ['yes', 'no']);
             $table->string('descriptions', '64');
             $table->date('start_date');

@@ -75,7 +75,7 @@
                                     <ul class="navbar-nav">
                                         
                                         <li class="nav-menu navbar-item py-4">
-                                            <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                                            <a href="{{ route('arts.requests') }}" class="nav-link nav-size text-dark">
                                                 <i class="mx-5 bi bi-compass-fill"></i>
                                                 {{ __('Explore') }}
                                             </a>
@@ -248,7 +248,7 @@
                                 </a>        
                                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                                     <li><a class="dropdown-item" href="#">{{ __('Artists') }}</a></li>
-                                    <li><a class="dropdown-item" href="#">{{ __('Requests') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('arts.requests') }}">{{ __('Requests') }}</a></li>
                                     <li><a class="dropdown-item" href="#">{{ __('Marketplace') }}</a></li>
                                 </ul>
                             </div>
@@ -268,7 +268,9 @@
                             <li class="navbar-item mx-2 dropdown">
                                 <a id="navbarDropdown" class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::user()->image)
-                                        <img class="rounded-circle border border-3" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="profile_image" height="30px" width="30px">
+                                        <img class="rounded border border-1 border-dark" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="" height="30px" width="30px">
+                                    @else
+                                        <i class="bi bi-person-circle pe-2 "></i>
                                     @endif
                                     {{ Auth::user()->name }}
                                 </a>

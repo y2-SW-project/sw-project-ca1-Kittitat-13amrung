@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Request as Req;
 use Auth;
 
 class ArtController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +15,22 @@ class ArtController extends Controller
      */
     public function index()
     {
-        $requests = Req::oldest('created_at')->get();
-        // dd($requests);  
+        // authentication
+        $user = Auth::user();
+        $req = 'home'; // declaring a local variable
 
-        return view('admin.arts.request', [
+        // check if user is an admin
+        if($user->hasRole('admin')) {
+            $req = 'admin.arts.request'; //if so route to admin page
+        }
+
+        // if user is an ordinary user
+        else if ($user->hasRole('user')) {
+            $req = 'user.arts.request'; //route to user page
+        }
+
+        $requests = Req::latest('created_at')->first();
+        return view($req, [
             'requests' => $requests
         ]);
     }

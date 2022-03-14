@@ -96,7 +96,9 @@
                     <div class="col-lg-9">
                         @if(Auth::user()->image)
                             <img class="img-fluid rounded-2" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="profile_image">
-                            @endif
+                        @else
+                        <p class="small text-center">no image</p>
+                        @endif
                     </div>
                         <div class="col-lg-12">
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\ChatsController as ChatsController;
 use App\Http\Controllers\arts as Arts;
 use App\Http\Controllers\User\UserSettingController as UserSetting;
 use App\Http\Controllers\Admin\UserSettingController as AdminSetting;
+use App\Http\Controllers\User\ArtController as UserArtController;
+use App\Http\Controllers\Admin\ArtController as AdminArtController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,9 +45,17 @@ Route::get('/user/cars/', [UserCarController::class, 'index'])->name('user.cars.
 // view car details
 Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.cars.show');
 
+// settings information
 Route::get('/user/profile', [UserSetting::class, 'index'])->name('user.profile');
+Route::post('/user/profile', [UserSetting::class, 'profileUpdate'])->name('user.profile.update');
+
 Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
+
+// art requests
+Route::get('art/requests', [UserArtController::class, 'index'])->name('arts.requests');
+Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
+Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
 
 // For Admin auth, go to these routes
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');

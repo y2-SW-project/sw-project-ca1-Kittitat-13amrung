@@ -8,16 +8,15 @@
             <div class="col-lg-6">
                 <h1 class="display-2 text-uppercase">{{ __('art.request?') }}</h1>
                 <p class="paragraph col-lg-11">{{ __('art.description') }}</p>
-                <div class="my-5">
-                    <button class="text-uppercase col-5 btn px-5 py-3 btn-success rounded-pill">
+                <div class="d-grid gap-2 d-md-block mx-auto">
+                    <a href="#" class="btn btn-success text-uppercase col-5 btn px-5 py-3 rounded-pill">
                         <i class="fs-3 bi bi-compass"></i>
                         <span class="fs-4">{{ __('Explore') }}</span>
-                    </button>
-                    <span class="mx-3"></span>
-                    <button class="text-uppercase col-5 btn px-5 py-3 btn-outline-dark rounded-pill">
+                    </a>
+                    <a href="{{ route('arts.requests') }}" class="btn btn-outline-dark text-uppercase col-5 btn px-5 py-3 rounded-pill">
                     <i class="fs-3 bi bi-pencil-square"></i>
                     <span class="fs-4">{{ __('Request') }}</span>
-                    </button>
+                    </a>
                 </div>
             </div>
             <!-- right main -->
@@ -72,11 +71,6 @@
                     <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                        <form action="{{route('home')}}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="image">
-                        <input type="submit" value="Upload">
-                    </form>
                         </div>
                     </div>
                 </div>
