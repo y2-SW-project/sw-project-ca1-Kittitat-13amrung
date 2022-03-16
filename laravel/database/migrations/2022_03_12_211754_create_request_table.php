@@ -19,13 +19,12 @@ class CreateRequestTable extends Migration
             $table->boolean('traditional_art');
             $table->boolean('digital_art');
             $table->boolean('pixel_art');
-            $table->enum('commercial_use', ['yes', 'no']);
-            $table->string('descriptions', '64');
+            $table->boolean('commercial_use');
+            $table->string('descriptions', '64')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->float('start_price');
             $table->float('end_price');
-            $table->bigInteger('genre_id');
             $table->timestamps();
         });
     }

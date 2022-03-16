@@ -21,7 +21,7 @@
 
 </head>
 <body class="">
-    <div id="app">
+    <div id="app text-colour">
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu" aria-labelledby="menuLabel">
             <div class="offcanvas-header">
                 <div class="offcanvas-title" id="offcanvasScrollingLabel">                       
@@ -36,33 +36,38 @@
                                         @else
                                         
                                         <div class="row my-5">
-                                            <div class="d-flex col-lg-12">
+                                            <div class="col-lg-12 d-flex">
                                                 <div class="col-lg-5">
                                                     @if(Auth::user()->image)
                                                         <img class="img-fluid rounded-circle" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="profile_image">
                                                     @endif
                                                 </div>
                         
+                                                <div class="mt-3 col-lg-6">
+
+                                                    <h2 class="d-block text-center">
                                                         {{ Auth::user()->name }}
-                                                            <div class="navbar-item dropdown">
-                                                                <a class="nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                                <span class="text-dark">
-                                                                    <i class="text-success fs-3 bi bi-dot"></i>
-                                                                    available
-                                                                </span>
+                                                    </h2>
+                                                        <div class="d-block navbar-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" id="statusDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                                            <span class="text-dark">
+                                                                <i class="text-success h-5 pe-2 bi bi-circle-fill"></i>
+                                                                available
+                                                            </span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="statusDropdown">
+                                                            <a class="dropdown-item" href="#">
+                                                                <i class="text-danger h-5 pe-2 bi bi-circle-fill"></i>
+                                                                busy
                                                             </a>
-                                                            <div class="dropdown-menu dropdown-menu-dark dropdown-menu-right" aria-labelledby="statusDropdown">
-                                                                <a class="dropdown-item" href="#">
-                                                                    <i class="text-danger fs-3 bi bi-dot"></i>
-                                                                    busy
-                                                                </a>
-                                                                <a class="dropdown-item" href="#">
-                                                                    <i class="text-secondary fs-3 bi bi-dot"></i>
-                                                                    away
-                                                                </a>
-                                                            </div>
-                                                            
-                                                    </div>
+                                                            <a class="dropdown-item" href="#">
+                                                            <i class="text-secondary h-5 pe-2 bi bi-circle"></i>
+                                                                away
+                                                            </a>
+                                                        </div>
+                                                        
+                                                        </div>
+                                                </div>
                                         </div>
                                 </div>
                                                     
@@ -134,7 +139,7 @@
                             <i class="fs-2 bi bi-person-circle pe-2 "></i>
                             {{ __('Login') }}
                         </h6>
-                        <a href="#" class="fs-4 nav-link active">
+                        <a href="#" class="fs-4 nav-link">
                             <span data-bs-dismiss="modal" aria-hidden="true">&times;</span>
                         </a>
                 </div>
@@ -242,7 +247,7 @@
                         <ul class="navbar-nav fs-4 h4 mb-2 me-5 mb-lg-0">
                             <li class="navbar-item mx-2">
                             <div class="btn-group">
-                                <a type="button" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
+                                <a type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="true">
                                     <i class="bi bi-compass-fill"></i>
                                     Explore 
                                 </a>        
@@ -258,7 +263,7 @@
 
                                 
                                 <li class="navbar-item mx-2">
-                                        <a href="#" class="nav-link nav-size active" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                        <a href="#" class="nav-link nav-size" data-bs-toggle="modal" data-bs-target="#loginModal">
                                         <i class="bi bi-person-circle pe-2 "></i> Log in
                                         </a>
                                 </li>
@@ -266,7 +271,7 @@
                                 @endif
                             @else
                             <li class="navbar-item mx-2 dropdown">
-                                <a id="navbarDropdown" class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if(Auth::user()->image)
                                         <img class="rounded border border-1 border-dark" src="{{asset('/storage/profile/'.Auth::user()->image)}}" alt="" height="30px" width="30px">
                                     @else
@@ -299,7 +304,7 @@
                             @endguest
                             
                             <li class="navbar-item mx-2">
-                                <a class="nav-link nav-size active" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
+                                <a class="nav-link nav-size" type="button" data-bs-toggle="offcanvas" data-bs-target="#menu" aria-controls="menuScrolling">
                                 <i class="bi bi-list fw-bold"></i>
                                 </a>
                                 </li>

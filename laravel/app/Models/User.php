@@ -68,6 +68,30 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Role', 'user_roles');
     }
 
+    public function authorizeRequest($requests) {
+        if (is_array($requests)) {
+            return $this->hasAnyRequest($requests) ||
+            abort (401, 'This action is unauthorized');
+        }
+        return $this->hasRequest($requests) ||
+        abort(401, 'This action is unauthorized');
+        }
+    
+        public function hasRequests($requests) {
+            return null !== $this->requests()->where('name', $request)->first();
+        }
+        
+        // 
+        public function hasAnyRequest($requests) {
+            return null !== $this->requests()->whereIn('name', $requests)->first();
+        }
+
+        // make a many to many relationship between roles and users table
+        // to the foreign table of user_roles 
+    public function requests() {
+        return $this->belongsToMany('App\Models\Request', 'user_requests');
+    }
+
     public function messages()
         {
         return $this->hasMany(Message::class);

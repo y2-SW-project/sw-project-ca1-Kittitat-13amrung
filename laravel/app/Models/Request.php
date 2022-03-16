@@ -23,4 +23,8 @@ class Request extends Model
         }
         return $days;
     }
+
+    public function users() {
+        return $this->belongsToMany('App\Models\User', 'user_requests');
+    }
 }
