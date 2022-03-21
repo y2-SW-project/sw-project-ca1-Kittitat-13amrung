@@ -15,13 +15,39 @@ class ArtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $requests = Req::oldest('created_at')->get();
-        // dd($requests);  
+        // authentication
+        $user = Auth::user();
+        $req = 'home'; // declaring a local variable
 
-        return view('admin.arts.request', [
-            'requests' => $requests
+        // check if user is an admin
+        if($user->hasRole('admin')) {
+            $req = 'admin.arts.request'; //if so route to admin page
+        }
+
+        // if user is an ordinary user
+        else if ($user->hasRole('user')) {
+            $req = 'user.arts.request'; //route to user page
+        }
+        
+        $requests = Req::oldest('created_at')->get();
+        $clients = Req::with('users')->get();
+
+        // dd($users);
+
+        // dd($requests);  
+        return view($req, [
+            'requests' => $requests,
+            'clients' => $clients
         ]);
     }
 
@@ -49,18 +75,45 @@ class ArtController extends Controller
         // data validation
         $request->validate([
             'title' => 'required|min:3',
-            'traditional_art' =>'required',
-            'pixel_art' => 'required',
-            'digital_art' => 'required',
-            'commercial_use' => 'required',
+            'traditional_art' =>'',
+            'pixel_art' => '',
+            'digital_art' => '',
+            'commercial_use' => '',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required',
             'end_price' => 'required'
         ]);
 
-        dd($request);
+        if ($request->pixel_art == "on") {
+            $request->pixel_art = 1;
+        }
 
+        if ($request->traditional_art == "on") {
+            $request->traditional_art = 1;
+        }
+
+        if ($request->digital_art == "on") {
+            $request->digital_art = 1;
+        }
+
+        if ($request->pixel_art !== "on") {
+            $request->pixel_art = 0;
+        }
+
+        if ($request->traditional_art !== "on") {
+            $request->traditional_art = 0;
+        }
+
+        if ($request->digital_art !== "on") {
+            $request->digital_art = 0;
+        }
+
+        if ($request->commercial_use == "true") {
+            $request->commercial_use = 1;
+        } else {
+            $request->commercial_use = 0;
+        }
             // // store file to the location specified
             // $request->file->store('image', 'public');
             
@@ -68,16 +121,24 @@ class ArtController extends Controller
             // $image = $request->file('file')->hashName();
 
         // if validation passes create the new car
-        $car = new Car();
-        $car->make = $request->input('make');
-        $car->model = $request->input('model');
-        $car->price = $request->input('price');
-        $car->engine_size = $request->input('engine_size');
-        $car->image_location = $image;
-        $car->save();
-
+        $art = new Req();
+        $art->title = $request->title;
+        $art->commercial_use = $request->commercial_use;
+        $art->start_date = $request->start_date;
+        $art->end_date = $request->end_date;
+        $art->start_price = $request->start_price;
+        $art->end_price = $request->end_price;
+        $art->digital_art = $request->digital_art;
+        $art->traditional_art = $request->traditional_art;
+        $art->pixel_art = $request->pixel_art;
+        $art->save();
+        
+        $user = new reqUser();
+        $user->user_id = $request->user()->id;
+        $user->request_id = $art->id;
+        $user->save();
         // when done, re-route back to admin's index page
-        return redirect()->route('admin.cars.index');
+        return redirect()->route('arts.requests');
     }
 
     /**
@@ -86,15 +147,10 @@ class ArtController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Req $id)
     {
-        $request = Req::findOrFail($id);
-
-        return view('user.arts.view', [
-            'request' => $request
-        ]);
+        return view('arts.show', ['request', $id]);
     }
-
     /**
      * Show the form for editing the specified resource.
      *

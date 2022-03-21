@@ -82,37 +82,32 @@ class ArtController extends Controller
             'end_price' => 'required'
         ]);
 
-        // dd($request->user());
-
+        
         if ($request->pixel_art == "on") {
             $request->pixel_art = 1;
-        }
-
-        if ($request->traditional_art == "on") {
-            $request->traditional_art = 1;
-        }
-
-        if ($request->digital_art == "on") {
-            $request->digital_art = 1;
-        }
-
-        if ($request->pixel_art !== "on") {
+        } else {
             $request->pixel_art = 0;
         }
-
-        if ($request->traditional_art !== "on") {
+        
+        if ($request->traditional_art == "on") {
+            $request->traditional_art = 1;
+        } else {
             $request->traditional_art = 0;
         }
-
-        if ($request->digital_art !== "on") {
+        
+        if ($request->digital_art == "on") {
+            $request->digital_art = 1;
+        } else {
             $request->digital_art = 0;
         }
 
+        
         if ($request->commercial_use == "true") {
             $request->commercial_use = 1;
         } else {
             $request->commercial_use = 0;
         }
+        // dd($request->pixel_art);
             // // store file to the location specified
             // $request->file->store('image', 'public');
             

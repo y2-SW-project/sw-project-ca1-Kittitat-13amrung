@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section ('content')
-<div class="container-fluid bg-primary">
+<div class="container-fluid">
     <main class="container">
         <div class="main-header row pt-5 mb-4">
             <!-- left main -->

@@ -1,5 +1,5 @@
 // Body
-$body-bg: #f3e8c5;
+$body-bg: #f1e0ac;
 
 // Typography
 $font-family-sans-serif: "Patua One", cursive;
@@ -11,8 +11,8 @@ $dropdown-min-width: 12rem;
 $modal-content-bg: #f3e8c5;
 $input-bg: #e8e8e8;
 
-$primary: #f1e0ac;
-$secondary: #98b4aa;
+$primary: #6b7697;
+$secondary: #74959a;
 $tertiary: #6b7697;
 $font-color: #495371;
 
@@ -67,7 +67,6 @@ $font-color: #495371;
 
 .nav-menu:hover {
     background: #e0d4ac;
-    border-bottom: 5px solid #6b7697;
 }
 
 .row.display-flex {
@@ -81,4 +80,13 @@ $font-color: #495371;
 
 .text-colour {
     color: $font-color;
+}
+
+div.sticky {
+    position: sticky;
+    top: 0;
+}
+
+.request-select {
+    height: 74em;
 }

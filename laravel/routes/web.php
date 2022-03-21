@@ -46,8 +46,8 @@ Route::get('/user/cars/', [UserCarController::class, 'index'])->name('user.cars.
 Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.cars.show');
 
 // settings information
-Route::get('/user/profile', [UserSetting::class, 'index'])->name('user.profile');
-Route::post('/user/profile', [UserSetting::class, 'profileUpdate'])->name('user.profile.update');
+Route::get('/user/profile', [AdminSetting::class, 'index'])->name('user.profile');
+Route::post('/user/profile', [AdminSetting::class, 'profileUpdate'])->name('user.profile.update');
 
 Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
@@ -60,6 +60,7 @@ Route::get('art/requests/{id}', [UserArtController::class, 'show'])->name('arts.
 Route::get('art/request/create', [AdminArtController::class, 'create'])->name('arts.requests.create');
 // allow admin to post these new car data on the database
 Route::post('arts/requests/store', [AdminArtController::class, 'store'])->name('arts.requests.store');
+Route::get('art/requests/?id={id}', [UserArtController::class, 'show'])->name('arts.requests.show');
 
 // For Admin auth, go to these routes
 Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');

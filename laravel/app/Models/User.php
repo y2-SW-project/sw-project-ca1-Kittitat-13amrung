@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Model\Role;
 
 class User extends Authenticatable
 {
@@ -84,6 +85,11 @@ class User extends Authenticatable
         // 
         public function hasAnyRequest($requests) {
             return null !== $this->requests()->whereIn('name', $requests)->first();
+        }
+
+        public function assignRole($role) {
+            $role = Role::where('name',$role->name)->get()->first();
+            return $this->roles->save($role);
         }
 
         // make a many to many relationship between roles and users table
