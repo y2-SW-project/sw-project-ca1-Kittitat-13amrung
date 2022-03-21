@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
         // Preload all the data in the following seeders
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(CarSeeder::class);
         $this->call(RequestSeeder::class);
     }
 }

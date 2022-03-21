@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section ('content')
-<div class="container-fluid bg-primary">
+<div class="container-fluid">
     <main class="container">
         <div class="main-header row pt-5 mb-4">
             <!-- left main -->
             <div class="col-lg-6">
                 <h1 class="display-2 text-uppercase">{{ __('art.request?') }}</h1>
                 <p class="paragraph col-lg-11">{{ __('art.description') }}</p>
-                <div class="d-grid gap-2 d-md-block mx-auto">
-                    <a href="#" class="btn btn-success text-uppercase col-5 btn px-5 py-3 rounded-pill">
+                <div class="d-grid gap-3 d-sm-block mx-auto my-5">
+                    <a href="#" class="btn btn-success text-uppercase col-lg-5 btn mx-3 px-5 py-3 rounded-pill">
                         <i class="fs-3 bi bi-compass"></i>
                         <span class="fs-4">{{ __('Explore') }}</span>
                     </a>
-                    <a href="{{ route('arts.requests') }}" class="btn btn-outline-dark text-uppercase col-5 btn px-5 py-3 rounded-pill">
+                    <a href="{{ route('arts.requests') }}" class="btn btn-outline-dark text-uppercase col-lg-5 btn mx-3 px-5 py-3 rounded-pill">
                     <i class="fs-3 bi bi-pencil-square"></i>
                     <span class="fs-4">{{ __('Request') }}</span>
                     </a>
                 </div>
             </div>
             <!-- right main -->
-            <div class="col-lg-6">
+            <div class="col-lg-6 ms-auto">
             <img src="{{asset('/storage/image/sideMain.svg')}}" class="img-fluid" style="postion: relative;" alt="">
             </div>
         </div>

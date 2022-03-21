@@ -5240,40 +5240,10 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-Vue.component('chat-messages', __webpack_require__(/*! ./components/ChatMessages.vue */ "./resources/js/components/ChatMessages.vue"));
-Vue.component('chat-form', __webpack_require__(/*! ./components/ChatForm.vue */ "./resources/js/components/ChatForm.vue"));
-var app = new Vue({
-  el: '#app',
-  data: {
-    messages: []
-  },
-  created: function created() {
-    var _this = this;
-
-    this.fetchMessages();
-    Echo["private"]('chat').listen('MessageSent', function (e) {
-      _this.messages.push({
-        message: e.message.message,
-        user: e.user
-      });
-    });
-  },
-  methods: {
-    fetchMessages: function fetchMessages() {
-      var _this2 = this;
-
-      axios.get('/messages').then(function (response) {
-        _this2.messages = response.data;
-      });
-    },
-    addMessage: function addMessage(message) {
-      this.messages.push(message);
-      axios.post('/messages', message).then(function (response) {
-        console.log(response.data);
-      });
-    }
-  }
-});
+function getId(_req) {
+  var req = document.getElementById(_req);
+  return req;
+}
 
 /***/ }),
 
@@ -33915,26 +33885,6 @@ runtime.setup(pusher_Pusher);
 /******/ ]);
 });
 //# sourceMappingURL=pusher.js.map
-
-/***/ }),
-
-/***/ "./resources/js/components/ChatForm.vue":
-/*!**********************************************!*\
-  !*** ./resources/js/components/ChatForm.vue ***!
-  \**********************************************/
-/***/ (() => {
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/ChatMessages.vue":
-/*!**************************************************!*\
-  !*** ./resources/js/components/ChatMessages.vue ***!
-  \**************************************************/
-/***/ (() => {
-
-
 
 /***/ }),
 

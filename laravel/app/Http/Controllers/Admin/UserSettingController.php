@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\User_Role as Role;
 use Auth;
 
 class UserSettingController extends Controller
@@ -39,11 +40,15 @@ class UserSettingController extends Controller
             $role = 'user.settings.profile'; //route to user page
         }
 
-        return view($role);
+        $tags = User::with('roles')
+        ->where('id', $user->id)->get();
+        return view($role, [
+            'tags' => $tags
+        ]);
     }
 
     public function profileUpdate(Request $request){
-        $user =Auth::user();
+        $user = Auth::user();
         //validation rules
         
         $request->validate([
@@ -61,10 +66,10 @@ class UserSettingController extends Controller
             $user->update(['image'=>$filename]);
         }
 
-        if($request->filled(['oldPassword', 'newPassword'])) {
+        if($request->filled(['oldPassword', 'password'])) {
             $request->validate([
                 'oldPassword' => 'required|min:6|string|max:255',
-                'newPassword' => 'required|min:6|string|max:255'
+                'password' => 'required|confirmed|min:6|string|max:255'
             ]);
             
             $oldPassword = $request['oldPassword'];
@@ -73,7 +78,7 @@ class UserSettingController extends Controller
             
             if (Hash::check($oldPassword, $hashedPassword)) {
                 // The passwords match...
-                $user->password = Hash::make($request['newPassword']);
+                $user->password = Hash::make($request['password']);
             } else {
                 return back()->withError("Password do not matched");
             }

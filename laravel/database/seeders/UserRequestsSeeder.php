@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Request;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class RequestSeeder extends Seeder
+class UserRequestsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +13,6 @@ class RequestSeeder extends Seeder
      */
     public function run()
     {
-
+        //
     }
 }
