@@ -97,14 +97,28 @@ class UserSettingController extends Controller
       }
      }
 
+     public  function uploadProfile(Request $request)  
+     {  
+        $user = Auth::user();
+ 
+        $this->deleteOldImage(); 
+        $file = $request->file('file');  
+        $fileName = time().'.'.$file->extension(); 
+        $file->storeAs('profile',$fileName,'public');  
+        $user->update(['image'=> $fileName]);
+   
+        return response()->json(['success'=>$fileName]);  
+   
+     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function artist()
     {
-        //
+        return view('user.settings.artist');
     }
 
     /**

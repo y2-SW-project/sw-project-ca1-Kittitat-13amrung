@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Request as Req;
+use GrahamCampbell\Markdown\Facades\Markdown as Markdown;
 use Auth;
 
 class ArtController extends Controller
@@ -15,9 +16,6 @@ class ArtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct() {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -26,18 +24,8 @@ class ArtController extends Controller
     public function index()
     {
         // authentication
-        $user = Auth::user();
-        $req = 'home'; // declaring a local variable
+        $req = 'user.arts.request'; // declaring a local variable
 
-        // check if user is an admin
-        if($user->hasRole('admin')) {
-            $req = 'admin.arts.request'; //if so route to admin page
-        }
-
-        // if user is an ordinary user
-        else if ($user->hasRole('user')) {
-            $req = 'user.arts.request'; //route to user page
-        }
         
         $requests = Req::oldest('created_at')->get();
         $clients = Req::with('users')->get();
@@ -59,6 +47,21 @@ class ArtController extends Controller
     public function create()
     {
         return view('admin.arts.create');
+    }
+
+    public function artist()
+    {
+        return view('user.arts.artist');
+    }
+
+    public  function uploadFile(Request $request)  
+    {  
+       $file = $request->file('file');  
+       $fileName = time().'.'.$file->extension(); 
+       $file->storeAs('portfolio',$fileName,'public');  
+  
+    return response()->json(['success'=>$fileName]);  
+  
     }
 
     /**

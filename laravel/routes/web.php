@@ -47,13 +47,18 @@ Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.ca
 
 // settings information
 Route::get('/user/profile', [AdminSetting::class, 'index'])->name('user.profile');
+Route::get('/artist/profile', [AdminSetting::class, 'artist'])->name('user.profile.artist');
 Route::post('/user/profile', [AdminSetting::class, 'profileUpdate'])->name('user.profile.update');
+Route::post('/user/profile/update', [AdminSetting::class, 'uploadProfile'])->name('user.image.update');
 
 Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
+Route::get('artist', [UserArtController::class, 'artist'])->name('artist.show');
+Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('artist.upload.file');
+
 // art requests
-Route::get('art/requests', [AdminArtController::class, 'index'])->name('arts.requests');
+Route::get('art/requests', [UserArtController::class, 'index'])->name('arts.requests');
 Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
 Route::get('art/requests/{id}', [UserArtController::class, 'show'])->name('arts.requests.view');
