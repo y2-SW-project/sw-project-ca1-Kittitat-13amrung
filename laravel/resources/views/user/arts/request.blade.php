@@ -1,6 +1,8 @@
 @extends ('layouts.app')
 
 @section('content')
+    <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
+        class="d-md-block d-none img-fluid background-img">
     <main class="container">
         <div class="row">
             <div class="display-6 text-center my-5">

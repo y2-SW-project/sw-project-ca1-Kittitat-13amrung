@@ -54,6 +54,7 @@ class UserSettingController extends Controller
         $request->validate([
             'name' =>'required|min:4|string|max:255',
             'email'=>'required|email|string|max:255',
+            'description' => 'required|min:3'
         ]);
         
         if($request->hasFile('image')){
@@ -90,6 +91,20 @@ class UserSettingController extends Controller
         return back()->with('message','Profile Updated');
     }
 
+    public  function uploadProfile(Request $request)  
+    {  
+       $user = Auth::user();
+
+       $this->deleteOldImage(); 
+       $file = $request->file('file');  
+       $fileName = time().'.'.$file->extension(); 
+       $file->storeAs('profile',$fileName,'public');  
+       $user->update(['file'=>$fileName]);
+  
+       return response()->json(['success'=>$fileName]);  
+  
+    }
+
     protected function deleteOldImage()
     {
       if (auth()->user()->image !== 'user.png'){
@@ -102,9 +117,9 @@ class UserSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function artist()
     {
-        //
+        return view('user.settings.artist');
     }
 
     /**

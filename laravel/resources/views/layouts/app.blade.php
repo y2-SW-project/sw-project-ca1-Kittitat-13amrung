@@ -13,6 +13,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/request.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -88,7 +89,7 @@
 
                     <li class="nav-menu navbar-item py-4">
                         <a href="{{ route('arts.requests') }}" class="nav-link nav-size text-dark">
-                            <i class="mx-5 bi bi-compass-fill"></i>
+                            <i class="mx-5 bi bi-compass"></i>
                             {{ __('Explore') }}
                         </a>
                     </li>
@@ -265,11 +266,12 @@
                             <div class="btn-group">
                                 <a type="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                                     data-bs-display="static" aria-expanded="true">
-                                    <i class="bi bi-compass-fill"></i>
+                                    <i class="bi bi-compass"></i>
                                     Explore
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                                    <li><a class="dropdown-item" href="#">{{ __('Artists') }}</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('artist.show') }}">{{ __('Artists') }}</a></li>
                                     <li><a class="dropdown-item"
                                             href="{{ route('arts.requests') }}">{{ __('Requests') }}</a></li>
                                     <li><a class="dropdown-item" href="#">{{ __('Marketplace') }}</a></li>
@@ -281,7 +283,14 @@
                                 <li class="navbar-item mx-2">
                                     <a href="#" class="nav-link nav-size" data-bs-toggle="modal"
                                         data-bs-target="#loginModal">
-                                        <i class="bi bi-person-circle pe-2 "></i> Log in
+                                        <i class="bi bi-person-circle pe-2 "></i> Sign in
+                                    </a>
+                                </li>
+
+                                <li class="navbar-item mx-2">
+                                    <a href="#" class="nav-link nav-size" data-bs-toggle="modal"
+                                        data-bs-target="#loginModal">
+                                        <i class="bi bi-pencil pe-2 "></i> Sign up
                                     </a>
                                 </li>
                             @endif
@@ -291,8 +300,8 @@
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (Auth::user()->image)
                                         <img class="rounded border border-1 border-dark"
-                                            src="{{ asset('/storage/profile/' . Auth::user()->image) }}" alt="" height="30px"
-                                            width="30px">
+                                            src="{{ asset('/storage/profile/' . Auth::user()->image) }}" alt=""
+                                            height="30px" width="30px">
                                     @else
                                         <i class="bi bi-person-circle pe-2 "></i>
                                     @endif
@@ -304,8 +313,9 @@
                                     <a href="{{ route('user.profile') }}"
                                         class="dropdown-item">{{ __('Profile') }}</a>
                                     <a href="" class="dropdown-item">{{ __('Setting') }}</a>
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
