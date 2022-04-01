@@ -27,7 +27,10 @@ $carousel-indicator-active-bg: $secondary;
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=League+Spartan:wght@300;400;600;700&family=Oleo+Script+Swash+Caps&family=Patua+One&display=swap");
 @import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css);
 @import url("~dropzone/dist/dropzone.css");
-
+@import url("~@toast-ui/editor/dist/toastui-editor.css");
+@import url("~@toast-ui/editor/dist/toastui-editor-viewer.css");
+@import url("~@toast-ui/editor/dist/toastui-editor-only.css");
+@import url("@toast-ui/editor/dist/theme/toastui-editor-dark.css");
 .h4 {
     font-size: 1.375rem;
 }
@@ -109,9 +112,9 @@ div.sticky {
 }
 
 .artist {
-    border-radius: 25px;
+    border-radius: 0 5px 25px 25px;
     background: $modal-content-bg;
-    box-shadow: 3px 10px #495371;
+    box-shadow: 3px 4px #495371;
 }
 
 .profile-img {

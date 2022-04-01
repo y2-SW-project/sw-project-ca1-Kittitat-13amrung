@@ -9,12 +9,10 @@ class Artist extends Model
 {
     // use HasFactory;
 
+    protected $fillable = ['user_id'];
+
     public function users() {
-        return $this->belongsTo('App\Models\User', 'user_artists');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function images()
-    {
-    return $this->hasMany(Image::class);
-    }
 }

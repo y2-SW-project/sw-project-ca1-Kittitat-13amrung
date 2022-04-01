@@ -94,7 +94,7 @@
                                             <hr>
                                             <div class="text-end small">
                                                 Requested By: <span class="paragraph">
-                                                    {{ $client->users[0]->name }}
+                                                    {{-- {{ $client->users[0]->name }} --}}
                                                 </span>
                                             </div>
                                         </div>

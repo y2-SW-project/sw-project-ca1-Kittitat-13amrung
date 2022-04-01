@@ -39,22 +39,20 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // For Ordinary User auth, go to these routes
-Route::get('/user/home', [App\Http\Controllers\User\HomeController::class, 'index'])->name('user.home');
-// display car information
-Route::get('/user/cars/', [UserCarController::class, 'index'])->name('user.cars.index');
-// view car details
-Route::get('/user/cars/{id}', [UserCarController::class, 'show'])->name('user.cars.show');
+Route::get('/user/home', [Arts::class, 'index'])->name('user.home');
 
 // settings information
 Route::get('/user/profile', [AdminSetting::class, 'index'])->name('user.profile');
 Route::get('/artist/profile', [AdminSetting::class, 'artist'])->name('user.profile.artist');
 Route::post('/user/profile', [AdminSetting::class, 'profileUpdate'])->name('user.profile.update');
 Route::post('/user/profile/update', [AdminSetting::class, 'uploadProfile'])->name('user.image.update');
+Route::post('/artist/profile/update', [AdminSetting::class, 'artistUpdate'])->name('artist.profile.update');
 
 Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
 Route::get('artist', [UserArtController::class, 'artist'])->name('artist.show');
+Route::post('/profile-upload', [UserArtController::class, 'uploadProfile'])->name('artist.upload.profile');
 Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('artist.upload.file');
 
 // art requests
@@ -68,7 +66,7 @@ Route::post('arts/requests/store', [AdminArtController::class, 'store'])->name('
 Route::get('art/requests/?id={id}', [UserArtController::class, 'show'])->name('arts.requests.show');
 
 // For Admin auth, go to these routes
-Route::get('/admin/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('admin.home');
+Route::get('/admin/home', [Arts::class, 'index'])->name('admin.home');
 // display car info with editing power
 Route::get('/admin/cars/', [AdminCarController::class, 'index'])->name('admin.cars.index');
 // allow admin to create a new data of car

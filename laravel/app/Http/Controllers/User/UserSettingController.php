@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\User_Role as Role;
+use App\Models\Artist_Image as ArtImg;
+use App\Models\Image as Img;
+use App\Models\Artist;
 use Auth;
 
 class UserSettingController extends Controller
@@ -47,6 +50,7 @@ class UserSettingController extends Controller
         ]);
     }
 
+    // update user profile
     public function profileUpdate(Request $request){
         $user = Auth::user();
         //validation rules
@@ -91,6 +95,7 @@ class UserSettingController extends Controller
         return back()->with('message','Profile Updated');
     }
 
+    // upload profile picture
     public  function uploadProfile(Request $request)  
     {  
        $user = Auth::user();
@@ -103,6 +108,54 @@ class UserSettingController extends Controller
   
        return response()->json(['success'=>$fileName]);  
   
+    }
+
+    // updating artist profile
+    public function artistStore(Request $request) {
+        $request->validate([
+            'editor1' => 'string'
+        ]);
+
+        $content = $request['editor1'];
+        $artist = new Artist();
+        $artist->descriptions = $content;
+        $artist->duration = $request['duration'];
+        $artist->start_price = $request['start_price'];
+        $artist->end_price = $request['end_price'];
+        $artist->status = $request['status'];
+        $artist->user_id = $request->user()->name;
+        $artist->save();
+    }
+
+    public function artistUpdate(Request $request, $id) {
+        $request->validate([
+            'editor1' => 'string'
+        ]);
+
+        $content = $request['editor1'];
+        $artist->descriptions = $content;
+        $artist->duration = $request['duration'];
+        $artist->start_price = $request['start_price'];
+        $artist->end_price = $request['end_price'];
+        $artist->status = $request['status'];
+        $artist->save();
+    }
+
+    // upload files
+    public function uploadFile(Request $request) {
+       $file = $request->file('file');  
+       $fileName = time().'.'.$file->extension(); 
+       $file->storeAs('portfolio',$fileName,'public');  
+       $img = new Img();
+       $img->file = 'storage/portfolio/'.$fileName;
+       $img->save();
+
+       $artImg = new ArtImg();
+       $artImg->user_id = $request->user()->id;
+       $artImg->image_id = $img->id;
+       $artImg->save();
+  
+    return response()->json(['success'=>$fileName]);  
     }
 
     protected function deleteOldImage()

@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Request as Req;
-use GrahamCampbell\Markdown\Facades\Markdown as Markdown;
+use App\Models\Artist;
+use App\Models\Image as Img;
 use Auth;
 
 class ArtController extends Controller
@@ -27,14 +28,14 @@ class ArtController extends Controller
         $req = 'user.arts.request'; // declaring a local variable
 
         
-        $requests = Req::oldest('created_at')->get();
-        $clients = Req::with('users')->get();
+        // $requests = Req::oldest('created_at')->get();
+        $clients = Req::with('users')->oldest('created_at')->get();
 
-        // dd($users);
+        // dd($clients);
 
         // dd($requests);  
         return view($req, [
-            'requests' => $requests,
+            // 'requests' => $requests,
             'clients' => $clients
         ]);
     }
@@ -49,16 +50,32 @@ class ArtController extends Controller
         return view('admin.arts.create');
     }
 
+    // redirect to artists page
     public function artist()
     {
-        return view('user.arts.artist');
+        $artists = Artist::with('users')->latest('created_at')->get();
+
+        // dd($artists);
+        
+        return view('user.arts.artist', [
+            'artists' => $artists
+        ]);
     }
 
     public  function uploadFile(Request $request)  
     {  
-       $file = $request->file('file');  
-       $fileName = time().'.'.$file->extension(); 
-       $file->storeAs('portfolio',$fileName,'public');  
+        
+        $file = $request->file('file');  
+        $fileName = time().'.'.$file->extension(); 
+        $file->storeAs('portfolio',$fileName,'public');  
+       $img = new Img();
+       $img->file = 'storage/portfolio/'.$fileName;
+       $img->save();
+
+       $artImg = new ArtImg();
+       $artImg->user_id = $request->user()->id;
+       $artImg->image_id = $img->id;
+       $artImg->save();
   
     return response()->json(['success'=>$fileName]);  
   
@@ -78,45 +95,16 @@ class ArtController extends Controller
         // data validation
         $request->validate([
             'title' => 'required|min:3',
-            'traditional_art' =>'',
-            'pixel_art' => '',
-            'digital_art' => '',
-            'commercial_use' => '',
+            'traditional_art' =>'required|accepted',
+            'pixel_art' => 'required|accepted',
+            'digital_art' => 'required|accepted',
+            'commercial_use' => 'required|accepted',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required',
             'end_price' => 'required'
         ]);
 
-        if ($request->pixel_art == "on") {
-            $request->pixel_art = 1;
-        }
-
-        if ($request->traditional_art == "on") {
-            $request->traditional_art = 1;
-        }
-
-        if ($request->digital_art == "on") {
-            $request->digital_art = 1;
-        }
-
-        if ($request->pixel_art !== "on") {
-            $request->pixel_art = 0;
-        }
-
-        if ($request->traditional_art !== "on") {
-            $request->traditional_art = 0;
-        }
-
-        if ($request->digital_art !== "on") {
-            $request->digital_art = 0;
-        }
-
-        if ($request->commercial_use == "true") {
-            $request->commercial_use = 1;
-        } else {
-            $request->commercial_use = 0;
-        }
             // // store file to the location specified
             // $request->file->store('image', 'public');
             
@@ -134,12 +122,9 @@ class ArtController extends Controller
         $art->digital_art = $request->digital_art;
         $art->traditional_art = $request->traditional_art;
         $art->pixel_art = $request->pixel_art;
+        $art->user_id = $request->user()->id;
         $art->save();
         
-        $user = new reqUser();
-        $user->user_id = $request->user()->id;
-        $user->request_id = $art->id;
-        $user->save();
         // when done, re-route back to admin's index page
         return redirect()->route('arts.requests');
     }

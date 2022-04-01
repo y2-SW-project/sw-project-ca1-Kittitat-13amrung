@@ -26,14 +26,14 @@ class ArtController extends Controller
         $req = 'user.arts.request'; // declaring a local variable
 
         
-        $requests = Req::oldest('created_at')->get();
-        $clients = Req::with('users')->get();
+        // $requests = Req::oldest('created_at')->get();
+        $clients = Req::with('users')->latest('created_at')->get();
 
         // dd($users);
 
         // dd($requests);  
         return view($req, [
-            'requests' => $requests,
+            // 'requests' => $requests,
             'clients' => $clients
         ]);
     }
@@ -62,14 +62,14 @@ class ArtController extends Controller
         // data validation
         $request->validate([
             'title' => 'required|min:3',
-            'traditional_art' =>'',
-            'pixel_art' => '',
-            'digital_art' => '',
-            'commercial_use' => '',
+            'traditional_art' =>'required_without_all:pixel_art,digital_art',
+            'pixel_art' => 'required_without_all:digital_art,traditional_art',
+            'digital_art' => 'required_without_all:pixel_art,traditional_art',
+            'commercial_use' => 'required',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'start_price' => 'required',
-            'end_price' => 'required'
+            'start_price' => 'required|lt:end_price',
+            'end_price' => 'required|gt:start_price'
         ]);
 
         
@@ -115,12 +115,9 @@ class ArtController extends Controller
         $art->digital_art = $request->digital_art;
         $art->traditional_art = $request->traditional_art;
         $art->pixel_art = $request->pixel_art;
+        $art->user_id = $request->user()->id;
         $art->save();
         
-        $user = new reqUser();
-        $user->user_id = $request->user()->id;
-        $user->request_id = $art->id;
-        $user->save();
         // when done, re-route back to admin's index page
         return redirect()->route('arts.requests');
     }

@@ -20,12 +20,15 @@ class CreateRequestTable extends Migration
             $table->boolean('digital_art');
             $table->boolean('pixel_art');
             $table->boolean('commercial_use');
-            $table->string('descriptions', '64')->nullable();
+            $table->string('description', '64')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->float('start_price');
             $table->float('end_price');
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 

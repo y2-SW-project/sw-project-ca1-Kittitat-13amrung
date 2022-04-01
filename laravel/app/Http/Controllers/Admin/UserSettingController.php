@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Artist;
 use App\Models\User;
 use App\Models\User_Role as Role;
 use Auth;
@@ -119,6 +120,37 @@ class UserSettingController extends Controller
     public function artist()
     {
         return view('user.settings.artist');
+    }
+
+        // updating artist profile
+    public function artistUpdate(Request $request) {
+        $artist = Artist::firstOrCreate(
+            ['user_id' =>  $request->user()->id],
+            ['user_id' => $request->user()->id]
+        );
+
+        $request->validate([
+            'duration' => 'min:1|max:60',
+            'start_price' => 'integer|lt:end_price|min:5',
+            'end_price' => 'integer|gt:start_price',
+            'status' => 'required',
+            'editor1' => 'string|nullable'
+        ]);
+
+        $artist->description = $request['editor1'];
+        $artist->duration = $request['duration'];
+        $artist->start_price = $request['start_price'];
+        $artist->end_price = $request['end_price'];
+        $artist->status = $request['status'];
+        $artist->save();
+
+        // $content = $request['editor1'];
+        // $artist->descriptions = $content;
+        // $artist->duration = $request['duration'];
+        // $artist->start_price = $request['start_price'];
+        // $artist->end_price = $request['end_price'];
+        // $artist->status = $request['status'];
+        // $artist->save();
     }
 
     /**

@@ -88,7 +88,7 @@
                                         <hr>
                                         <div class="text-end small">
                                             Requested By: <span class="paragraph">
-                                                {{ $client->users[0]->name }}
+                                                {{ $client->users->name }}
                                             </span>
                                         </div>
                                     </div>
@@ -101,7 +101,7 @@
 
             <div class="sticky request-select w-100 ms-3 rounded rounded-5 my-5 bg-primary">
                 <div class="row ms-auto">
-                    @include('user.arts.show', ['request' => $clients[0]])
+                    {{-- @include('user.arts.show', ['request' => $clients[0]]) --}}
                 </div>
             </div>
 

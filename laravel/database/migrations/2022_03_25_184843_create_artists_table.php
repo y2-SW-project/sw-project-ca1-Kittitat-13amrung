@@ -15,12 +15,15 @@ class CreateArtistsTable extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('descriptions')->nullable();
-            $table->Biginteger('duration');
-            $table->float('start_price');
-            $table->float('end_price');
-            $table->boolean('status');
+            $table->string('description')->nullable();
+            $table->Biginteger('duration')->nullable();
+            $table->float('start_price')->nullable();
+            $table->float('end_price')->nullable();
+            $table->boolean('status')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
