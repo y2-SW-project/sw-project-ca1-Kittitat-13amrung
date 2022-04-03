@@ -24,8 +24,9 @@ Dropzone.options.userProfile = {
 
   };
 
+  
   const editor = new Editor({
-    el: document.querySelector('#editor'),
+      el: document.querySelector('#editor'),
     height: '700px',
     initialEditType: 'markdown',
     previewStyle: 'vertical',
@@ -36,15 +37,20 @@ Dropzone.options.userProfile = {
         ['ul', 'ol', 'task', 'indent', 'outdent'],
         ['table', 'image', 'link'],
         ['scrollSync']],
-    autofocus: false,
-    initialValue: 'Insert your details here',
-});
+        autofocus: false,
+        initialValue: newContent,
+    });
 
-let submit = document.getElementById("submit");
+    let content = document.getElementById("editor2").value;
+    let newContent = editor.setMarkdown(content.replace(/n/, ''));
+
+    let submit = document.getElementById("submit");
+    
 
 submit.addEventListener("click", () => {
-    document.getElementById("editor1").value = editor.getHTML();
+    document.getElementById("editor1").value = editor.getMarkdown();
 })
+
 
 
 

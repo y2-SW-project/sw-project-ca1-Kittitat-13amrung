@@ -8,12 +8,11 @@
                 {{ __('Artists At Your Service') }}
             </div>
         </div>
-
         <div class="row">
             @foreach ($artists as $artist)
-                <div class="col-lg-4">
+                <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                     <div class="artist">
-                        <a href="#" class="nav-item">
+                        <a href="{{ route('artist.view', $artist->id) }}" class="nav-item">
                             <div id="artistCarouselIndicators{{ $artist->id }}" class="carousel slide"
                                 data-bs-ride="carousel">
                                 <div class="carousel-indicators">
@@ -42,25 +41,28 @@
                                 </div>
                             </div>
                             <div class="col-lg-12 d-flex py-4 px-4 artist-body">
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-2 col-sm-1 col-1">
                                     @if ($artist->users->image)
-                                        <img class="profile-img img-fluid rounded-circle "
+                                        <img class="profile-img w-100 rounded-circle "
                                             src="{{ asset('/storage/profile/' . $artist->users->image) }}"
                                             alt="profile_image">
+                                    @else
+                                        <img class="img-fluid w-100"
+                                            src="{{ asset('/storage/image/person-circle.svg') }}" alt="profile_image">
                                     @endif
                                 </div>
 
                                 <div class="col-lg-4 ms-3">
 
-                                    <h2 class="d-block">
+                                    <h2 class="h4">
                                         {{ $artist->users->name }}
                                     </h2>
-                                    <h6 class="d-block price small text-muted">
-                                        {{ $artist->start_price . '-' . $artist->end_price }}</h6>
+                                    <h6 class="price small text-muted">
+                                        Around {{ '€' . $artist->start_price . '- €' . $artist->end_price }}</h6>
                                 </div>
 
-                                <div class="col-lg-5 align-self-center">
-                                    <div class="d-block navbar-item dropdown text-end">
+                                <div class="col-lg-5 col-md-7 col-sm-6 col-6 block align-self-center">
+                                    <div class="navbar-item fs-5 text-lg-end text-md-center text-sm-end text-end">
                                         @if ($artist->status == true)
                                             <span class="text-success">
                                                 available

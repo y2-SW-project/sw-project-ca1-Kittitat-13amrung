@@ -3755,10 +3755,8 @@ div.sticky {
 }
 
 .artist-body {
-  position: relative;
   border-radius: 0 0 25px 25px;
   background: #f7efda;
-  overflow: hidden;
 }
 
 .artist a {

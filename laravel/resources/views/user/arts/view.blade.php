@@ -1,10 +1,12 @@
 @extends ('layouts.app')
 
-@section ('content')
+@section('content')
     <main class="container">
+        <script src="{{ asset('js/artistShow.js') }}" defer></script>
         <div class="row">
             <div class="col-lg-12">
-                {{ $request->start_price }}
+                <input type="hidden" name="view" id="view" value="{{ $artist->description }}">
+                <div id="viewer"></div>
             </div>
         </div>
     </main>

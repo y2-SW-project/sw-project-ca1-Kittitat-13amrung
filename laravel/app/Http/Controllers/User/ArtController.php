@@ -135,9 +135,14 @@ class ArtController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Req $id)
+    public function artistView(Request $name, $id)
     {
-        return view('arts.show', ['request', $id]);
+        $artist = Artist::findOrFail($id);
+
+        
+        return view('user.arts.view', [
+            'artist' => $artist
+        ]);
     }
     /**
      * Show the form for editing the specified resource.

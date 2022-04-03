@@ -119,7 +119,14 @@ class UserSettingController extends Controller
      */
     public function artist()
     {
-        return view('user.settings.artist');
+        $artist = Artist::firstOrCreate(
+            ['user_id' =>  Auth::user()->id],
+            ['user_id' => Auth::user()->id]
+        );
+        
+        return view('user.settings.artist', [
+            'artist' => $artist
+        ]);
     }
 
         // updating artist profile
@@ -129,20 +136,23 @@ class UserSettingController extends Controller
             ['user_id' => $request->user()->id]
         );
 
+        
         $request->validate([
             'duration' => 'min:1|max:60',
             'start_price' => 'integer|lt:end_price|min:5',
             'end_price' => 'integer|gt:start_price',
-            'status' => 'required',
-            'editor1' => 'string|nullable'
+            'status' => 'boolean',
+            'editor1' => 'nullable'
         ]);
-
+        // dd($request['editor1']);
         $artist->description = $request['editor1'];
         $artist->duration = $request['duration'];
         $artist->start_price = $request['start_price'];
         $artist->end_price = $request['end_price'];
         $artist->status = $request['status'];
         $artist->save();
+
+        return redirect()->route('user.profile.artist');
 
         // $content = $request['editor1'];
         // $artist->descriptions = $content;
@@ -170,7 +180,7 @@ class UserSettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function Artistshow($id)
     {
         //
     }

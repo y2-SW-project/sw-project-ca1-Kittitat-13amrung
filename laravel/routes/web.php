@@ -52,6 +52,7 @@ Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profil
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
 Route::get('artist', [UserArtController::class, 'artist'])->name('artist.show');
+Route::get('/view/artist/{name}', [UserArtController::class, 'artistView'])->name('artist.view');
 Route::post('/profile-upload', [UserArtController::class, 'uploadProfile'])->name('artist.upload.profile');
 Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('artist.upload.file');
 
