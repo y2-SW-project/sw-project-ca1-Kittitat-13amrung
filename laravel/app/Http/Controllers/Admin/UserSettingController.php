@@ -144,7 +144,6 @@ class UserSettingController extends Controller
             'status' => 'boolean',
             'editor1' => 'nullable'
         ]);
-        // dd($request['editor1']);
         $artist->description = $request['editor1'];
         $artist->duration = $request['duration'];
         $artist->start_price = $request['start_price'];

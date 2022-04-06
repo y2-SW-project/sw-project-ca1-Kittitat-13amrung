@@ -1,5 +1,5 @@
 @extends ('layouts.app')
-
+<script src="{{ asset('js/request.js') }}" defer></script>
 @section('content')
     <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
         class="d-md-block d-none img-fluid background-img">
@@ -25,7 +25,7 @@
 
             <div class="col-lg-4">
                 @foreach ($clients as $client)
-                    <div class="my-5" onclick="getId(request{{ $client->id }})" id="request{{ $client->id }}">
+                    <div class="my-5" id="request{{ $client->id }}" defer>
                         <div class="card border-bottom">
                             <h6 class="text-start card-subtitle">
                                 @if ($client->commercial_use == '1')
@@ -44,19 +44,22 @@
 
                                 <div class="float-end">
                                     @if ($client->digital_art == 1)
-                                        <span class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize">
+                                        <span
+                                            class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize pill-hover">
                                             Digital Art
                                         </span>
                                     @endif
 
                                     @if ($client->traditional_art == 1)
-                                        <span class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize">
+                                        <span
+                                            class="ms-auto p-2 mx-2 small rounded-pill bg-secondary text-capitalize pill-hover">
                                             Traditional Art
                                         </span>
                                     @endif
 
                                     @if ($client->pixel_art == 1)
-                                        <span class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize">
+                                        <span
+                                            class="ms-auto p-2 mx-2 small rounded-pill bg-danger text-capitalize pill-hover">
                                             Pixel Art
                                         </span>
                                     @endif
@@ -64,44 +67,46 @@
                                 </div>
 
                             </div>
-                            <a class="nav-link text-dark" href="#">
-                                <div class="card-body text-center">
-                                    <!-- <i class="fs-4 bi bi-folder2-open"></i> -->
-                                    <h3 class="mb-5 text-capitalize card-title">
-                                        <i class="fs-1 bi bi-info-circle"></i>
-                                        {{ $client->title }}
-                                    </h3>
-                                    <div class="h4 text-start card-text">
-                                        <hr>
-                                        Description: <span class="paragraph">
-                                            {{ $client->descriptions }}
+
+                            <div class="request-pointer card-body text-center"
+                                onclick="window.fetchRequest({{ $client->id }})">
+                                <!-- <i class="fs-4 bi bi-folder2-open"></i> -->
+                                <h3 class="mb-5 text-capitalize card-title">
+                                    <i class="fs-1 bi bi-info-circle"></i>
+                                    {{ $client->title }}
+                                </h3>
+                                <div class="h4 text-start card-text">
+                                    <hr>
+                                    Description: <span class="paragraph">
+                                        {{ $client->descriptions }}
+                                    </span>
+                                    <hr>
+                                    Deadline: <span class="paragraph">
+                                        {{ date('d-m-Y', strtotime($client->end_date)) }} (In {{ $client->days }}
+                                        days)
+                                    </span>
+                                    <hr>
+                                    Entitled Price: <span class="paragraph">
+                                        €{{ $client->start_price }} to €{{ $client->end_price }}
+                                    </span>
+                                    <hr>
+                                    <div class="text-end small">
+                                        Requested By: <span class="paragraph">
+                                            {{ $client->users->name }}
                                         </span>
-                                        <hr>
-                                        Deadline: <span class="paragraph">
-                                            {{ date('d-m-Y', strtotime($client->end_date)) }} (In {{ $client->days }}
-                                            days)
-                                        </span>
-                                        <hr>
-                                        Entitled Price: <span class="paragraph">
-                                            €{{ $client->start_price }} to €{{ $client->end_price }}
-                                        </span>
-                                        <hr>
-                                        <div class="text-end small">
-                                            Requested By: <span class="paragraph">
-                                                {{ $client->users->name }}
-                                            </span>
-                                        </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 @endforeach
             </div>
 
-            <div class="sticky request-select w-100 ms-3 rounded rounded-5 my-5 bg-primary">
-                <div class="row ms-auto">
-                    {{-- @include('user.arts.show', ['request' => $clients[0]]) --}}
+            <div class="position-relative w-100 ms-3 rounded rounded-5 my-5 bg-light">
+                <div class="row ms-auto sticky">
+                    <div id="requestTable">
+
+                    </div>
                 </div>
             </div>
 

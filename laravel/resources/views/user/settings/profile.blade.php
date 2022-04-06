@@ -1,8 +1,13 @@
 @extends ('layouts.app')
-
+<script src="{{ asset('js/userProfile.js') }}" defer></script>
 @section('content')
-
     <div class="container">
+        <div class="row">
+            <div class="display-6">
+                <i class="display-4 bi bi-person-circle"></i>
+                {{ __('Artist Profile') }}
+            </div>
+        </div>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -23,12 +28,6 @@
     @include('layouts.profile')
 
     <div class="col-lg-7 ps-5 ms-auto profile">
-        <div class="row text-center">
-            <div class="display-6">
-                <i class="display-4 bi bi-person-circle"></i>
-                {{ __('Artist Profile') }}
-            </div>
-        </div>
         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-lg-12 mt-4">
@@ -40,9 +39,9 @@
                         @else
                             <p class="small text-center">no image</p>
                         @endif
-                        <div class="col-lg-12 my-4">
-                            <label for="image" class="form-label">Upload your profile picture:</label>
-                            <input class="form-control" type="file" name="image" id="image">
+                        <div class="col-lg-12 my-4" class="dropzone" id="user-profile">
+                            {{-- <label for="image" class="form-label">Upload your profile picture:</label>
+                            <input class="form-control" type="file" name="image" id="image"> --}}
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -110,7 +109,7 @@
                 </div>
 
                 <div class="my-3 me-4 text-end">
-                    <button class="btn btn-primary" type="submit">Update Profile</button>
+                    <button class="btn btn-primary" id="submit" type="submit">Update Profile</button>
                 </div>
             </div>
         </form>

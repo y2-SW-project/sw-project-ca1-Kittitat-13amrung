@@ -64,18 +64,26 @@ class ArtController extends Controller
 
     public  function uploadFile(Request $request)  
     {  
+        $artist = Artist::where('user_id', $request->user()->id)->first();
+        
         
         $file = $request->file('file');  
         $fileName = time().'.'.$file->extension(); 
-        $file->storeAs('portfolio',$fileName,'public');  
-       $img = new Img();
-       $img->file = 'storage/portfolio/'.$fileName;
-       $img->save();
+        $file->storeAs('portfolio',$fileName,'public');
+        $files[] = $fileName;
 
-       $artImg = new ArtImg();
-       $artImg->user_id = $request->user()->id;
-       $artImg->image_id = $img->id;
-       $artImg->save();
+        if (isset($files[0])) {
+            $artist->img1 = 'storage/portfolio/'.$files[0];
+        }
+
+        if (isset($files[1])) {
+            $artist->img2 = 'storage/portfolio/'.$files[1];
+        }
+
+        if (isset($files[2])) {
+            $artist->img3 = 'storage/portfolio/'.$files[2];
+        }
+        $artist->save();
   
     return response()->json(['success'=>$fileName]);  
   
@@ -135,14 +143,18 @@ class ArtController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function artistView(Request $name, $id)
+    public function requestView($id = 1)
     {
-        $artist = Artist::findOrFail($id);
-
+        if ($id == 1) return $request = Req::findOrFail(1);
+        else return $request = Req::findOrFail($id);
         
-        return view('user.arts.view', [
-            'artist' => $artist
-        ]);
+        $client = User::where('id', $request->user_id)->name;
+
+        $request->user_id = $client;
+        dd($request->user_id);
+
+        echo json_encode($request);
+        exit;
     }
     /**
      * Show the form for editing the specified resource.

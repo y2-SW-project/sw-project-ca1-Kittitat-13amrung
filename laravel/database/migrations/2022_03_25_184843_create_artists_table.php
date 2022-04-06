@@ -16,10 +16,14 @@ class CreateArtistsTable extends Migration
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
             $table->string('description')->nullable();
+            $table->boolean('commercial_use')->nullable();
             $table->Biginteger('duration')->nullable();
             $table->float('start_price')->nullable();
             $table->float('end_price')->nullable();
             $table->boolean('status')->nullable();
+            $table->string('img1')->nullable();
+            $table->string('img2')->nullable();
+            $table->string('img3')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 

@@ -60,7 +60,7 @@ Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('art
 Route::get('art/requests', [UserArtController::class, 'index'])->name('arts.requests');
 Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
-Route::get('art/requests/{id}', [UserArtController::class, 'show'])->name('arts.requests.view');
+Route::get('art/requests/{id}', [UserArtController::class, 'requestView'])->name('arts.requests.view');
 Route::get('art/request/create', [AdminArtController::class, 'create'])->name('arts.requests.create');
 // allow admin to post these new car data on the database
 Route::post('arts/requests/store', [AdminArtController::class, 'store'])->name('arts.requests.store');

@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 @section('content')
-    <script src="{{ asset('js/request.js') }}" defer></script>
+    <script src="{{ asset('js/artistProfile.js') }}" defer></script>
     @include('layouts.profile')
     <div class="profile">
         <div class="display-6 pt-5">
@@ -11,14 +11,17 @@
 
         <div class="col-lg-12 mt-5">
 
-            <form action="/file-upload" class="dropzone" id="user-profile" enctype="multipart/form-data">
+            <form action="/file-upload" class="dropzone" id="artist-profile" enctype="multipart/form-data">
                 @csrf
+
             </form>
+            <br>
+            <button id="submit-all">Upload</button>
 
             <form action="{{ route('artist.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                {{-- <label for="commercial_use">Accept Commission For Commercial Purposes?</label>
+                <label for="commercial_use">Accept Commission For Commercial Purposes?</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="commercial_use" id="commercial_use1" value="1"
                         {{ is_array(old('commercial_use')) && in_array(1, old('commercial_use', $artist->commercial_use))? ' checked': '' }}>
@@ -32,7 +35,7 @@
                     <label class="form-check-label" for="commercial_use0">
                         No
                     </label>
-                </div> --}}
+                </div>
                 {{-- {{ dd($artist->status) }} --}}
                 <label for="status">Your Current Status:</label>
                 <div class="form-check">

@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\User_Role as Role;
-use App\Models\Artist_Image as ArtImg;
-use App\Models\Image as Img;
 use App\Models\Artist;
 use Auth;
 
@@ -123,7 +121,7 @@ class UserSettingController extends Controller
         $artist->start_price = $request['start_price'];
         $artist->end_price = $request['end_price'];
         $artist->status = $request['status'];
-        $artist->user_id = $request->user()->name;
+        $artist->user_id = $request->user()->id;
         $artist->save();
     }
 
@@ -146,14 +144,11 @@ class UserSettingController extends Controller
        $file = $request->file('file');  
        $fileName = time().'.'.$file->extension(); 
        $file->storeAs('portfolio',$fileName,'public');  
-       $img = new Img();
-       $img->file = 'storage/portfolio/'.$fileName;
+       $img = $request->user();
+       $img->img1 = 'storage/portfolio/'.$fileName;
+       $img->img2 = 'storage/portfolio/'.$fileName;
+       $img->img3 = 'storage/portfolio/'.$fileName;
        $img->save();
-
-       $artImg = new ArtImg();
-       $artImg->user_id = $request->user()->id;
-       $artImg->image_id = $img->id;
-       $artImg->save();
   
     return response()->json(['success'=>$fileName]);  
     }

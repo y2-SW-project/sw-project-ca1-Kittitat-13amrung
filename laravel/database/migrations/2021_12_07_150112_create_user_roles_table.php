@@ -18,6 +18,7 @@ class CreateUserRolesTable extends Migration
             // declaring attributes before assigning it to a foreign key
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('role_id')->unsigned();
+            $table->string('api_token')->
             $table->timestamps();
             // assign foreign keys to the bigIntergers
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
