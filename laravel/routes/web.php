@@ -62,6 +62,9 @@ Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
 Route::get('art/requests/{id}', [UserArtController::class, 'requestView'])->name('arts.requests.view');
 Route::get('art/request/create', [AdminArtController::class, 'create'])->name('arts.requests.create');
+Route::get('art/edit/request/{id}', [AdminArtController::class, 'edit'])->name('arts.requests.edit');
+Route::post('art/delete/request/{id}', [AdminArtController::class, 'destroy'])->name('arts.requests.delete');
+Route::post('/art/store/request/{id}', [AdminArtController::class, 'update'])->name('arts.requests.update');
 // allow admin to post these new car data on the database
 Route::post('arts/requests/store', [AdminArtController::class, 'store'])->name('arts.requests.store');
 Route::get('art/requests/?id={id}', [UserArtController::class, 'show'])->name('arts.requests.show');

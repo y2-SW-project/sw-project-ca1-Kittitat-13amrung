@@ -3734,11 +3734,22 @@ div.sticky {
 }
 
 .request-select {
-  height: 74em;
+  min-height: 1200px;
+  max-height: 1210px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .request-pointer {
   cursor: pointer;
+}
+
+.request-btn {
+  text-decoration: none;
+}
+
+.overlay-edit:hover {
+  background-color: #74959a;
 }
 
 .pill-hover {

@@ -69,7 +69,8 @@ class ArtController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required|lt:end_price',
-            'end_price' => 'required|gt:start_price'
+            'end_price' => 'required|gt:start_price',
+            'request1' => 'nullable'
         ]);
 
         
@@ -104,6 +105,7 @@ class ArtController extends Controller
             // // create a local variable to assign new image to it
             // $image = $request->file('file')->hashName();
 
+            // dd($request);
         // if validation passes create the new car
         $art = new Req();
         $art->title = $request->title;
@@ -115,6 +117,7 @@ class ArtController extends Controller
         $art->digital_art = $request->digital_art;
         $art->traditional_art = $request->traditional_art;
         $art->pixel_art = $request->pixel_art;
+        $art->description = $request->request1;
         $art->user_id = $request->user()->id;
         $art->save();
         
@@ -141,7 +144,11 @@ class ArtController extends Controller
      */
     public function edit($id)
     {
-        //
+        $req = Req::findOrFail($id);
+
+        return view('user.arts.edit', [
+            'req' => $req
+        ]);
     }
 
     /**
@@ -153,7 +160,72 @@ class ArtController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // when user clicks submit on the create view above
+        // the car will be stored in the database
+        $art = Req::findOrFail($id);
+        // data validation
+        $request->validate([
+            'title' => 'required|min:3',
+            'traditional_art' =>'required_without_all:pixel_art,digital_art',
+            'pixel_art' => 'required_without_all:digital_art,traditional_art',
+            'digital_art' => 'required_without_all:pixel_art,traditional_art',
+            'commercial_use' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'start_price' => 'required|lt:end_price',
+            'end_price' => 'required|gt:start_price',
+            'request1' => 'nullable'
+        ]);
+
+        
+        if ($request->pixel_art == "on") {
+            $request->pixel_art = 1;
+        } else {
+            $request->pixel_art = 0;
+        }
+        
+        if ($request->traditional_art == "on") {
+            $request->traditional_art = 1;
+        } else {
+            $request->traditional_art = 0;
+        }
+        
+        if ($request->digital_art == "on") {
+            $request->digital_art = 1;
+        } else {
+            $request->digital_art = 0;
+        }
+
+        
+        if ($request->commercial_use == "true") {
+            $request->commercial_use = 1;
+        } else {
+            $request->commercial_use = 0;
+        }
+        // dd($request->pixel_art);
+            // // store file to the location specified
+            // $request->file->store('image', 'public');
+            
+            // // create a local variable to assign new image to it
+            // $image = $request->file('file')->hashName();
+
+            // dd($request);
+        // if validation passes create the new car
+        $art->title = $request->title;
+        $art->commercial_use = $request->commercial_use;
+        $art->start_date = $request->start_date;
+        $art->end_date = $request->end_date;
+        $art->start_price = $request->start_price;
+        $art->end_price = $request->end_price;
+        $art->digital_art = $request->digital_art;
+        $art->traditional_art = $request->traditional_art;
+        $art->pixel_art = $request->pixel_art;
+        $art->description = $request->request1;
+        $art->user_id = $request->user()->id;
+        $art->save();
+        
+        // when done, re-route back to admin's index page
+        return redirect()->route('arts.requests');
     }
 
     /**
@@ -164,6 +236,9 @@ class ArtController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $req = Req::findOrFail($id);
+        $req->delete();
+
+        return redirect()->route('arts.requests');
     }
 }

@@ -15,12 +15,12 @@ class CreateRequestTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('title', '64');
+            $table->string('title');
             $table->boolean('traditional_art');
             $table->boolean('digital_art');
             $table->boolean('pixel_art');
             $table->boolean('commercial_use');
-            $table->string('description', '64')->nullable();
+            $table->string('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->float('start_price');

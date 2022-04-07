@@ -24,14 +24,15 @@
                 <label for="commercial_use">Accept Commission For Commercial Purposes?</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="commercial_use" id="commercial_use1" value="1"
-                        {{ is_array(old('commercial_use')) && in_array(1, old('commercial_use', $artist->commercial_use))? ' checked': '' }}>
+                        {{ old('commercial_use', $artist->commercial_use) == 1 ? ' checked' : '' }}>
                     <label class="form-check-label" for="commercial_use1">
                         Yes
                     </label>
+                    {{-- {{ dd(old('commercial_use', $artist->commercial_use)) }} --}}
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="commercial_use" id="commercial_use0" value="0"
-                        {{ is_array(old('commercial_use')) && in_array(0, old('commercial_use', $artist->commercial_use))? ' checked': '' }}>
+                        {{ old('commercial_use', $artist->commercial_use) == 0 ? ' checked' : '' }}>
                     <label class="form-check-label" for="commercial_use0">
                         No
                     </label>
@@ -40,14 +41,14 @@
                 <label for="status">Your Current Status:</label>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="status" id="status1" value="1"
-                        {{ is_array(old('status')) && in_array('1', old('status', $artist->status)) ? ' checked' : '' }}>
+                        {{ old('status', $artist->status) == 1 ? ' checked' : '' }}>
                     <label class="form-check-label" for="status1">
                         Available
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="status" id="status0" value="0"
-                        {{ is_array(old('status')) && in_array('0', old('status', $artist->status)) ? ' checked' : '' }}>
+                        {{ old('status', $artist->status) == 0 ? ' checked' : '' }}>
                     <label class="form-check-label" for="status0">
                         Unavailable
                     </label>

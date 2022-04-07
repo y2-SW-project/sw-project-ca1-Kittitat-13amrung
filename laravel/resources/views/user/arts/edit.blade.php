@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <!-- this block is ran if the validation code in the controller fails
-                                                                                          this code looks after displaying the correct error message to the user -->
+                                                                                                                                                      this code looks after displaying the correct error message to the user -->
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -20,13 +20,14 @@
                                 </ul>
                             </div>
                         @endif
-                        <form method="POST" action="{{ route('arts.requests.store') }}" enctype="multipart/form-data">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                        <form action="{{ route('arts.requests.update', $req->id) }}" method="POST"
+                            enctype="multipart/form-data">
+                            @csrf
                             <div class="form-group my-4">
                                 <label for="title">Title</label>
                                 <input type="text" class="form-control paragraph h6" id="title" name="title"
-                                    value="{{ old('title') }}" />
+                                    value="{{ old('title', $req->title) }}" />
                             </div>
 
                             <div class="form-group my-4">
@@ -35,15 +36,17 @@
                                     <label class="form-check-label paragraph h6" for="traditional_art">Traditional
                                         Art</label>
                                     <input class="form-check-input" name="traditional_art" type="checkbox"
-                                        id="traditional_art">
+                                        id="traditional_art" value="{{ old('traditional_art', $req->traditional_art) }}">
                                 </div>
                                 <div class="form-check form-switch">
                                     <label class="form-check-label paragraph h6" for="digital_art">Digital Art</label>
-                                    <input class="form-check-input" name="digital_art" type="checkbox" id="digital_art">
+                                    <input class="form-check-input" name="digital_art" type="checkbox" id="digital_art"
+                                        value="{{ old('digital_art', $req->digital_art) }}">
                                 </div>
                                 <div class="form-check form-switch">
                                     <label class="form-check-label paragraph h6" for="pixel_art">Pixel Art</label>
-                                    <input class="form-check-input" name="pixel_art" type="checkbox" id="pixel_art">
+                                    <input class="form-check-input" name="pixel_art" type="checkbox" id="pixel_art"
+                                        {{ if(old('pixel_art')) }}">
                                 </div>
                             </div>
 
@@ -67,26 +70,27 @@
                             <div id="request" class="bg-white">
                             </div>
                             <input type="hidden" name="request1" id="request1">
-                            <input type="hidden" name="request2" id="request2" value="">
+                            <input type="hidden" name="request2" id="request2"
+                                value="{{ old('request1', $req->description) }}">
 
                             <div class="form-group my-5 d-flex">
                                 <label for="start_date" class="px-2">Starting Date:</label>
                                 <input type="date" class="form-control paragraph h6" id="start_date" name="start_date"
-                                    value="{{ old('start_date') }}" />
+                                    value="{{ old('start_date', $req->start_date) }}" />
 
                                 <label for="end_date" class="px-2">Deadline Date:</label>
                                 <input type="date" class="form-control paragraph h6" id="end_date" name="end_date"
-                                    value="{{ old('end_date') }}" />
+                                    value="{{ old('end_date', $req->end_date) }}" />
                             </div>
 
                             <div class="form-group my-5 d-flex">
                                 <label for="start_price">Minimum Price</label>
                                 <input type="number" class="form-control paragraph h6" id="start_price" name="start_price"
-                                    value="{{ old('start_price') }}" />
+                                    value="{{ old('start_price', $req->start_price) }}" />
 
                                 <label for="end_price">Maximum Price</label>
                                 <input type="number" class="form-control paragraph h6" id="end_price" name="end_price"
-                                    value="{{ old('end_price') }}" />
+                                    value="{{ old('end_price', $req->end_price) }}" />
                             </div>
 
                             <a href="{{ route('arts.requests') }}" class="btn btn-outline">Cancel</a>

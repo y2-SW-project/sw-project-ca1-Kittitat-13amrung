@@ -1,24 +1,22 @@
 @extends ('layouts.app')
 <script src="{{ asset('js/request.js') }}" defer></script>
 @section('content')
-    <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
-        class="d-md-block d-none img-fluid background-img">
+    {{-- <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
+        class="d-md-block d-none img-fluid background-img"> --}}
     <main class="container">
-        <div class="row">
-            <div class="display-6 text-center my-5">
+        <div class="d-flex justify-content-around">
+            <div class="display-6">
                 <i class="display-2 bi bi-person-circle"></i>
                 {{ __('Requested From Clients') }}
+            </div>
+            <div class="my-3">
+                <a href="{{ route('arts.requests.create') }}" class="btn btn-dark rounded-pill p-3 px-5">
+                    {{ __('Create A Request') }}
+                </a>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="text-end">
-                    <a href="{{ route('arts.requests.create') }}" class="btn btn-dark rounded-pill p-3 px-5">
-                        {{ __('Create A Request') }}
-                    </a>
-                </div>
-            </div>
         </div>
 
         <div class="d-flex">
@@ -28,6 +26,7 @@
                     <div class="my-5" id="request{{ $client->id }}" defer>
                         <div class="card border-bottom">
                             <h6 class="text-start card-subtitle">
+
                                 @if ($client->commercial_use == '1')
                                     <span
                                         class="text-white border-bottom border-end border-4 border-muted rounded-pill px-3 py-1 bg-tertiary">
@@ -70,6 +69,7 @@
 
                             <div class="request-pointer card-body text-center"
                                 onclick="window.fetchRequest({{ $client->id }})">
+
                                 <!-- <i class="fs-4 bi bi-folder2-open"></i> -->
                                 <h3 class="mb-5 text-capitalize card-title">
                                     <i class="fs-1 bi bi-info-circle"></i>
@@ -78,7 +78,7 @@
                                 <div class="h4 text-start card-text">
                                     <hr>
                                     Description: <span class="paragraph">
-                                        {{ $client->descriptions }}
+                                        {{ $client->description }}
                                     </span>
                                     <hr>
                                     Deadline: <span class="paragraph">
@@ -90,23 +90,46 @@
                                         €{{ $client->start_price }} to €{{ $client->end_price }}
                                     </span>
                                     <hr>
-                                    <div class="text-end small">
-                                        Requested By: <span class="paragraph">
-                                            {{ $client->users->name }}
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted fs-6 paragraph">
+                                            View Request
                                         </span>
+                                        <p class="paragraph">
+                                            {{ $client->users->name }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="d-flex text-center request-btn">
+
+                                @if (!Auth::guest())
+                                    @if ($client->users->id == Auth::user()->id or Auth::user()->roles[1])
+                                        <a href="{{ route('arts.requests.edit', $client->id) }}"
+                                            class="request-btn rounded-0 text-success btn-lg w-50">Edit
+                                            Request</a>
+                                        <form action="{{ route('arts.requests.delete', $client->id) }}" method="post">
+                                            @csrf
+                                            <button class="request-btn btn rounded-0 btn-outline-danger btn-lg w-100">Delete
+                                                Request</button>
+                                        </form>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
+
                     </div>
                 @endforeach
             </div>
 
-            <div class="position-relative w-100 ms-3 rounded rounded-5 my-5 bg-light">
-                <div class="row ms-auto sticky">
-                    <div id="requestTable">
-
+            <div class="position-relative col-lg-7 border-end border-bottom border-3 ms-3 rounded rounded-5 my-5">
+                <div class="p-2 sticky  bg-light" id="req-detail">
+                    <div class="tags d-flex">
+                        <div class="my-5 pe-5 mx-1 me-auto text-start" id="commTag"></div>
+                        <div class="my-5 pe-5 mx-2 ms-auto text-white text-end" id="artTag"></div>
                     </div>
+                    <div id="requestTitle">
+                    </div>
+                    <div class="request-select" id="requestBody"></div>
                 </div>
             </div>
 

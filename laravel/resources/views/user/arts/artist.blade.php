@@ -27,15 +27,15 @@
                                 <div
                                     class="carousel-inner w-100 img-container rounded rounded-5 border-top border-end border-2 mx-auto">
                                     <div class="carousel-item active">
-                                        <img src="{{ asset('storage/portfolio/11.jpg') }}" class="d-block img-fluid"
+                                        <img src="{{ asset('storage/portfolio/1.jpg') }}" class="d-block img-fluid"
                                             alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('storage/portfolio/21.jpg') }}" class="d-block img-fluid"
+                                        <img src="{{ asset('storage/portfolio/2.jpg') }}" class="d-block img-fluid"
                                             alt="...">
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('storage/portfolio/31.jpg') }}" class="d-block img-fluid"
+                                        <img src="{{ asset('storage/portfolio/3.jpg') }}" class="d-block img-fluid"
                                             alt="...">
                                     </div>
                                 </div>

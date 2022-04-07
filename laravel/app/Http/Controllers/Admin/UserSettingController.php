@@ -144,11 +144,13 @@ class UserSettingController extends Controller
             'status' => 'boolean',
             'editor1' => 'nullable'
         ]);
+
         $artist->description = $request['editor1'];
         $artist->duration = $request['duration'];
         $artist->start_price = $request['start_price'];
         $artist->end_price = $request['end_price'];
         $artist->status = $request['status'];
+        $artist->commercial_use = $request->commercial_use;
         $artist->save();
 
         return redirect()->route('user.profile.artist');
