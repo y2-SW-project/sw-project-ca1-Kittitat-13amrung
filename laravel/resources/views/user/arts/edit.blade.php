@@ -10,7 +10,7 @@
                     </div>
                     <div class="card-body">
                         <!-- this block is ran if the validation code in the controller fails
-                                                                                                                                                      this code looks after displaying the correct error message to the user -->
+                                                                                                                                                          this code looks after displaying the correct error message to the user -->
                         @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>
@@ -36,31 +36,34 @@
                                     <label class="form-check-label paragraph h6" for="traditional_art">Traditional
                                         Art</label>
                                     <input class="form-check-input" name="traditional_art" type="checkbox"
-                                        id="traditional_art" value="{{ old('traditional_art', $req->traditional_art) }}">
+                                        id="traditional_art" value="{{ old('traditional_art', $req->traditional_art) }}"
+                                        {{ old('traditional_art', $req->traditional_art) == 1 ? ' checked' : '' }}>
                                 </div>
                                 <div class="form-check form-switch">
                                     <label class="form-check-label paragraph h6" for="digital_art">Digital Art</label>
                                     <input class="form-check-input" name="digital_art" type="checkbox" id="digital_art"
-                                        value="{{ old('digital_art', $req->digital_art) }}">
+                                        value="{{ old('digital_art', $req->digital_art) }}"
+                                        {{ old('digital_art', $req->digital_art) == 1 ? ' checked' : '' }}>
                                 </div>
                                 <div class="form-check form-switch">
                                     <label class="form-check-label paragraph h6" for="pixel_art">Pixel Art</label>
                                     <input class="form-check-input" name="pixel_art" type="checkbox" id="pixel_art"
-                                        {{ if(old('pixel_art')) }}">
+                                        {{ old('pixel_art', $req->pixel_art) == 1 ? ' checked' : '' }}>
                                 </div>
                             </div>
 
                             <label for="comm_use">For Commerical Purposes?</label>
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="radio" name="commercial_use" id="commercial_use1"
-                                    value="true">
+                                    value="true" {{ old('commercial_use', $req->commercial_use) == 1 ? ' checked' : '' }}>
                                 <label class="form-check-label paragraph h6" for="commercial_use1">
                                     Yes
                                 </label>
                             </div>
                             <div class="form-check my-3">
                                 <input class="form-check-input" type="radio" name="commercial_use" id="commercial_use0"
-                                    value="false">
+                                    value="false"
+                                    {{ old('commercial_use', $req->commercial_use) == 0 ? ' checked' : '' }}>
                                 <label class="form-check-label paragraph h6" for="commercial_use0">
                                     No
                                 </label>

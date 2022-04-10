@@ -20,7 +20,7 @@ class CreateRequestTable extends Migration
             $table->boolean('digital_art');
             $table->boolean('pixel_art');
             $table->boolean('commercial_use');
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->float('start_price');

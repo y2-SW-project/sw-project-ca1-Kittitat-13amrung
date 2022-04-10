@@ -8,7 +8,7 @@
                 {{ __('Artists At Your Service') }}
             </div>
         </div>
-        <div class="row">
+        <div class="row justify-content-center">
             @foreach ($artists as $artist)
                 <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                     <div class="artist">

@@ -23,5 +23,8 @@ class ArtistSeeder extends Seeder
         $artist01->status = true;
         $artist01->user_id = 2;
         $artist01->save();
+
+        // $artists = Artist::factory()->count(3)->create();
+        // $users = Artist::factory()->count(3)->create();
     }
 }

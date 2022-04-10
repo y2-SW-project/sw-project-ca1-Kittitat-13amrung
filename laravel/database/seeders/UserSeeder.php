@@ -4,9 +4,12 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-use Hash;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Artist;
+use App\Models\Request;
+use Hash;
+use HasFactory;
 
 class UserSeeder extends Seeder
 {
@@ -36,16 +39,28 @@ class UserSeeder extends Seeder
         $admin->roles()->attach($role_digital_artist);
 
         // seeding data of new user role into the users table
-        $user = new User();
-        $user->name = "Louise Carte";
-        $user->email = "louisec@gmail.com";
-        $user->password = Hash::make('password');
-        $user->save();
+        $user1 = new User();
+        $user1->name = "Louise Carte";
+        $user1->email = "louisec@gmail.com";
+        $user1->password = Hash::make('password');
+        $user1->save();
 
         // attach user to the ordinary user role
-        $user->roles()->attach($role_user);
-        $user->roles()->attach($role_traditional_artist);
-        $user->roles()->attach($role_pixel_artist);
+        $user1->roles()->attach($role_user);
+        $user1->roles()->attach($role_traditional_artist);
+        $user1->roles()->attach($role_pixel_artist);
 
+        $users = User::factory()->count(30)->create()->each(function ($user) {
+            $role_user = Role::where('name', 'user')->first();
+            $user->roles()->attach($role_user);
+
+            $artist = Artist::factory()->create([
+                'user_id' => $user->id
+            ]);
+
+            $request = Request::factory()->create([
+                'user_id' => $user->id
+            ]);
+        });
     }
 }

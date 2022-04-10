@@ -15,7 +15,7 @@ class CreateArtistsTable extends Migration
     {
         Schema::create('artists', function (Blueprint $table) {
             $table->id();
-            $table->string('description')->nullable();
+            $table->longText('description')->nullable();
             $table->boolean('commercial_use')->nullable();
             $table->Biginteger('duration')->nullable();
             $table->float('start_price')->nullable();

@@ -40,8 +40,8 @@
                             <p class="small text-center">no image</p>
                         @endif
                         <div class="col-lg-12 my-4" class="dropzone" id="user-profile">
-                            {{-- <label for="image" class="form-label">Upload your profile picture:</label>
-                            <input class="form-control" type="file" name="image" id="image"> --}}
+                            <label for="image" class="form-label">Upload your profile picture:</label>
+                            <input class="form-control" type="file" name="image" id="image">
                         </div>
                     </div>
                     <div class="col-lg-12">

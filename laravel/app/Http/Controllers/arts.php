@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Car;
+use App\Models\Artist;
 use Auth;
 
 class arts extends Controller
@@ -31,11 +32,15 @@ class arts extends Controller
 
 
         //get all from the Car Table
-        $cars = Car::all();
+        // $artists = DB::select('SELECT * FROM artists LIMIT 6');
+        $artists = Artist::with('users')->paginate(6);
+
+        // dd($artists);
+
         return view($car, [
             //the data receive from Car::all will
             // be assigned to 'cars'
-            'cars' => $cars
+            'artists' => $artists
         ]);
     }
 

@@ -58,6 +58,7 @@ Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('art
 
 // art requests
 Route::get('art/requests', [UserArtController::class, 'index'])->name('arts.requests');
+Route::get('art/requests/first', [UserArtController::class, 'firstReq'])->name('arts.requests.first');
 Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
 Route::get('art/requests/{id}', [UserArtController::class, 'requestView'])->name('arts.requests.view');

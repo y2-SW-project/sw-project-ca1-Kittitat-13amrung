@@ -3733,11 +3733,19 @@ div.sticky {
   top: 0;
 }
 
+.requests {
+  overflow-y: auto;
+}
+
 .request-select {
-  min-height: 1200px;
-  max-height: 1210px;
+  height: 600px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.request-show {
+  height: 968px;
+  overflow-y: hidden;
 }
 
 .request-pointer {

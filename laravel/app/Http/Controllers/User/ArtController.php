@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Request as Req;
 use App\Models\Artist;
@@ -23,7 +24,7 @@ class ArtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // authentication
         $req = 'user.arts.request'; // declaring a local variable
@@ -31,6 +32,10 @@ class ArtController extends Controller
         
         // $requests = Req::oldest('created_at')->get();
         $clients = Req::with('users')->oldest('created_at')->get();
+        
+        foreach ($clients as $client) {
+            $client->description = Str::limit($client->description, 100, ' ...');
+        }
 
         // dd($clients);
 
@@ -39,6 +44,17 @@ class ArtController extends Controller
             // 'requests' => $requests,
             'clients' => $clients
         ]);
+    }
+
+    public function firstReq() {
+        $request = Req::with('users')->first();
+        // return $client = json_encode($client);
+
+        $client = User::where('id', $request->user_id)->get('name')->first();
+
+        $request->user_id = $client->name;
+        
+        return $request->makeHidden('users');
     }
 
     /**
@@ -63,6 +79,15 @@ class ArtController extends Controller
         ]);
     }
 
+    public function artistView($id) {
+        $artist = Artist::findOrFail($id)->with('users')->get()->first();
+        // $artist->users->makeHidden('password');
+// dd($artist);
+        return view('user.arts.view', [
+            'artist' => $artist
+        ]);
+    }
+ 
     public  function uploadFile(Request $request)  
     {  
         $artist = Artist::where('user_id', $request->user()->id)->first();
@@ -255,9 +280,5 @@ class ArtController extends Controller
      */
     public function destroy($id)
     {
-        $req = Req::findOrFail($id);
-        $req->delete();
-
-        return redirect()->route('arts.requests');
     }
 }
