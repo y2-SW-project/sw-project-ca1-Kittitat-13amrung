@@ -129,7 +129,7 @@
 
             </div>
 
-            <div class="position-relative col-lg-7 my-5">
+            <div class="position-relative col-lg-8 my-5">
                 <div class="p-2 sticky request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
                     id="req-detail">
                     <div class="tags d-flex">
@@ -138,10 +138,10 @@
                     </div>
                     <div id="requestTitle">
                     </div>
-                    <div class="request-select px-3" id="requestBody">
+                    <div class="request-select px-auto" id="requestBody">
                     </div>
                 </div>
             </div>
-
+            {{-- {{ dd(Auth::user()) }} --}}
     </main>
 @endsection

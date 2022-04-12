@@ -39951,7 +39951,7 @@ $(window).on("load", function () {
         desc = description; // console.log(desc);
 
         var requestBody = "<p class='h5 my-5'><i class='bi bi-calendar-event pe-3'></i> Expected Begin Date: <span class='paragraph h6'>" + start_date + "</span></p>" + "<p class='h5 my-5'><i class='bi bi-calendar-x pe-3'></i> Expected Deadline Date: <span class='paragraph h6'>" + end_date + "</span></p>" + "<p class='h5 my-5'> Price Range: <span class='paragraph h6'>From €" + start_price + " To €" + end_price + "</span></p><hr>" + // "<input type='hidden' name='view' id='view' value='" + description + "'>" +
-        "<div class='h3 my-5 paragraph text-center' id='viewer'></div><hr>" + "<p class='paragraph text-end ms-auto my-5'> Document supplied by " + user_id + "</p>"; // console.log(tr_str);
+        "<div class='my-5 pe-auto paragraph text-center' id='viewer'></div><hr>" + "<p class='paragraph text-end ms-auto my-5'> Document supplied by " + user_id + "</p>"; // console.log(tr_str);
 
         $('#requestTitle').append(title);
         $('#requestBody').append(requestBody);

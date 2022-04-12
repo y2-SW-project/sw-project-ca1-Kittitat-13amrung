@@ -28,19 +28,36 @@ class arts extends Controller
 
         // authentication
         // $user = Auth::user();
-        $car = 'index'; // declaring a local variable
+        $home = 'index'; // declaring a local variable
 
 
         //get all from the Car Table
         // $artists = DB::select('SELECT * FROM artists LIMIT 6');
-        $artists = Artist::with('users')->paginate(6);
+        $artists = Artist::with('users')->paginate(6); 
 
-        // dd($artists);
+        $recents = "";
 
-        return view($car, [
+        if (session()->has('recentSearch')){
+            // for ($i = count(session('recentSearch')) - 1; $i >= 0; $i--) {
+            //     $recent = session('recentSearch')[$i];
+            //     $recents[] = Artist::with('users')->where('user_id', $recent)->get()->makeHidden('description');
+            //     // $recents->reverse();
+            //     dd($recents);
+            // } 
+            // dd(session('recentSearch'));
+
+            // $recents->makeHidden('description');
+        }
+
+        dd(session('recentSearch'));
+
+        // dd($art  ists);
+
+        return view($home, [
             //the data receive from Car::all will
             // be assigned to 'cars'
-            'artists' => $artists
+            'artists' => $artists,
+            'recents' => $recents
         ]);
     }
 

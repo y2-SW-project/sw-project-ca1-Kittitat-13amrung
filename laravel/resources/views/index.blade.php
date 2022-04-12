@@ -33,19 +33,20 @@
             </div>
         </main>
     </div>
-
+    {{-- {{ dd(session('artists')) }} --}}
     <div class="container-fluid">
         <section class="container">
-
-            <div class="py-5">
-                <span class="display-5 text-uppercase">
-                    <i class="bi bi-file-image"></i>
-                    Recent Search
-                </span>
-                <div class="d-flex mt-5">
-
+            @if(Auth::check() and !is_null(session('recentSearch')))
+                <div class="py-5">
+                    <span class="display-5 text-uppercase">
+                        <i class="bi bi-file-image"></i>
+                        Recent Search
+                    </span>
+                    <div class="row mt-5">
+                        {{-- @each('layouts.recentSearch', $recents, 'artist') --}}
+                    </div>
                 </div>
-            </div>
+            @endif
         </section>
     </div>
 

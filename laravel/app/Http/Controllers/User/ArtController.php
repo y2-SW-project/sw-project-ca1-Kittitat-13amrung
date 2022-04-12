@@ -71,16 +71,24 @@ class ArtController extends Controller
     public function artist()
     {
         $artists = Artist::with('users')->latest('created_at')->get();
-
+        
         // dd($artists);
+        // dd(session('recentSearch')[0]->id);
         
         return view('user.arts.artist', [
             'artists' => $artists
         ]);
     }
-
+    
     public function artistView($id) {
         $artist = Artist::findOrFail($id)->with('users')->get()->first();
+
+        if (Auth::check()) {
+            session()->push('recentSearch.artists', Artist::where('id', $id)->with('users')->get());
+        }
+
+        // session()->forget('recentSearch');
+
         // $artist->users->makeHidden('password');
 // dd($artist);
         return view('user.arts.view', [

@@ -113,6 +113,10 @@ div.sticky {
 
 .request-show {
     height: 968px;
+    min-height: 30px;
+    min-width: 30px;
+    resize: both;
+    max-width: fit-content;
     overflow-y: hidden;
 }
 
