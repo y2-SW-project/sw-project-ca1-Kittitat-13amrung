@@ -33,13 +33,16 @@ class arts extends Controller
 
         //get all from the Car Table
         // $artists = DB::select('SELECT * FROM artists LIMIT 6');
-        $artists = Artist::with('users')->paginate(6); 
+
+
+        $artists = Artist::with('users')->orderBy('created_at', 'asc')->paginate(6);
 
         $recents = "";
 
-        if (session()->has('recentSearch')){
+        if (session()->has('recentSearch.artists')){
             // for ($i = count(session('recentSearch')) - 1; $i >= 0; $i--) {
-            //     $recent = session('recentSearch')[$i];
+                $recents = session('recentSearch.artists');
+                // dd($recents->unique());
             //     $recents[] = Artist::with('users')->where('user_id', $recent)->get()->makeHidden('description');
             //     // $recents->reverse();
             //     dd($recents);
@@ -49,7 +52,7 @@ class arts extends Controller
             // $recents->makeHidden('description');
         }
 
-        dd(session('recentSearch'));
+        // dd(session('recentSearch'));
 
         // dd($art  ists);
 

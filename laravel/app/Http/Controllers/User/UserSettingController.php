@@ -187,9 +187,17 @@ class UserSettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function favourites()
     {
-        //
+        // $user = Auth::user();
+
+        // $favourites = $user->getFavoriteItems(Artist::class)->get();
+
+        $users = User::with('favorites')->get();
+
+        dd($users);
+
+        return view('user.settings.favourites', compact($favourites));
     }
 
     /**

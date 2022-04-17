@@ -1,15 +1,15 @@
 <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
 
-    {{-- {{dd($artist[0][0])}} --}}
+    {{-- {{dd($artist)}} --}}
     <div class="artist">
-        <a href="{{ route('artist.view', $artist[0]->id) }}" class="nav-item">
-            <div id="artistCarouselIndicators{{ $artist[0]->id }}" class="carousel slide" data-bs-ride="carousel">
+        <a href="{{ route('artist.view', $artist->id) }}" class="nav-item">
+            <div id="artistCarouselIndicators{{ $artist->id }}" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist[0]->id }}"
+                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist->id }}"
                         data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist[0]->id }}"
+                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist->id }}"
                         data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist[0]->id }}"
+                    <button type="button" data-bs-target="#artistCarouselIndicators{{ $artist->id }}"
                         data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner w-100 img-container rounded rounded-5 border-top border-end border-2 mx-auto">
@@ -26,9 +26,9 @@
             </div>
             <div class="col-lg-12 d-flex py-4 px-4 artist-body">
                 <div class="col-lg-2 col-md-2 col-sm-1 col-1">
-                    @if ($artist[0]->users->image)
+                    @if ($artist->users->image)
                         <img class="profile-img w-100 rounded-circle "
-                            src="{{ asset('/storage/profile/' . $artist[0]->users->image) }}" alt="profile_image">
+                            src="{{ asset('/storage/profile/' . $artist->users->image) }}" alt="profile_image">
                     @else
                         <img class="img-fluid w-100" src="{{ asset('/storage/image/person-circle.svg') }}"
                             alt="profile_image">
@@ -38,15 +38,15 @@
                 <div class="col-lg-4 ms-3">
 
                     <h2 class="h4">
-                        {{ $artist[0]->users->name }}
+                        {{ $artist->users->name }}
                     </h2>
                     <h6 class="price small text-muted">
-                        Around {{ '€' . $artist[0]->start_price . '- €' . $artist[0]->end_price }}</h6>
+                        Around {{ '€' . $artist->start_price . '- €' . $artist->end_price }}</h6>
                 </div>
 
                 <div class="col-lg-5 col-md-7 col-sm-6 col-6 block align-self-center">
                     <div class="navbar-item fs-5 text-lg-end text-md-center text-sm-end text-end">
-                        @if ($artist[0]->status == true)
+                        @if ($artist->status == true)
                             <span class="text-success">
                                 available
                             </span>

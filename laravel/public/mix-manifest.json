@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/request.js": "/js/request.js",
     "/js/createRequest.js": "/js/createRequest.js",
+    "/js/artists.js": "/js/artists.js",
     "/js/artistProfile.js": "/js/artistProfile.js",
     "/js/artistShow.js": "/js/artistShow.js",
     "/js/userProfile.js": "/js/userProfile.js",

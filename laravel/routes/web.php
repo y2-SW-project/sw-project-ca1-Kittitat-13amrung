@@ -38,37 +38,70 @@ Auth::routes();
 // Route to home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 // For Ordinary User auth, go to these routes
 Route::get('/user/home', [Arts::class, 'index'])->name('user.home');
 
-// settings information
-Route::get('/user/profile', [AdminSetting::class, 'index'])->name('user.profile');
-Route::get('/artist/profile', [AdminSetting::class, 'artist'])->name('user.profile.artist');
-Route::post('/user/profile', [AdminSetting::class, 'profileUpdate'])->name('user.profile.update');
-Route::post('/user/profile/update', [AdminSetting::class, 'uploadProfile'])->name('user.image.update');
-Route::post('/artist/profile/update', [AdminSetting::class, 'artistUpdate'])->name('artist.profile.update');
+Route::group([
+    'prefix' => 'admin',
+    'middleware' => 'is_admin',
+    'as' => 'admin.',
+], function() {
+    
+});
+
+Route::group([
+    'prefix' => 'user',
+    'as' => 'user.',
+], function() {
+    // User info settings
+    Route::get('profile', [AdminSetting::class, 'index'])->name('profile');
+    Route::get('favourites', [AdminSetting::class, 'favourites'])->name('favourites');
+
+    // Artist info settings
+    Route::get('artist/profile', [AdminSetting::class, 'artist'])->name('profile.artist');
+
+
+    // Post and Update User Info 
+    Route::post('profile', [AdminSetting::class, 'profileUpdate'])->name('profile.update');
+    Route::post('profile/update', [AdminSetting::class, 'uploadProfile'])->name('image.update');
+});
+
+Route::group([
+    'prefix' => 'artist',
+    'as' => 'artist.',
+], function() {
+    Route::get('/', [UserArtController::class, 'artist'])->name('show');
+    Route::get('/view/{name}', [UserArtController::class, 'artistView'])->name('view');
+    Route::post('/fetch/like', [UserArtController::class, 'ajaxLike'])->name('like');
+    Route::post('/fetch/favourite', [UserArtController::class, 'ajaxFavourite'])->name('favourite');
+    Route::post('/profile/update', [AdminSetting::class, 'artistUpdate'])->name('profile.update');
+    Route::post('/profile-upload', [UserArtController::class, 'uploadProfile'])->name('upload.profile');
+    Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('upload.file');
+});
 
 Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
 Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
-Route::get('artist', [UserArtController::class, 'artist'])->name('artist.show');
-Route::get('/view/artist/{name}', [UserArtController::class, 'artistView'])->name('artist.view');
-Route::post('/profile-upload', [UserArtController::class, 'uploadProfile'])->name('artist.upload.profile');
-Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('artist.upload.file');
-
-// art requests
-Route::get('art/requests', [UserArtController::class, 'index'])->name('arts.requests');
-Route::get('art/requests/first', [UserArtController::class, 'firstReq'])->name('arts.requests.first');
+Route::group([
+    'prefix' => 'art',
+    'as' => 'arts.requests',
+], function() {
+    // art requests
+    Route::get('requests', [UserArtController::class, 'index']);
+    Route::get('requests/first', [UserArtController::class, 'firstReq'])->name('.first');
+    Route::get('requests/show', [UserArtController::class, 'show'])->name('.show');
+    Route::get('requests/{id}', [UserArtController::class, 'requestView'])->name('.view');
+    Route::get('request/create', [AdminArtController::class, 'create'])->name('.create');
+    Route::get('request/edit/{id}', [AdminArtController::class, 'edit'])->name('.edit');
+    Route::post('delete/{id}', [AdminArtController::class, 'destroy'])->name('.delete');
+    Route::post('store/{id}', [AdminArtController::class, 'update'])->name('.update');
+    // allow admin to post these new car data on the database
+    Route::post('requests/store', [AdminArtController::class, 'store'])->name('.store');
+    Route::get('requests/?id={id}', [UserArtController::class, 'show'])->name('.show');
+});
 Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
-Route::get('art/requests/{id}', [UserArtController::class, 'requestView'])->name('arts.requests.view');
-Route::get('art/request/create', [AdminArtController::class, 'create'])->name('arts.requests.create');
-Route::get('art/edit/request/{id}', [AdminArtController::class, 'edit'])->name('arts.requests.edit');
-Route::post('art/delete/request/{id}', [AdminArtController::class, 'destroy'])->name('arts.requests.delete');
-Route::post('/art/store/request/{id}', [AdminArtController::class, 'update'])->name('arts.requests.update');
-// allow admin to post these new car data on the database
-Route::post('arts/requests/store', [AdminArtController::class, 'store'])->name('arts.requests.store');
-Route::get('art/requests/?id={id}', [UserArtController::class, 'show'])->name('arts.requests.show');
 
 // For Admin auth, go to these routes
 Route::get('/admin/home', [Arts::class, 'index'])->name('admin.home');

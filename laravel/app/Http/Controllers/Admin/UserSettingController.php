@@ -164,6 +164,18 @@ class UserSettingController extends Controller
         // $artist->save();
     }
 
+    public function favourites()
+    {
+        $user = Auth::user();
+
+        $favourites = $user->getFavoriteItems(Artist::class)->paginate(6);
+
+        // dd($favourites);
+        return view('user.settings.favourites', [
+            'favourites' => $favourites
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

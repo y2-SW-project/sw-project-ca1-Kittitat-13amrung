@@ -57,6 +57,48 @@ class ArtController extends Controller
         return $request->makeHidden('users');
     }
 
+    public function show() {
+        $clients = Req::with('users')->oldest('created_at')->paginate(6);
+        
+        foreach ($clients as $client) {
+            $client->description = Str::limit($client->description, 60, ' ...');
+        }
+
+        // dd($clients);
+
+        echo($clients); 
+    }
+
+    public function ajaxFavourite(Request $request) {
+        if ($request->ajax()) {
+            $artist = Artist::findOrFail($request->id);
+    
+            $reply = Auth::user()->toggleFavorite($artist);
+
+            if (Auth::user()->hasFavorited($artist)) {
+                $response = $artist;
+            } else {
+                $response = true;
+            }
+            // dd($response);
+            return response()->json(['favourited'=>$response]);
+        }
+
+
+    }
+
+    public function ajaxLike(Request $request) {
+        if ($request->ajax()) {
+            $artist = Artist::findOrFail($request->id);
+    
+            $response = auth()->user()->toggleLike($artist);
+    
+            return response()->json(['liked'=>$response]);
+        }
+
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -70,10 +112,17 @@ class ArtController extends Controller
     // redirect to artists page
     public function artist()
     {
-        $artists = Artist::with('users')->latest('created_at')->get();
-        
+        $artists = Artist::with('users')->latest('created_at')->paginate(12);
+        $artist = Artist::findOrFail(20);
+        // dd(Auth::user()->hasFavorited($artist));
         // dd($artists);
         // dd(session('recentSearch')[0]->id);
+
+        // if (Auth::user()->hasFavorited($artist)) {
+        //     $response = true;
+        // } else {
+        //     $response = false;
+        // }
         
         return view('user.arts.artist', [
             'artists' => $artists
@@ -81,16 +130,23 @@ class ArtController extends Controller
     }
     
     public function artistView($id) {
-        $artist = Artist::findOrFail($id)->with('users')->get()->first();
+        $artist = Artist::where('id', $id)->with('users')->get()->first();
+
+        $user = Auth::user();
+        // $user->favorite($artist);
+
+
+        // dd($user->getFavoriteItems(Artist::class));
+        
 
         if (Auth::check()) {
-            session()->push('recentSearch.artists', Artist::where('id', $id)->with('users')->get());
+            session()->push('recentSearch.artists', $id);
         }
 
         // session()->forget('recentSearch');
 
         // $artist->users->makeHidden('password');
-// dd($artist);
+// dd(session('recentSearch.artists'));
         return view('user.arts.view', [
             'artist' => $artist
         ]);

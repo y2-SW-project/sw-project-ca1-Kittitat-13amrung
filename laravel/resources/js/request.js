@@ -3,6 +3,7 @@ import Editor from "@toast-ui/editor";
 
 let desc;
 $( window ).on( "load", () => {
+    
     $.ajax({
         url: '/art/requests/first',
         type: 'get',
@@ -62,7 +63,7 @@ $( window ).on( "load", () => {
 
     window.fetchRequest = function(id) {
         $('html, body').animate({
-            scrollTop: $("#request"+id).offset().top - 10
+            scrollTop: $("#request"+id).offset().top - 225
     }, 200);
     // console.log($(window).height());
 

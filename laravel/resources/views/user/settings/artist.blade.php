@@ -1,8 +1,9 @@
 @extends ('layouts.app')
 @section('content')
     <script src="{{ asset('js/artistProfile.js') }}" defer></script>
+    <div class="container my-5 pt-5">
     @include('layouts.profile')
-    <div class="profile">
+    <div class="border px-5">
         <div class="display-6 pt-5">
             <i class="display-4 bi bi-person-circle"></i>
             {{ __('Artist Profile') }}
@@ -82,4 +83,7 @@
 
         </div>
     </div>
+
+</div>
+@include('layouts.footer')
 @endsection

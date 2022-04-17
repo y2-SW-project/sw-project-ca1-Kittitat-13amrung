@@ -1,11 +1,14 @@
 @extends ('layouts.app')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
 <script src="{{ asset('js/userProfile.js') }}" defer></script>
+
 @section('content')
-    <div class="container">
+    <div class="container intro my-5">
         <div class="row">
             <div class="display-6">
                 <i class="display-4 bi bi-person-circle"></i>
-                {{ __('Artist Profile') }}
+                {{ __('User Profile') }}
             </div>
         </div>
         @if ($errors->any())
@@ -26,23 +29,22 @@
         @endif
     </div>
     @include('layouts.profile')
-
-    <div class="col-lg-7 ps-5 ms-auto profile">
+    <div class="col-lg-7 ps-5 border">
         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-lg-12 mt-4">
                 <div class="d-flex  col-lg-7">
                     <div class="col-lg-8">
                         @if (Auth::user()->image)
-                            <img class="img-fluid  rounded-2" src="{{ asset('/storage/profile/' . Auth::user()->image) }}"
+                            <img class="rounded-2" src="{{ asset('/storage/profile/' . Auth::user()->image) }}"
                                 width="235px" alt="profile_image">
                         @else
                             <p class="small text-center">no image</p>
                         @endif
-                        <div class="col-lg-12 my-4" class="dropzone" id="user-profile">
+                        {{-- <div class="col-lg-12 my-4" class="dropzone" id="user-profile">
                             <label for="image" class="form-label">Upload your profile picture:</label>
                             <input class="form-control" type="file" name="image" id="image">
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-12">
 

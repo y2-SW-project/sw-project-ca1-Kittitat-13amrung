@@ -5242,6 +5242,19 @@ console.log("script loaded");
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+$(window).on("load", function () {
+  $(window).scroll(function () {
+    if ($(this).scrollTop() >= 100) {
+      console.log("test");
+      $('.nav-header').addClass('nav-header-transition');
+      $('.nav-header a').addClass('nav-text-transition');
+    } else {
+      $('.nav-header').removeClass('nav-header-transition');
+      $('.nav-header a').removeClass('nav-text-transition');
+    }
+  });
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

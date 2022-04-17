@@ -43,7 +43,7 @@
                         {{ __('Your Requests') }}
                     </li>
                 </a>
-                <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                <a href="{{ route('user.favourites') }}" class="nav-link nav-size text-dark">
                     <li class="navbar-item nav-menu py-4">
                         <i class="bi bi-heart"></i>
                         {{ __('Favourites') }}

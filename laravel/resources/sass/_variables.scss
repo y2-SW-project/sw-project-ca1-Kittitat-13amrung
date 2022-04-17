@@ -1,5 +1,5 @@
 // Body
-$body-bg: #f1e0ac;
+$body-bg: #E0D9D8;
 
 // Typography
 $font-family-sans-serif: "Patua One", cursive;
@@ -11,8 +11,9 @@ $dropdown-min-width: 12rem;
 $modal-content-bg: #f3e8c5;
 $input-bg: #e8e8e8;
 
-$primary: #6b7697;
-$secondary: #74959a;
+$primary: #E5926F;
+$secondary: #FFF8BC;
+$pastel-white: #efefef;
 $tertiary: #6b7697;
 $font-color: #495371;
 $border-color: $font-color;
@@ -22,7 +23,7 @@ $carousel-indicator-height: 16px;
 $carousel-indicator-spacer: 12px;
 $carousel-indicator-hit-area-height: 15px;
 $carousel-indicator-opacity: 0.4;
-$carousel-indicator-active-bg: $secondary;
+$carousel-indicator-active-bg: $pastel-white;
 
 @import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&family=League+Spartan:wght@300;400;600;700&family=Oleo+Script+Swash+Caps&family=Patua+One&display=swap");
 @import url(https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css);
@@ -42,29 +43,154 @@ $carousel-indicator-active-bg: $secondary;
 
 .paragraph {
     font-family: "League Spartan";
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     font-weight: 400;
     line-height: 150%;
 }
 
 .logo-brand {
-    color: #74959a;
+    color: #FFFFFF;
     padding-bottom: 0.32rem;
     font-family: $font-family-logo;
     font-size: 4.25rem;
     margin-right: 1rem;
     text-decoration: none;
     white-space: nowrap;
-    text-shadow: 3px 3px 0 $body-bg, -1px -1px 0 $body-bg, 1px -1px 0 $body-bg,
-        -1px 1px 0 $body-bg, 1px 1px 0 $body-bg;
+    text-shadow: 3px 2px 0px rgba(184, 116, 38, 0.5);
 }
+
+.looking {
+    color: $secondary;
+    padding-bottom: 0.32rem;
+    font-family: $font-family-logo;
+    font-size: 4.25rem;
+    margin-right: 1rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.footer-logo {
+    padding-bottom: 0.32rem;
+    font-family: $font-family-logo;
+    font-size: 2.25rem;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.username {
+    white-space: nowrap;
+}
+
+
+.nav-text {
+    text-shadow: 3px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.nav-paragraph {
+    text-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25);
+}
+
+.drop-shadow {
+    filter: drop-shadow(2px 4px 0px rgba(0, 0, 0, 0.25));
+}
+
+.text-outline-success {
+    text-shadow: 1px 1px 0px rgba(52, 196, 40, 0.5);
+}
+
+.text-outline-danger {
+    text-shadow: 1px 1px 0px rgba(196, 40, 40, 0.5);
+}
+
+@media (max-width: 2560px) { 
+    .main-header {
+        height: 600px;
+    }
+
+    .intro {
+        padding-top: 75px;
+    }
+
+ }
+
+ .label {
+    cursor: pointer;
+  }
+
+  .progress {
+    display: none;
+    margin-bottom: 1rem;
+  }
+
+  .alert {
+    display: none;
+  }
+
+  .img-container img {
+    max-width: 100%;
+  }
+ 
+ .main-header {
+    background: url(../../storage/app/public/image/Lourve.svg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+ }
+
+ @media (max-width: 1920px) { 
+    .main-header {
+        height: 700px;
+    }
+
+    .intro {
+        padding-top: 150px;
+    }
+ }
+
+.nav-header-transition {
+    // background-color:rgba(0, 0, 0, 0.25);
+    animation: opacity 500ms ease-in forwards;
+    color:rgb(255, 255, 255)    
+ }
+
+.nav-header-transition::after {
+    border-bottom: 10px solid #484848;
+}
+
+ @keyframes opacity {
+    from {
+        background-color:rgba(229, 146, 111, 0);
+        text-shadow: 0px 0px 0px rgba(184, 116, 38, 0);
+    }
+
+    to {
+        background-color:#dd8762;
+        color: rgb(255, 255, 255);  
+        text-shadow: 3px 2px 0px rgba(184, 116, 38, 0.75);
+    }
+}
+
+.nav-text-transition {
+    animation: colorChange 300ms ease-in forwards;
+}
+
+@keyframes colorChange {
+    0% {
+        color: black;
+    }
+
+    1% {
+        color: black;
+    }
+
+    100% {
+        color: rgb(255, 255, 255);
+    }
+}
+
+
 
 .bg-tertiary {
     background: $tertiary;
-}
-
-.logo-brand:hover {
-    color: #6b7697;
 }
 
 .blank-image {
@@ -76,7 +202,7 @@ $carousel-indicator-active-bg: $secondary;
 }
 
 .profile {
-    background: #f3e8c5;
+    background: $primary;
 }
 
 .nav-menu:hover {
@@ -98,7 +224,13 @@ $carousel-indicator-active-bg: $secondary;
 
 div.sticky {
     position: sticky;
-    top: 0;
+    top: 225px;
+}
+
+.filter-sticky {
+    position: sticky;
+    top: 150px;
+    z-index: 1200;
 }
 
 .requests {
@@ -155,14 +287,27 @@ div.sticky {
 
 .background-img {
     position: absolute;
+    width:max-content;
     top: 0;
+    margin-left: auto;
+    margin-right: auto;
     z-index: -10;
+    overflow: hidden;
 }
 
-.artist {
-    border-radius: 0 5px 25px 25px;
-    background: $modal-content-bg;
-    box-shadow: 3px 4px #495371;
+.artist:hover {
+    animation: jumpOut 600ms ease-in-out forwards;
+
+}
+
+@keyframes jumpOut {
+    from {  
+        filter: drop-shadow(0px 0px 0px rgba(255, 171, 124, 0));
+    }
+    to {
+        transform : translateX(-5px) translateY(-10px);
+        filter: drop-shadow(6px 16px 0px rgba(255, 171, 124, 1));
+    }
 }
 
 .profile-img {
@@ -172,7 +317,9 @@ div.sticky {
 
 .artist-body {
     border-radius: 0 0 25px 25px;
-    background: #f7efda;
+    background: $pastel-white;
+    color: #484848;
+    white-space: nowrap;
 }
 
 .artist a {
@@ -204,3 +351,18 @@ div.sticky {
     height: 250px;
     margin: auto;
 }
+
+.favourite {
+    z-index: 2000;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+}
+
+.like {
+    z-index: 2000;
+    top: 10px;
+    left: 25px;
+    cursor: pointer;
+}
+

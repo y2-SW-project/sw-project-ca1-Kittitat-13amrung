@@ -4,8 +4,8 @@
 @section('content')
     {{-- <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
         class="d-md-block d-none img-fluid background-img"> --}}
-    <main class="container">
-        <div class="d-flex justify-content-around">
+    <main class="container intro">
+        <div class="mt-5 d-flex justify-content-around">
             <div class="display-6">
                 <i class="display-2 bi bi-person-circle"></i>
                 {{ __('Requested From Clients') }}
@@ -17,13 +17,11 @@
             </div>
         </div>
 
-        <div class="row">
-        </div>
-
         <div class="d-flex">
 
             <div class="requests">
 
+                
                 <div class="col-lg-12">
                     @foreach ($clients as $client)
                         <div class="my-5" id="request{{ $client->id }}" defer>
@@ -37,7 +35,7 @@
                                         </span>
                                     @else
                                         <span
-                                            class="text-white border-bottom border-end border-4 border-muted rounded-pill px-3 py-1 bg-secondary">
+                                            class="text-white border-bottom border-end border-4 border-muted rounded-pill px-3 py-1 bg-primary">
                                             Personal Uses
                                         </span>
                                     @endif
@@ -47,14 +45,14 @@
                                     <div class="float-end">
                                         @if ($client->digital_art == 1)
                                             <span
-                                                class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize pill-hover">
+                                                class="ms-auto p-2 mx-2 small rounded-pill bg-dark text-capitalize pill-hover">
                                                 Digital Art
                                             </span>
                                         @endif
 
                                         @if ($client->traditional_art == 1)
                                             <span
-                                                class="ms-auto p-2 mx-2 small rounded-pill bg-secondary text-capitalize pill-hover">
+                                                class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize pill-hover">
                                                 Traditional Art
                                             </span>
                                         @endif
@@ -96,7 +94,7 @@
                                         <hr>
                                         <div class="d-flex justify-content-between">
                                             <span class="text-muted fs-6 paragraph">
-                                                View Request
+                                                Requested by:
                                             </span>
                                             <p class="paragraph">
                                                 {{ $client->users->name }}
@@ -104,10 +102,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- {{ dd(auth()->user()->role == 1) }} --}}
+                                @if (!Auth::guest())
+                                @if ($client->users->id == Auth::id() or Auth::user()->hasRole('admin'))
                                 <div class="d-flex text-center request-btn">
-                                    {{-- {{ dd(auth()->user()->role == 1) }} --}}
-                                    @if (!Auth::guest())
-                                        @if ($client->users->id == Auth::user()->id or auth()->user()->role == 1)
                                             <a href="{{ route('arts.requests.edit', $client->id) }}"
                                                 class="request-btn rounded-0 text-success btn-lg w-50">Edit
                                                 Request</a>
@@ -118,20 +116,38 @@
                                                     class="request-btn btn rounded-0 btn-outline-danger btn-lg w-100">Delete
                                                     Request</button>
                                             </form>
+                                        </div>
                                         @endif
                                     @endif
-                                </div>
                             </div>
 
                         </div>
                     @endforeach
+
+                    
                 </div>
 
             </div>
 
             <div class="position-relative col-lg-8 my-5">
-                <div class="p-2 sticky request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
+
+                <div class="d-flex justify-content-end filter-sticky ms-3 mb-2">
+                    <div class="col-lg-3">
+                        <div class="form-floating">
+                            <select class="form-select bg-primary text-white" id="sorting" aria-label="Sort by">
+                              <option selected>Newest</option>
+                              <option value="1">Oldest</option>
+                              <option value="2">Earliest Deadline</option>
+                              <option value="3">Latest Deadline</option>
+                            </select>
+                            <label for="sorting" class="text-light">Sort by:</label>
+                          </div>
+                    </div>
+                </div>
+
+                <div class="p-5 sticky request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
                     id="req-detail">
+                    
                     <div class="tags d-flex">
                         <div class="my-5 pe-5 mx-1 me-auto text-start" id="commTag"></div>
                         <div class="my-5 pe-5 mx-2 ms-auto text-white text-end" id="artTag"></div>
@@ -142,6 +158,7 @@
                     </div>
                 </div>
             </div>
-            {{-- {{ dd(Auth::user()) }} --}}
+            {{-- {{ dd(Auth::user()->hasRole('admin')) }} --}}
+        </div>
     </main>
 @endsection

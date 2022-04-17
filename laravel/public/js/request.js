@@ -39896,7 +39896,7 @@ $(window).on("load", function () {
 
   window.fetchRequest = function (id) {
     $('html, body').animate({
-      scrollTop: $("#request" + id).offset().top - 10
+      scrollTop: $("#request" + id).offset().top - 225
     }, 200); // console.log($(window).height());
 
     $('.request-select').animate({

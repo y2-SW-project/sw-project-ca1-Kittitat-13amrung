@@ -14,6 +14,7 @@ const mix = require('laravel-mix');
 mix.js('resources/js/app.js', 'public/js');
 mix.js('resources/js/request.js', 'public/js');
 mix.js('resources/js/createRequest.js', 'public/js');
+mix.js('resources/js/artists.js', 'public/js');
 mix.js('resources/js/artistProfile.js', 'public/js');
 mix.js('resources/js/artistShow.js', 'public/js');
 mix.js('resources/js/userProfile.js', 'public/js');

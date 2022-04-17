@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
+use Overtrue\LaravelLike\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 class Artist extends Model
 {
-    use HasFactory;
+    use HasFactory, Favoriteable, Likeable;
 
     protected $fillable = ['user_id'];
 

@@ -25,19 +25,12 @@
 
 <body class="">
     <div id="app text-colour">
-        <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu"
+        <div class="offcanvas bg-primary offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu"
             aria-labelledby="menuLabel">
             <div class="offcanvas-header">
                 <div class="offcanvas-title" id="offcanvasScrollingLabel">
+                    @auth
                     <div class="username">
-                        @guest
-                            @if (Route::has('login'))
-                                <div class="mx-4 display-5 my-5">
-                                    <i class="bi bi-person-circle pe-2"></i>
-                                    {{ __('Login') }}
-                                </div>
-                            @endif
-                        @else
                             <div class="row my-5">
                                 <div class="col-lg-12 d-flex">
                                     <div class="col-lg-5">
@@ -45,12 +38,15 @@
                                             <img class="img-fluid rounded-circle"
                                                 src="{{ asset('/storage/profile/' . Auth::user()->image) }}"
                                                 alt="profile_image">
+                                        @else
+                                        <img class="img-fluid w-100 align-self-center mx-3"
+                                        src="{{ asset('/storage/image/person-circle.svg') }}" alt="profile_image">
                                         @endif
                                     </div>
 
-                                    <div class="mt-3 col-lg-6">
+                                    <div class="mt-3 col-lg-6 ms-auto">
 
-                                        <h2 class="d-block text-center">
+                                        <h2 class="d-block text-center username">
                                             {{ Auth::user()->name }}
                                         </h2>
                                         <div class="d-block navbar-item dropdown text-center">
@@ -61,7 +57,7 @@
                                                     available
                                                 </span>
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+                                            <div class="dropdown-menu dropdown-menu-dark dropdown-menu-start"
                                                 aria-labelledby="statusDropdown">
                                                 <a class="dropdown-item" href="#">
                                                     <i class="text-danger fs-6 bi bi-circle-fill"></i>
@@ -77,9 +73,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                        @endguest
                     </div>
+                    @endauth
                 </div>
                 <!-- <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
             </div>
@@ -228,7 +223,7 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-md navbar-light">
+    <nav class="nav-header fixed-top navbar navbar-expand-md navbar-light " style="backdrop-filter: blur(1px);">
         <div class="container">
             <a class="logo-brand d-flex" href="{{ url('/') }}">
                 <h3 class="logo-brand">
@@ -331,14 +326,14 @@
                                     <i class="bi bi-bell"></i>
                                 </a>
                             </li>
+                            <li class="navbar-item mx-2">
+                                <a class="nav-link" type="button" data-bs-toggle="offcanvas"
+                                    data-bs-target="#menu" aria-controls="menuScrolling">
+                                    <i class="bi bi-list"></i>
+                                </a>
+                            </li>
                         @endguest
 
-                        <li class="navbar-item mx-2">
-                            <a class="nav-link nav-size" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#menu" aria-controls="menuScrolling">
-                                <i class="bi bi-list fw-bold"></i>
-                            </a>
-                        </li>
 
 
                     </ul>

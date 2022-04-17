@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <script src="{{ asset('js/createRequest.js') }}" defer></script>
-    <div class="container">
+    <div class="container intro">
         <div class="row justify-content-center">
             <div class="col-md-12 my-5">
                 <div class="card">
