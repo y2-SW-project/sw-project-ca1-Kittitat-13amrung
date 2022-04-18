@@ -70,6 +70,8 @@ class ArtController extends Controller
     }
 
     public function ajaxFavourite(Request $request) {
+        $this->authorize('favouritable');
+
         if ($request->ajax()) {
             $artist = Artist::findOrFail($request->id);
     
@@ -88,6 +90,8 @@ class ArtController extends Controller
     }
 
     public function ajaxLike(Request $request) {
+        $this->authorize('likable');
+
         if ($request->ajax()) {
             $artist = Artist::findOrFail($request->id);
     
@@ -112,8 +116,8 @@ class ArtController extends Controller
     // redirect to artists page
     public function artist()
     {
+        // dd($this->authorize('likable'));
         $artists = Artist::with('users')->latest('created_at')->paginate(12);
-        $artist = Artist::findOrFail(20);
         // dd(Auth::user()->hasFavorited($artist));
         // dd($artists);
         // dd(session('recentSearch')[0]->id);

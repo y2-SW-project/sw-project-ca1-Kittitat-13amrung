@@ -17,4 +17,8 @@ class Artist extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function likes() {
+        return $this->belongsTo(Like::class, 'user_id');
+    }
+
 }

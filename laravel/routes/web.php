@@ -7,6 +7,7 @@ use App\User;
 use App\Http\Controllers\User\CarController as UserCarController;
 use App\Http\Controllers\Admin\CarController as AdminCarController;
 use App\Http\Controllers\ChatsController as ChatsController;
+use App\Http\Controllers\Auth\LoginController as LoginController;
 use App\Http\Controllers\arts as Arts;
 use App\Http\Controllers\User\UserSettingController as UserSetting;
 use App\Http\Controllers\Admin\UserSettingController as AdminSetting;
@@ -34,6 +35,7 @@ Route::get('/chat' ,function() {
 
 // Authentication to check for roles
 Auth::routes();
+Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
 
 // Route to home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

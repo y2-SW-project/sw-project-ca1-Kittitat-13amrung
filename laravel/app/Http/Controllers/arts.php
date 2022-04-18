@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Artist;
+use Likeable;
 use Auth;
 
 class arts extends Controller
@@ -29,13 +30,14 @@ class arts extends Controller
         // authentication
         // $user = Auth::user();
         $home = 'index'; // declaring a local variable
-
+        
 
         //get all from the Car Table
         // $artists = DB::select('SELECT * FROM artists LIMIT 6');
 
-
-        $artists = Artist::with('users')->orderBy('created_at', 'asc')->paginate(6);
+        $popArtists = Artist::limit(6)->withCount('likers')->orderBy('likers_count', 'desc')->get();
+        // dd($popArtists);
+        $newArtists = Artist::with('users')->orderBy('created_at', 'asc')->paginate(6);
 
         $recents = "";
 
@@ -59,7 +61,8 @@ class arts extends Controller
         return view($home, [
             //the data receive from Car::all will
             // be assigned to 'cars'
-            'artists' => $artists,
+            'popArtists' => $popArtists,
+            'newArtists' => $newArtists,
             'recents' => $recents
         ]);
     }

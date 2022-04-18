@@ -66,9 +66,35 @@
                 </a>
         </div>
         <div class="row">
-            @foreach ($artists as $artist)
+            @foreach ($popArtists as $artist)
                 <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                     <div class="artist position-relative">
+                        <div class="like position-absolute text-light">
+                            <i id="like{{ $artist->id }}" 
+                                @can ('likable') 
+                                onclick="window.fetchLike({{$artist->id}})"
+                                class="bi {{ Auth::user()->hasLiked($artist) ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up' }} fs-2"
+                                @else
+                                onclick="window.guest()"
+                                class="bi bi-hand-thumbs-up fs-2"
+                                @endcan
+                                ></i>
+    
+                            <span id="liker{{$artist->id}}-bs3">
+                                {{ $artist->likers()->count() }}
+                            </span>
+                        </div>
+                        <div class="favourite position-absolute text-light">
+                            <i id="favorite{{ $artist->id }}" 
+                                @can ('favouritable')
+                                onclick="window.fetchFavourite({{$artist->id}})" 
+                                class="bi {{ Auth::user()->hasFavorited($artist) ? 'bi-heart-fill' : 'bi-heart' }} fs-2"
+                                @else
+                                onclick="window.guest()" 
+                                class="bi bi-heart fs-2"
+                                @endcan
+                                ></i>
+                        </div>
                         <a href="{{ route('artist.view', $artist->id) }}" class="nav-item artist-link">
                             <div id="popularArtistCarouselIndicators{{ $artist->id }}" class="carousel slide"
                                 data-bs-ride="carousel">
@@ -156,9 +182,35 @@
         </div>
 
         <div class="row">
-            @foreach ($artists as $artist)
+            @foreach ($newArtists as $artist)
             <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                 <div class="artist position-relative">
+                    <div class="like position-absolute text-light">
+                        <i id="like{{ $artist->id }}" 
+                            @can ('likable') 
+                            onclick="window.fetchLike({{$artist->id}})"
+                            class="bi {{ Auth::user()->hasLiked($artist) ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up' }} fs-2"
+                            @else
+                            onclick="window.guest()"
+                            class="bi bi-hand-thumbs-up fs-2"
+                            @endcan
+                            ></i>
+
+                        <span id="liker{{$artist->id}}-bs3">
+                            {{ $artist->likers()->count() }}
+                        </span>
+                    </div>
+                    <div class="favourite position-absolute text-light">
+                        <i id="favorite{{ $artist->id }}" 
+                            @can ('favouritable')
+                            onclick="window.fetchFavourite({{$artist->id}})" 
+                            class="bi {{ Auth::user()->hasFavorited($artist) ? 'bi-heart-fill' : 'bi-heart' }} fs-2"
+                            @else
+                            onclick="window.guest()" 
+                            class="bi bi-heart fs-2"
+                            @endcan
+                            ></i>
+                    </div>
                     <a href="{{ route('artist.view', $artist->id) }}" class="nav-item artist-link">
                         <div id="popularArtistCarouselIndicators{{ $artist->id }}" class="carousel slide"
                             data-bs-ride="carousel">
