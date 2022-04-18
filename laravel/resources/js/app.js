@@ -18,9 +18,33 @@ $( window ).on( "load", () => {
         $('#email').focus();
       });
 
-      window.guest = function() {
-        $('#loginModal').modal('toggle');
+      let likeTooltip = '.like > i[data-toggle="tooltip"]';
+      let favTooltip = '.favourite > i[data-toggle="tooltip"]';
+
+      $(likeTooltip).tooltip({
+          trigger: 'manual'
+        });
+
+        $(favTooltip).tooltip({
+            trigger: 'manual'
+          });
+        
+      window.guest = function(id) {
+
+          
+          $('#'+id+'[data-toggle="tooltip').tooltip('toggle');
+
+            
+          setTimeout(
+              function() 
+              {
+                  $('#'+id+'[data-toggle="tooltip').tooltip('toggle');
+                  $('#loginModal').modal('toggle');
+              }, 700);
+
+
     }
+
 
     $.ajaxSetup({
 
@@ -33,12 +57,11 @@ $( window ).on( "load", () => {
     });
 
     window.fetchLike = function(id){   
+        let liker = $('div #liker'+id+"-bs3");
         
-        let liker = $('#liker'+id+"-bs3");
-
         let content = liker.html();
-
-        let obj = $('#like'+id);
+        
+        let obj = $('div #like'+id);
 
         // console.log(id);
         $.ajax({
@@ -50,21 +73,29 @@ $( window ).on( "load", () => {
            data:{id:id},
 
            success:function(data){
-               console.log(data);
               if(jQuery.isEmptyObject(data.liked)){
                 // console.log(liker.val());
                 // $(liker).val(liker.val() - 1);
-                $('#liker'+id+'-bs3').html(parseInt(content)-1);
+                $(liker).each(function() {
+                    $(this).html(parseInt(content)-1);
+                });
 
-                $(obj).removeClass("bi-hand-thumbs-up-fill");
-                $(obj).addClass("bi-hand-thumbs-up");
+                $(obj).each(function() {
+                    $(this).removeClass("bi-hand-thumbs-up-fill");
+                    $(this).addClass("bi-hand-thumbs-up");
+                })
                 
             }else{
                 // console.log(liker.val());
                 // $(liker).val(liker.val() + 1);
-                $('#liker'+id+'-bs3').html(parseInt(content)+1);
-                $(obj).removeClass("bi-hand-thumbs-up");
-                $(obj).addClass("bi-hand-thumbs-up-fill");
+                $(liker).each(function() {
+                    $(this).html(parseInt(content)+1);
+                });
+
+                $(obj).each(function() {
+                    $(this).removeClass("bi-hand-thumbs-up");
+                    $(this).addClass("bi-hand-thumbs-up-fill");
+                })
 
               }
 
@@ -77,7 +108,7 @@ $( window ).on( "load", () => {
 
     window.fetchFavourite = function(id){   
         
-        let obj = $('#favorite'+id);
+        let obj = $('div #favorite'+id);
 
         // console.log(id);
         $.ajax({

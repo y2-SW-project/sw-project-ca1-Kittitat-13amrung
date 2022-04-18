@@ -70,13 +70,13 @@
                 <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                     <div class="artist position-relative">
                         <div class="like position-absolute text-light">
-                            <i id="like{{ $artist->id }}" 
+                            <i id="like{{ $artist->id }}"
                                 @can ('likable') 
                                 onclick="window.fetchLike({{$artist->id}})"
                                 class="bi {{ Auth::user()->hasLiked($artist) ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up' }} fs-2"
                                 @else
-                                onclick="window.guest()"
-                                class="bi bi-hand-thumbs-up fs-2"
+                                onclick='window.guest("like{{$artist->id}}")'
+                                class="bi bi-hand-thumbs-up fs-2" data-toggle="tooltip" title="Sign In Required!" data-placement="top"
                                 @endcan
                                 ></i>
     
@@ -85,13 +85,13 @@
                             </span>
                         </div>
                         <div class="favourite position-absolute text-light">
-                            <i id="favorite{{ $artist->id }}" 
+                            <i id="favorite{{ $artist->id }}"
                                 @can ('favouritable')
                                 onclick="window.fetchFavourite({{$artist->id}})" 
                                 class="bi {{ Auth::user()->hasFavorited($artist) ? 'bi-heart-fill' : 'bi-heart' }} fs-2"
                                 @else
-                                onclick="window.guest()" 
-                                class="bi bi-heart fs-2"
+                                onclick="window.guest('favorite{{ $artist->id }}')" 
+                                class="bi bi-heart fs-2" data-toggle="tooltip" title="Sign In Required!" data-placement="top"
                                 @endcan
                                 ></i>
                         </div>
@@ -186,13 +186,13 @@
             <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
                 <div class="artist position-relative">
                     <div class="like position-absolute text-light">
-                        <i id="like{{ $artist->id }}" 
+                        <i id="like{{ $artist->id }}"
                             @can ('likable') 
                             onclick="window.fetchLike({{$artist->id}})"
                             class="bi {{ Auth::user()->hasLiked($artist) ? 'bi-hand-thumbs-up-fill' : 'bi-hand-thumbs-up' }} fs-2"
                             @else
-                            onclick="window.guest()"
-                            class="bi bi-hand-thumbs-up fs-2"
+                            onclick='window.guest("like{{$artist->id}}")'
+                            class="bi bi-hand-thumbs-up fs-2" data-toggle="tooltip" title="Sign In Required!" data-placement="top"
                             @endcan
                             ></i>
 
@@ -206,8 +206,8 @@
                             onclick="window.fetchFavourite({{$artist->id}})" 
                             class="bi {{ Auth::user()->hasFavorited($artist) ? 'bi-heart-fill' : 'bi-heart' }} fs-2"
                             @else
-                            onclick="window.guest()" 
-                            class="bi bi-heart fs-2"
+                            onclick="window.guest('favorite{{ $artist->id }}')" 
+                            class="bi bi-heart fs-2" data-toggle="tooltip" title="Sign In Required!" data-placement="top"
                             @endcan
                             ></i>
                     </div>

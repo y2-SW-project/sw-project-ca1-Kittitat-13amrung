@@ -5256,9 +5256,21 @@ $(window).on("load", function () {
   $('#loginModal').on('shown.bs.modal', function () {
     $('#email').focus();
   });
+  var likeTooltip = '.like > i[data-toggle="tooltip"]';
+  var favTooltip = '.favourite > i[data-toggle="tooltip"]';
+  $(likeTooltip).tooltip({
+    trigger: 'manual'
+  });
+  $(favTooltip).tooltip({
+    trigger: 'manual'
+  });
 
-  window.guest = function () {
-    $('#loginModal').modal('toggle');
+  window.guest = function (id) {
+    $('#' + id + '[data-toggle="tooltip').tooltip('toggle');
+    setTimeout(function () {
+      $('#' + id + '[data-toggle="tooltip').tooltip('toggle');
+      $('#loginModal').modal('toggle');
+    }, 700);
   };
 
   $.ajaxSetup({
@@ -5268,9 +5280,9 @@ $(window).on("load", function () {
   });
 
   window.fetchLike = function (id) {
-    var liker = $('#liker' + id + "-bs3");
+    var liker = $('div #liker' + id + "-bs3");
     var content = liker.html();
-    var obj = $('#like' + id); // console.log(id);
+    var obj = $('div #like' + id); // console.log(id);
 
     $.ajax({
       type: 'POST',
@@ -5279,27 +5291,33 @@ $(window).on("load", function () {
         id: id
       },
       success: function success(data) {
-        console.log(data);
-
         if (jQuery.isEmptyObject(data.liked)) {
           // console.log(liker.val());
           // $(liker).val(liker.val() - 1);
-          $('#liker' + id + '-bs3').html(parseInt(content) - 1);
-          $(obj).removeClass("bi-hand-thumbs-up-fill");
-          $(obj).addClass("bi-hand-thumbs-up");
+          $(liker).each(function () {
+            $(this).html(parseInt(content) - 1);
+          });
+          $(obj).each(function () {
+            $(this).removeClass("bi-hand-thumbs-up-fill");
+            $(this).addClass("bi-hand-thumbs-up");
+          });
         } else {
           // console.log(liker.val());
           // $(liker).val(liker.val() + 1);
-          $('#liker' + id + '-bs3').html(parseInt(content) + 1);
-          $(obj).removeClass("bi-hand-thumbs-up");
-          $(obj).addClass("bi-hand-thumbs-up-fill");
+          $(liker).each(function () {
+            $(this).html(parseInt(content) + 1);
+          });
+          $(obj).each(function () {
+            $(this).removeClass("bi-hand-thumbs-up");
+            $(this).addClass("bi-hand-thumbs-up-fill");
+          });
         }
       }
     });
   };
 
   window.fetchFavourite = function (id) {
-    var obj = $('#favorite' + id); // console.log(id);
+    var obj = $('div #favorite' + id); // console.log(id);
 
     $.ajax({
       type: 'POST',
