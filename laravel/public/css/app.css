@@ -3749,7 +3749,7 @@ table.ProseMirror-selectednode {
   margin-bottom: 1rem;
 }
 
-.alert {
+.alert.user-profile-img {
   display: none;
 }
 
@@ -3907,6 +3907,10 @@ div.sticky {
 
 .request-btn {
   text-decoration: none;
+}
+
+.sr-only {
+  display: none;
 }
 
 .overlay-edit:hover {

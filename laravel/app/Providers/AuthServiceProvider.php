@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('likable', fn(User $user) => $user->hasRole('user') || $user->hasRole('admin'));
         Gate::define('favouritable', fn(User $user) => $user->hasRole('user') || $user->hasRole('admin'));
+        Gate::define('artist', fn(User $user) => $user->hasRole('artist'));
         
     }
 }

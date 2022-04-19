@@ -30,29 +30,36 @@ import Dropzone from "dropzone";
  
 //  Dropzone.options.userProfile.init();
 $( window ).on( "load", () => {
-window.addEventListener('DOMContentLoaded', function () {
-    var avatar = document.getElementById('avatar');
-    var image = document.getElementById('image');
-    var input = document.getElementById('input');
-    var $progress = $('.progress');
-    var $progressBar = $('.progress-bar');
-    var $alert = $('.alert');
-    var $modal = $('#modal');
-    var cropper;
+  
+  let avatar = document.getElementById('avatar');
+  let image = document.getElementById('image');
+  let input = $('#user-profile');
+  let profileModal = $('#modal-profile');
+  let $progress = $('.progress');
+  let $progressBar = $('.progress-bar');
+  let $alert = $('.alert');
+  let cropper;
+  
+  $('label[data-toggle="tooltip"]').tooltip({
+    offset: [0, -100],
+  });
 
-    $('[data-toggle="tooltip"]').tooltip();
-
-    input.addEventListener('change', function (e) {
-      var files = e.target.files;
-      var done = function (url) {
+    input.change(function (e) {
+      input.rules('add', {
+        required: true,
+        accept: "image/jpeg, image/pjpeg"
+      });
+      let files = e.target.files;
+      let done = function (url) {
         input.value = '';
-        image.src = url;
         $alert.hide();
-        $modal.modal('show');
+        image.src = url;
+        profileModal.modal('show');
       };
-      var reader;
-      var file;
-      var url;
+
+      let reader;
+      let file;
+      let url;
 
       if (files && files.length > 0) {
         file = files[0];
@@ -69,10 +76,14 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    $modal.on('shown.bs.modal', function () {
+    profileModal.on('shown.bs.modal', function () {
       cropper = new Cropper(image, {
         aspectRatio: 1,
         viewMode: 2,
+        minContainerWidth: 305,
+        minContainerHeight: 450,
+        minCanvasWidth: 320,
+        minCanvasHeight: 320,
       });
     }).on('hidden.bs.modal', function () {
       cropper.destroy();
@@ -80,36 +91,36 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     document.getElementById('crop').addEventListener('click', function () {
-      var initialAvatarURL;
-      var canvas;
+      let initialAvatarURL;
+      let canvas;
 
-      $modal.modal('hide');
+      profileModal.modal('hide');
 
       if (cropper) {
         canvas = cropper.getCroppedCanvas({
-          width: 320,
-          height: 320,
+          width: 280,
+          height: 280,
         });
         initialAvatarURL = avatar.src;
         avatar.src = canvas.toDataURL();
-        $progress.show();
-        $alert.removeClass('alert-success alert-warning');
         canvas.toBlob(function (blob) {
-          var formData = new FormData();
+          let formData = new FormData();
 
-          formData.append('avatar', blob, 'avatar.jpg');
-          $.ajax('https://jsonplaceholder.typicode.com/posts', {
+          formData.append('file', blob, 'file.jpg');
+          console.log(formData);
+          $.ajax('/user/profile/upload', {
             method: 'POST',
             data: formData,
             processData: false,
             contentType: false,
 
             xhr: function () {
-              var xhr = new XMLHttpRequest();
+              let xhr = new XMLHttpRequest();
 
               xhr.upload.onprogress = function (e) {
-                var percent = '0';
-                var percentage = '0%';
+                $progress.removeClass('d-none');
+                let percent = '0';
+                let percentage = '0%';
 
                 if (e.lengthComputable) {
                   percent = Math.round((e.loaded / e.total) * 100);
@@ -122,20 +133,20 @@ window.addEventListener('DOMContentLoaded', function () {
             },
 
             success: function () {
-              $alert.show().addClass('alert-success').text('Upload success');
+              $alert.show().addClass('alert-success h6').text('Upload success');
             },
 
             error: function () {
               avatar.src = initialAvatarURL;
-              $alert.show().addClass('alert-warning').text('Upload error');
+              $alert.show().addClass('alert-danger h6').text('Upload error');
             },
 
             complete: function () {
+              $progress.addClass('d-none');
               $progress.hide();
             },
           });
         });
       }
     });
-  });
 });

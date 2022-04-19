@@ -2,22 +2,41 @@
 @section('content')
     <script src="{{ asset('js/artistProfile.js') }}" defer></script>
     <div class="container my-5 pt-5">
-    @include('layouts.profile')
-    <div class="border px-5">
-        <div class="display-6 pt-5">
+        <div class="display-6 ms-4 pt-5">
             <i class="display-4 bi bi-person-circle"></i>
             {{ __('Artist Profile') }}
-            <hr>
         </div>
+    @include('layouts.profile')
+    <div class="border px-5">
 
         <div class="col-lg-12 mt-5">
-
-            <form action="/file-upload" class="dropzone" id="artist-profile" enctype="multipart/form-data">
-                @csrf
-
-            </form>
-            <br>
-            <button id="submit-all">Upload</button>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>
+                            {{ $error }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session()->get('message'))
+            <div class="alert alert-success" role="alert">
+                <strong>Success: </strong>{{ session()->get('message') }}
+            </div>
+        @endif
+    </div>
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
 
             <form action="{{ route('artist.profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf

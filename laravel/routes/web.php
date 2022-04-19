@@ -65,8 +65,8 @@ Route::group([
 
 
     // Post and Update User Info 
-    Route::post('profile', [AdminSetting::class, 'profileUpdate'])->name('profile.update');
-    Route::post('profile/update', [AdminSetting::class, 'uploadProfile'])->name('image.update');
+    Route::post('profile/update', [AdminSetting::class, 'profileUpdate'])->name('profile.update');
+    Route::post('profile/upload', [AdminSetting::class, 'uploadProfile']);
 });
 
 Route::group([

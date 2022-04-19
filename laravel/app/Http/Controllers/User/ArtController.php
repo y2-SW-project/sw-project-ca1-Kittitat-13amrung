@@ -339,6 +339,28 @@ class ArtController extends Controller
         // when done, re-route back to admin's index page
         return redirect()->route('arts.requests');
     }
+    
+    protected function deleteOldImage()
+    {
+      if (auth()->user()->image !== 'user.png'){
+        Storage::delete('/public/profile/'.auth()->user()->image);
+      }
+     }
+
+     public  function uploadProfile(Request $request)  
+     {  
+         dd($request);
+        $user = Auth::user();
+ 
+        $this->deleteOldImage(); 
+        $file = $request->file('file');  
+        $fileName = time().'.'.$file->extension(); 
+        $file->storeAs('profile',$fileName,'public');  
+        $user->update(['image'=> $fileName]);
+   
+        return response()->json(['success'=>$fileName]);  
+   
+     }
 
     /**
      * Remove the specified resource from storage.

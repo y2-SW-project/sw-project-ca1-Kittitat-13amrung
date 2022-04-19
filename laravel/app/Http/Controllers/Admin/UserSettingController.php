@@ -8,8 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Artist;
+use App\Models\Role;
 use App\Models\User;
-use App\Models\User_Role as Role;
 use Auth;
 
 class UserSettingController extends Controller
@@ -49,22 +49,23 @@ class UserSettingController extends Controller
     }
 
     public function profileUpdate(Request $request){
+        // dd($request);
         $user = Auth::user();
         //validation rules
         
         $request->validate([
             'name' =>'required|min:4|string|max:255',
-            'email'=>'required|email|string|max:255',
+            'email'=>'required|email:rfc,dns,filter|string|max:255',
         ]);
         
-        if($request->hasFile('image')){
+        if($request->hasFile('file')){
             $request->validate([
-                'image' => 'required|mimes:jpg,png'
+                'file' => 'required|mimes:jpg,png'
             ]);
             $this->deleteOldImage(); 
-            $filename = $request['image']->getClientOriginalName();
-            $request['image']->storeAs('profile',$filename,'public');
-            $user->update(['image'=>$filename]);
+            $filename = $request['file']->getClientOriginalName();
+            $request['file']->storeAs('profile',$filename,'public');
+            $user->update(['file'=>$filename]);
         }
 
         if($request->filled(['oldPassword', 'password'])) {
@@ -100,8 +101,14 @@ class UserSettingController extends Controller
 
      public  function uploadProfile(Request $request)  
      {  
+        if(request()->ajax()){
+        // dd($request);
+        $request->validate([
+            'file' => 'required|mimes:jpg,png'
+        ]);
         $user = Auth::user();
- 
+
+        
         $this->deleteOldImage(); 
         $file = $request->file('file');  
         $fileName = time().'.'.$file->extension(); 
@@ -109,7 +116,7 @@ class UserSettingController extends Controller
         $user->update(['image'=> $fileName]);
    
         return response()->json(['success'=>$fileName]);  
-   
+        }
      }
 
     /**
@@ -123,6 +130,11 @@ class UserSettingController extends Controller
             ['user_id' =>  Auth::user()->id],
             ['user_id' => Auth::user()->id]
         );
+
+        if (!auth()->user()->hasRole('artist')) {
+            $role = Role::where('name', 'artist')->first();
+            auth()->user()->roles()->attach($role);
+        }
         
         return view('user.settings.artist', [
             'artist' => $artist
@@ -153,7 +165,7 @@ class UserSettingController extends Controller
         $artist->commercial_use = $request->commercial_use;
         $artist->save();
 
-        return redirect()->route('user.profile.artist');
+        return back()->with('message', 'Profile Updated!');
 
         // $content = $request['editor1'];
         // $artist->descriptions = $content;

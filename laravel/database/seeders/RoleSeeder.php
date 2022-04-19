@@ -27,19 +27,10 @@ class RoleSeeder extends Seeder
         $role_user->save();
 
                 // seeding data of user role into the roles table
-        $role_traditional_artist = new Role();
-        $role_traditional_artist->name = 'traditional artist';
-        $role_traditional_artist->description = 'An artist who mainly draw traditional artsc';
-        $role_traditional_artist->save();
+        $role_artist = new Role();
+        $role_artist->name = 'artist';
+        $role_artist->description = 'An artist that takes commission from client(s)';
+        $role_artist->save();
 
-        $role_pixel_artist = new Role();
-        $role_pixel_artist->name = 'pixel artist';
-        $role_pixel_artist->description = 'An artist who mainly draw pixelated illustrations';
-        $role_pixel_artist->save();
-
-        $role_digital_artist = new Role();
-        $role_digital_artist->name = 'digital artist';
-        $role_digital_artist->description = 'An artist who mainly draw illustrations on a digital format';
-        $role_digital_artist->save();
     }
 }
