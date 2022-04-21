@@ -52,7 +52,9 @@ class UserSeeder extends Seeder
 
         $users = User::factory()->count(20)->create()->each(function ($user) {
             $role_user = Role::where('name', 'user')->first();
+            $role_artist = Role::where('name', 'artist')->first();
             $user->roles()->attach($role_user);
+            $user->roles()->attach($role_artist);
 
             $artist = Artist::factory()->count(1)->create([
                 'user_id' => $user->id

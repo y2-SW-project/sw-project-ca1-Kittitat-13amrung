@@ -25,7 +25,7 @@
 
 <body class="">
     <div id="app text-colour">
-        <div class="offcanvas bg-primary offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu"
+        <div class="offcanvas bg-dark offcanvas-end" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="menu"
             aria-labelledby="menuLabel">
             <div class="offcanvas-header">
                 <div class="offcanvas-title" id="offcanvasScrollingLabel">
@@ -82,27 +82,27 @@
                 <ul class="navbar-nav">
 
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ route('arts.requests') }}" class="nav-link nav-size text-dark">
+                        <a href="{{ route('arts.requests') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-compass"></i>
                             {{ __('Explore') }}
                         </a>
                     </li>
 
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                        <a href="{{ url('/') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-heart"></i>
                             {{ __('Favourites') }}
                         </a>
                     </li>
 
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ route('user.profile') }}" class="nav-link nav-size text-dark">
+                        <a href="{{ route('user.profile') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-person-badge-fill"></i>
                             {{ __('Profile') }}
                         </a>
                     </li>
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                        <a href="{{ url('/') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-chat-square-fill"></i>
                             {{ __('Messages') }}
                         </a>
@@ -110,14 +110,14 @@
 
 
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ url('/') }}" class="nav-link nav-size text-dark">
+                        <a href="{{ url('/') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-gear-fill"></i>
                             {{ __('Settings') }}
                         </a>
                     </li>
 
                     <li class="nav-menu navbar-item py-4">
-                        <a class="nav-link nav-size text-dark" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        <a class="nav-link nav-size" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                             <i class="mx-5 bi bi-box-arrow-right"></i>
                             {{ __('Logout') }}
@@ -133,7 +133,7 @@
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="login modal" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered" role="document">
-                <div class="modal-content">
+                <div class="modal-content bg-primary">
                     <div class="modal-header">
                         <span></span>
                         <h6 class="modal-title fs-4" id="login">
@@ -198,14 +198,14 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-12 offset-md-2">
-                                    <button type="submit" class="btn btn-primary col-md-8">
+                                    <button type="submit" class="btn btn-dark col-md-8">
                                         {{ __('Login') }}
                                     </button>
 
                                     @if (Route::has('register'))
                                         <ul class="navbar-nav">
                                             <li class="nav-item">
-                                                <a class="nav-link offset-md-2" href="{{ route('register') }}">
+                                                <a class="nav-link text-secondary offset-md-2" href="{{ route('register') }}">
                                                     {{ __('Not sign up yet? Sign Up') }}</a>
                                             </li>
                                         </ul>
@@ -293,9 +293,9 @@
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (Auth::user()->image)
-                                        <img class="rounded border border-1 border-dark"
+                                        <img class="rounded border border-1 border-dark avatar"
                                             src="{{ asset('/storage/profile/' . Auth::user()->image) }}" alt=""
-                                            height="30px" width="30px">
+                                            height="28px" width="28px">
                                     @else
                                         <i class="bi bi-person-circle pe-2 "></i>
                                     @endif

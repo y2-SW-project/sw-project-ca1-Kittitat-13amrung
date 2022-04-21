@@ -77,7 +77,7 @@ class User extends Authenticatable
             return $this->hasAnyRequest($requests) ||
             abort (401, 'This action is unauthorized');
         }
-        return $this->hasRequest($requests) ||
+        return $this->hasRequest($requests->users->id) ||
         abort(401, 'This action is unauthorized');
         }
     

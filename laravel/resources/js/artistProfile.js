@@ -8,82 +8,101 @@ import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 
-// let artistProfile = new Dropzone("#artist-profile");
+let artistProfile = new Dropzone("#artist-profile");
 // artistProfile.options.autoProcessQueue = false;
-// artistProfile.options.maxFiles = 3;
-// artistProfile.options.chunking = true;
-// artistProfile.options.forceChunking = true;
+artistProfile.options.maxFiles = 3;
+// artistProfile.options.forceFallback = true;
 
-
-// artistProfile.on("maxfilesexceeded", function(file) { this.removeFile(file); });
+let image = document.getElementById('image');
+let profileModal = $('#modal-profile');
+let cropper;
 
 // artistProfile.confirm = function(question, accepted, rejected) {
-//     // Do your thing, ask the artist for confirmation or rejection, and call
-//     // accepted() if the artist accepts, or rejected() otherwise. Make
-//     // sure that rejected is actually defined!
-//     alert(question);
-//   };
+  //     // Do your thing, ask the artist for confirmation or rejection, and call
+  //     // accepted() if the artist accepts, or rejected() otherwise. Make
+  //     // sure that rejected is actually defined!
+  //     alert(question);
+  //   };
+  
+  Dropzone.options.artistProfile = {
+    maxFileSize : 10,
+    uploadMultiple: true,
+    
+    init: () => {
+      
+      let button = $('#submit-all');
+      
+      button.on("click", () => {
+        artistProfile.processQueue();
+      });
 
-// Dropzone.options.artistProfile = {
-//     maxFileSize : 4,
-//     chunksUploaded: (file, done) => {
-//         file.upload();
-//         done();
-//     },
+      artistProfile.on("complete", file => {
+        // $('#dropzone-err').append(file.dataURL);
+      })
+      
+      artistProfile.on("addedfile", file => {
+        
+        console.log(`File added:` + file.status);
 
-//    init: () => {
+        // profileModal.modal('show');
 
-//        let button = document.querySelector('#submit-all');
-       
-//        button.addEventListener("click", () => {
-//            artistProfile.processQueue();
-//        });
-
-//        artistProfile.on("addedfile", file => {
-//         console.log(`File added: ${file.name}`);
-//         file.previewElement.addEventListener("click", function() {
-//             artistProfile.removeFile(file);
-//           });
-
-//                   // Create the remove button
-//         var removeButton = Dropzone.createElement("<button>Remove file</button>");
+        // profileModal.on('shown.bs.modal', function () {
+        //   cropper = new Cropper(image, {
+        //     aspectRatio: 1,
+        //     viewMode: 2,
+        //     dragMode: 'move',
+        //     minContainerWidth: 305,
+        //     minContainerHeight: 450,
+        //     minCanvasWidth: 320,
+        //     minCanvasHeight: 320,
+        //   });
+        // }).on('hidden.bs.modal', function () {
+        //   cropper.destroy();
+        //   cropper = null;
+        // });
         
 
-//         // Capture the Dropzone instance as closure.
-//         var _this = artistProfile;
+        file.previewElement.addEventListener("click", function() {
+          artistProfile.removeFile(file);
+        }); 
 
-//         // Listen to the click event
-//         removeButton.addEventListener("click", function(e) {
-//           // Make sure the button click doesn't submit the form:
-//           e.preventDefault();
-//           e.stopPropagation();
-
-//           // Remove the file preview.
-//           _this.removeFile(file);
-//           // If you want to the delete the file on the server as well,
-//           // you can do the AJAX request here.
-//         });
-
-//         // Add the button to the file preview element.
-//         file.previewElement.appendChild(removeButton);
-//     });
-       
-//    },
-
-
-//  };
+        // $('#dropzone-err').append(file.dataURL);
+        
+        // // Capture the Dropzone instance as closure.
+        // var _this = artistProfile;
+        
+        // // Listen to the click event
+        // removeButton.addEventListener("click", function(e) {
+          //   // Make sure the button click doesn't submit the form:
+          //   e.preventDefault();
+          //   e.stopPropagation();
+          
+          //   // Remove the file preview.
+          //   _this.removeFile(file);
+          //   // If you want to the delete the file on the server as well,
+          //   // you can do the AJAX request here.
+          // });
+          
+          // // Add the button to the file preview element.
+          // file.previewElement.appendChild(removeButton);
+        });
+        
+      },
+      
+      
+    };
  
-//  Dropzone.options.artistProfile.init();
+     Dropzone.options.artistProfile.init();
 
-  
-  const editor = new Editor({
-    el: document.querySelector('#editor'),
-    height: '700px',
-    initialEditType: 'wysiwyg',
-    previewStyle: 'vertical',
-    theme: 'light',
-    toolbarItems: [
-        ['heading', 'bold', 'italic', 'strike'],
+
+const editor = new Editor({
+  el: document.querySelector('#editor'),
+  height: '700px',
+  initialEditType: 'wysiwyg',
+  previewStyle: 'vertical',
+  theme: 'light',
+  toolbarItems: [
+    ['heading', 'bold', 'italic', 'strike'],
         ['hr', 'quote'],
         ['ul', 'ol', 'task', 'indent', 'outdent'],
         ['table', 'image', 'link'],
@@ -97,7 +116,7 @@ import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
     let content = document.getElementById("editor2").value;
     let newContent = editor.setMarkdown(content);
 
-    let submit = document.getElementById("submit");
+    let submit = document.getElementById("submit-all");
     
 
 submit.addEventListener("click", () => {

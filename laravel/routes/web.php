@@ -49,7 +49,8 @@ Route::group([
     'middleware' => 'is_admin',
     'as' => 'admin.',
 ], function() {
-    
+    Route::get('profile', [AdminSetting::class, 'index'])->name('profile');
+    Route::post('profile', [AdminSetting::class, 'profileUpdate'])->name('profile.update');
 });
 
 Route::group([
@@ -59,6 +60,7 @@ Route::group([
     // User info settings
     Route::get('profile', [AdminSetting::class, 'index'])->name('profile');
     Route::get('favourites', [AdminSetting::class, 'favourites'])->name('favourites');
+    Route::get('requests', [AdminSetting::class, 'requests'])->name('requests.list');
 
     // Artist info settings
     Route::get('artist/profile', [AdminSetting::class, 'artist'])->name('profile.artist');
@@ -79,11 +81,8 @@ Route::group([
     Route::post('/fetch/favourite', [UserArtController::class, 'ajaxFavourite'])->name('favourite');
     Route::post('/profile/update', [AdminSetting::class, 'artistUpdate'])->name('profile.update');
     Route::post('/profile-upload', [UserArtController::class, 'uploadProfile'])->name('upload.profile');
-    Route::post('/file-upload', [UserArtController::class, 'uploadFile'])->name('upload.file');
+    Route::post('/file/upload', [UserArtController::class, 'uploadFile'])->name('upload.file');
 });
-
-Route::get('/admin/profile', [AdminSetting::class, 'index'])->name('admin.profile');
-Route::post('/admin/profile', [AdminSetting::class, 'profileUpdate'])->name('admin.profile.update');
 
 Route::group([
     'prefix' => 'art',
@@ -130,5 +129,3 @@ Auth::routes();
 
 Route::get('/', [Arts::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::post('/home', [App\Http\Controllers\HomeController::class, 'upload']);

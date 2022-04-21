@@ -48185,55 +48185,68 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // let artistProfile = new Dropzone("#artist-profile");
-// artistProfile.options.autoProcessQueue = false;
-// artistProfile.options.maxFiles = 3;
-// artistProfile.options.chunking = true;
-// artistProfile.options.forceChunking = true;
-// artistProfile.on("maxfilesexceeded", function(file) { this.removeFile(file); });
-// artistProfile.confirm = function(question, accepted, rejected) {
+
+var artistProfile = new dropzone__WEBPACK_IMPORTED_MODULE_0__["default"]("#artist-profile"); // artistProfile.options.autoProcessQueue = false;
+
+artistProfile.options.maxFiles = 3; // artistProfile.options.forceFallback = true;
+
+var image = document.getElementById('image');
+var profileModal = $('#modal-profile');
+var cropper; // artistProfile.confirm = function(question, accepted, rejected) {
 //     // Do your thing, ask the artist for confirmation or rejection, and call
 //     // accepted() if the artist accepts, or rejected() otherwise. Make
 //     // sure that rejected is actually defined!
 //     alert(question);
 //   };
-// Dropzone.options.artistProfile = {
-//     maxFileSize : 4,
-//     chunksUploaded: (file, done) => {
-//         file.upload();
-//         done();
-//     },
-//    init: () => {
-//        let button = document.querySelector('#submit-all');
-//        button.addEventListener("click", () => {
-//            artistProfile.processQueue();
-//        });
-//        artistProfile.on("addedfile", file => {
-//         console.log(`File added: ${file.name}`);
-//         file.previewElement.addEventListener("click", function() {
-//             artistProfile.removeFile(file);
-//           });
-//                   // Create the remove button
-//         var removeButton = Dropzone.createElement("<button>Remove file</button>");
-//         // Capture the Dropzone instance as closure.
-//         var _this = artistProfile;
-//         // Listen to the click event
-//         removeButton.addEventListener("click", function(e) {
-//           // Make sure the button click doesn't submit the form:
-//           e.preventDefault();
-//           e.stopPropagation();
-//           // Remove the file preview.
-//           _this.removeFile(file);
-//           // If you want to the delete the file on the server as well,
-//           // you can do the AJAX request here.
-//         });
-//         // Add the button to the file preview element.
-//         file.previewElement.appendChild(removeButton);
-//     });
-//    },
-//  };
-//  Dropzone.options.artistProfile.init();
 
+dropzone__WEBPACK_IMPORTED_MODULE_0__["default"].options.artistProfile = {
+  maxFileSize: 10,
+  uploadMultiple: true,
+  init: function init() {
+    var button = $('#submit-all');
+    button.on("click", function () {
+      artistProfile.processQueue();
+    });
+    artistProfile.on("complete", function (file) {// $('#dropzone-err').append(file.dataURL);
+    });
+    artistProfile.on("addedfile", function (file) {
+      console.log("File added:" + file.status); // profileModal.modal('show');
+      // profileModal.on('shown.bs.modal', function () {
+      //   cropper = new Cropper(image, {
+      //     aspectRatio: 1,
+      //     viewMode: 2,
+      //     dragMode: 'move',
+      //     minContainerWidth: 305,
+      //     minContainerHeight: 450,
+      //     minCanvasWidth: 320,
+      //     minCanvasHeight: 320,
+      //   });
+      // }).on('hidden.bs.modal', function () {
+      //   cropper.destroy();
+      //   cropper = null;
+      // });
+
+      file.previewElement.addEventListener("click", function () {
+        artistProfile.removeFile(file);
+      }); // $('#dropzone-err').append(file.dataURL);
+      // // Capture the Dropzone instance as closure.
+      // var _this = artistProfile;
+      // // Listen to the click event
+      // removeButton.addEventListener("click", function(e) {
+      //   // Make sure the button click doesn't submit the form:
+      //   e.preventDefault();
+      //   e.stopPropagation();
+      //   // Remove the file preview.
+      //   _this.removeFile(file);
+      //   // If you want to the delete the file on the server as well,
+      //   // you can do the AJAX request here.
+      // });
+      // // Add the button to the file preview element.
+      // file.previewElement.appendChild(removeButton);
+    });
+  }
+};
+dropzone__WEBPACK_IMPORTED_MODULE_0__["default"].options.artistProfile.init();
 var editor = new _toast_ui_editor__WEBPACK_IMPORTED_MODULE_1__["default"]({
   el: document.querySelector('#editor'),
   height: '700px',
@@ -48248,7 +48261,7 @@ var editor = new _toast_ui_editor__WEBPACK_IMPORTED_MODULE_1__["default"]({
 });
 var content = document.getElementById("editor2").value;
 var newContent = editor.setMarkdown(content);
-var submit = document.getElementById("submit");
+var submit = document.getElementById("submit-all");
 submit.addEventListener("click", function () {
   document.getElementById("editor1").value = editor.getMarkdown();
 });

@@ -31,7 +31,7 @@ import Dropzone from "dropzone";
 //  Dropzone.options.userProfile.init();
 $( window ).on( "load", () => {
   
-  let avatar = document.getElementById('avatar');
+  let avatar = $('.avatar');
   let image = document.getElementById('image');
   let input = $('#user-profile');
   let profileModal = $('#modal-profile');
@@ -39,6 +39,10 @@ $( window ).on( "load", () => {
   let $progressBar = $('.progress-bar');
   let $alert = $('.alert');
   let cropper;
+
+  avatar.each( function() {
+  console.log($(this)[0]);
+  });
   
   $('label[data-toggle="tooltip"]').tooltip({
     offset: [0, -100],
@@ -80,6 +84,7 @@ $( window ).on( "load", () => {
       cropper = new Cropper(image, {
         aspectRatio: 1,
         viewMode: 2,
+        dragMode: 'move',
         minContainerWidth: 305,
         minContainerHeight: 450,
         minCanvasWidth: 320,
@@ -101,8 +106,12 @@ $( window ).on( "load", () => {
           width: 280,
           height: 280,
         });
-        initialAvatarURL = avatar.src;
-        avatar.src = canvas.toDataURL();
+        initialAvatarURL = avatar.each( function() {
+          $(this)[0].src;
+        });
+        avatar.each( function() {
+          $(this)[0].src = canvas.toDataURL();
+        });
         canvas.toBlob(function (blob) {
           let formData = new FormData();
 
@@ -137,7 +146,9 @@ $( window ).on( "load", () => {
             },
 
             error: function () {
-              avatar.src = initialAvatarURL;
+              avatar.each( function() {
+                $(this)[0].src = initialAvatarURL;
+              });
               $alert.show().addClass('alert-danger h6').text('Upload error');
             },
 

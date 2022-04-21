@@ -2302,7 +2302,7 @@ __webpack_require__.r(__webpack_exports__);
 //  Dropzone.options.userProfile.init();
 
 $(window).on("load", function () {
-  var avatar = document.getElementById('avatar');
+  var avatar = $('.avatar');
   var image = document.getElementById('image');
   var input = $('#user-profile');
   var profileModal = $('#modal-profile');
@@ -2310,6 +2310,9 @@ $(window).on("load", function () {
   var $progressBar = $('.progress-bar');
   var $alert = $('.alert');
   var cropper;
+  avatar.each(function () {
+    console.log($(this)[0]);
+  });
   $('label[data-toggle="tooltip"]').tooltip({
     offset: [0, -100]
   });
@@ -2351,6 +2354,7 @@ $(window).on("load", function () {
     cropper = new Cropper(image, {
       aspectRatio: 1,
       viewMode: 2,
+      dragMode: 'move',
       minContainerWidth: 305,
       minContainerHeight: 450,
       minCanvasWidth: 320,
@@ -2370,8 +2374,12 @@ $(window).on("load", function () {
         width: 280,
         height: 280
       });
-      initialAvatarURL = avatar.src;
-      avatar.src = canvas.toDataURL();
+      initialAvatarURL = avatar.each(function () {
+        $(this)[0].src;
+      });
+      avatar.each(function () {
+        $(this)[0].src = canvas.toDataURL();
+      });
       canvas.toBlob(function (blob) {
         var formData = new FormData();
         formData.append('file', blob, 'file.jpg');
@@ -2402,7 +2410,9 @@ $(window).on("load", function () {
             $alert.show().addClass('alert-success h6').text('Upload success');
           },
           error: function error() {
-            avatar.src = initialAvatarURL;
+            avatar.each(function () {
+              $(this)[0].src = initialAvatarURL;
+            });
             $alert.show().addClass('alert-danger h6').text('Upload error');
           },
           complete: function complete() {

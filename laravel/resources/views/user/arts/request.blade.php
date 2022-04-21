@@ -22,117 +22,16 @@
             <div class="requests">
 
                 
-                <div class="col-lg-12">
-                    @foreach ($clients as $client)
-                        <div class="my-5" id="request{{ $client->id }}" defer>
-                            <div class="card border-bottom">
-                                <h6 class="text-start card-subtitle">
-
-                                    @if ($client->commercial_use == '1')
-                                        <span
-                                            class="text-white border-bottom border-end border-4 border-muted rounded-pill px-3 py-1 bg-tertiary">
-                                            Commercial Uses
-                                        </span>
-                                    @else
-                                        <span
-                                            class="text-white border-bottom border-end border-4 border-muted rounded-pill px-3 py-1 bg-primary">
-                                            Personal Uses
-                                        </span>
-                                    @endif
-                                </h6>
-                                <div class="genre m-3 justify-content-around text-white">
-
-                                    <div class="float-end">
-                                        @if ($client->digital_art == 1)
-                                            <span
-                                                class="ms-auto p-2 mx-2 small rounded-pill bg-dark text-capitalize pill-hover">
-                                                Digital Art
-                                            </span>
-                                        @endif
-
-                                        @if ($client->traditional_art == 1)
-                                            <span
-                                                class="ms-auto p-2 mx-2 small rounded-pill bg-primary text-capitalize pill-hover">
-                                                Traditional Art
-                                            </span>
-                                        @endif
-
-                                        @if ($client->pixel_art == 1)
-                                            <span
-                                                class="ms-auto p-2 mx-2 small rounded-pill bg-danger text-capitalize pill-hover">
-                                                Pixel Art
-                                            </span>
-                                        @endif
-
-                                    </div>
-
-                                </div>
-
-                                <div class="request-pointer card-body text-center"
-                                    onclick="window.fetchRequest({{ $client->id }})">
-
-                                    <!-- <i class="fs-4 bi bi-folder2-open"></i> -->
-                                    <h3 class="mb-5 text-capitalize card-title">
-                                        <i class="fs-1 bi bi-info-circle"></i>
-                                        {{ $client->title }}
-                                    </h3>
-                                    <div class="h4 text-start card-text">
-                                        <hr>
-                                        Description: <span class="paragraph" id="description">
-                                            {{ $client->description }}
-                                        </span>
-                                        <hr>
-                                        Deadline: <span class="paragraph">
-                                            {{ date('d-m-Y', strtotime($client->end_date)) }} <span
-                                                class="fw-bold small">(About {{ $client->days }}
-                                                due date) </span>
-                                        </span>
-                                        <hr>
-                                        Entitled Price: <span class="paragraph">
-                                            €{{ $client->start_price }} to €{{ $client->end_price }}
-                                        </span>
-                                        <hr>
-                                        <div class="d-flex justify-content-between">
-                                            <span class="text-muted fs-6 paragraph">
-                                                Requested by:
-                                            </span>
-                                            <p class="paragraph">
-                                                {{ $client->users->name }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- {{ dd(auth()->user()->role == 1) }} --}}
-                                @if (!Auth::guest())
-                                @if ($client->users->id == Auth::id() or Auth::user()->hasRole('admin'))
-                                <div class="d-flex text-center request-btn">
-                                            <a href="{{ route('arts.requests.edit', $client->id) }}"
-                                                class="request-btn rounded-0 text-success btn-lg w-50">Edit
-                                                Request</a>
-                                            <form action="{{ route('arts.requests.delete', $client->id) }}"
-                                                method="post">
-                                                @csrf
-                                                <button
-                                                    class="request-btn btn rounded-0 btn-outline-danger btn-lg w-100">Delete
-                                                    Request</button>
-                                            </form>
-                                        </div>
-                                        @endif
-                                    @endif
-                            </div>
-
-                        </div>
-                    @endforeach
-
-                    
+                <div class="col-lg-12 col-12">
+                    @each('templates.request-card', $commissions, 'commission')
                 </div>
 
             </div>
 
             <div class="position-relative col-lg-8 my-5">
 
-                <div class="d-flex justify-content-end filter-sticky ms-3 mb-2">
-                    <div class="col-lg-3">
+                <div class="filter-sticky ms-3 mb-2">
+                    <div class="ms-auto mb-5 col-lg-3">
                         <div class="form-floating">
                             <select class="form-select bg-primary text-white" id="sorting" aria-label="Sort by">
                               <option selected>Newest</option>
@@ -143,9 +42,8 @@
                             <label for="sorting" class="text-light">Sort by:</label>
                           </div>
                     </div>
-                </div>
 
-                <div class="p-5 sticky request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
+                <div class="p-5 request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
                     id="req-detail">
                     
                     <div class="tags d-flex">
@@ -158,7 +56,10 @@
                     </div>
                 </div>
             </div>
+            </div>
             {{-- {{ dd(Auth::user()->hasRole('admin')) }} --}}
         </div>
     </main>
+
+    @include('layouts.footer')
 @endsection

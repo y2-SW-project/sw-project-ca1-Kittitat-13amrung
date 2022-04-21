@@ -66,7 +66,7 @@ class ArtController extends Controller
             'pixel_art' => 'required_without_all:digital_art,traditional_art',
             'digital_art' => 'required_without_all:pixel_art,traditional_art',
             'commercial_use' => 'required',
-            'start_date' => 'required|date',
+            'start_date' => 'required|date|after:yesterday',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required|lt:end_price',
             'end_price' => 'required|gt:start_price',
@@ -107,19 +107,19 @@ class ArtController extends Controller
 
             // dd($request);
         // if validation passes create the new car
-        $art = new Req();
-        $art->title = $request->title;
-        $art->commercial_use = $request->commercial_use;
-        $art->start_date = $request->start_date;
-        $art->end_date = $request->end_date;
-        $art->start_price = $request->start_price;
-        $art->end_price = $request->end_price;
-        $art->digital_art = $request->digital_art;
-        $art->traditional_art = $request->traditional_art;
-        $art->pixel_art = $request->pixel_art;
-        $art->description = $request->request1;
-        $art->user_id = $request->user()->id;
-        $art->save();
+        $commission = new Req();
+        $commission->title = $request->title;
+        $commission->commercial_use = $request->commercial_use;
+        $commission->start_date = $request->start_date;
+        $commission->end_date = $request->end_date;
+        $commission->start_price = $request->start_price;
+        $commission->end_price = $request->end_price;
+        $commission->digital_art = $request->digital_art;
+        $commission->traditional_art = $request->traditional_art;
+        $commission->pixel_art = $request->pixel_art;
+        $commission->description = $request->request1;
+        $commission->user_id = $request->user()->id;
+        $commission->save();
         
         // when done, re-route back to admin's index page
         return redirect()->route('arts.requests');
@@ -146,6 +146,8 @@ class ArtController extends Controller
     {
         $req = Req::findOrFail($id);
 
+        $this->authorize('isClient', $req);
+
         return view('user.arts.edit', [
             'req' => $req
         ]);
@@ -160,9 +162,13 @@ class ArtController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         // when user clicks submit on the create view above
         // the car will be stored in the database
-        $art = Req::findOrFail($id);
+        $commission = Req::findOrFail($id);
+
+        $this->authorize('isClient', $commission);
+
         // data validation
         $request->validate([
             'title' => 'required|min:3',
@@ -170,7 +176,6 @@ class ArtController extends Controller
             'pixel_art' => 'required_without_all:digital_art,traditional_art',
             'digital_art' => 'required_without_all:pixel_art,traditional_art',
             'commercial_use' => 'required',
-            'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required|lt:end_price',
             'end_price' => 'required|gt:start_price',
@@ -211,18 +216,17 @@ class ArtController extends Controller
 
             // dd($request);
         // if validation passes create the new car
-        $art->title = $request->title;
-        $art->commercial_use = $request->commercial_use;
-        $art->start_date = $request->start_date;
-        $art->end_date = $request->end_date;
-        $art->start_price = $request->start_price;
-        $art->end_price = $request->end_price;
-        $art->digital_art = $request->digital_art;
-        $art->traditional_art = $request->traditional_art;
-        $art->pixel_art = $request->pixel_art;
-        $art->description = $request->request1;
-        $art->user_id = $request->user()->id;
-        $art->save();
+        $commission->title = $request->title;
+        $commission->commercial_use = $request->commercial_use;
+        $commission->end_date = $request->end_date;
+        $commission->start_price = $request->start_price;
+        $commission->end_price = $request->end_price;
+        $commission->digital_art = $request->digital_art;
+        $commission->traditional_art = $request->traditional_art;
+        $commission->pixel_art = $request->pixel_art;
+        $commission->description = $request->request1;
+        $commission->user_id = $request->user()->id;
+        $commission->save();
         
         // when done, re-route back to admin's index page
         return redirect()->route('arts.requests');
@@ -236,8 +240,11 @@ class ArtController extends Controller
      */
     public function destroy($id)
     {
-        $req = Req::findOrFail($id);
-        $req->delete();
+        $commission = Req::findOrFail($id);
+
+        $this->authorize('isClient', $commission);
+
+        $commission->delete();
 
         return redirect()->route('arts.requests');
     }

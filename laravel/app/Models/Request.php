@@ -27,6 +27,17 @@ class Request extends Model
         return $days;
     }
 
+    public function checkExpire() {
+        $now = Carbon::now();
+
+        return $now > Carbon::parse($this->end_date) ? true : false;
+
+    }
+
+    public function attachExpire() {
+        return $this->expired = $this->checkExpire();
+    }
+
     public function users() {
         return $this->belongsTo('App\Models\User', 'user_id');
     }

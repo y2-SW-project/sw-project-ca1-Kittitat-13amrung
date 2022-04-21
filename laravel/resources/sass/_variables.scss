@@ -102,17 +102,6 @@ $carousel-indicator-active-bg: $pastel-white;
     text-shadow: 1px 1px 0px rgba(196, 40, 40, 0.5);
 }
 
-@media (max-width: 2560px) { 
-    .main-header {
-        height: 600px;
-    }
-
-    .intro {
-        padding-top: 75px;
-    }
-
- }
-
  .label {
     cursor: pointer;
   }
@@ -136,6 +125,25 @@ $carousel-indicator-active-bg: $pastel-white;
     background-attachment: fixed;
  }
 
+ @media (max-width: 2560px) { 
+    .request-select {
+        height: 705px;
+    }
+
+    .request-show {
+        height: 1068px;
+    }
+
+    .main-header {
+        height: 600px;
+    }
+
+    .intro {
+        padding-top: 75px;
+    }
+
+ }
+
  @media (max-width: 1920px) { 
     .main-header {
         height: 700px;
@@ -143,6 +151,15 @@ $carousel-indicator-active-bg: $pastel-white;
 
     .intro {
         padding-top: 150px;
+    }
+
+    .request-select {
+        height: 340px;
+        padding: 0 10px 0 10px;
+    }
+
+    .request-show {
+        height: 712px;
     }
  }
 
@@ -206,7 +223,8 @@ $carousel-indicator-active-bg: $pastel-white;
 }
 
 .nav-menu:hover {
-    background: #e0d4ac;
+    background: $primary;
+    color: white;
 }
 
 .row.display-flex {
@@ -227,10 +245,15 @@ div.sticky {
     top: 225px;
 }
 
+div.artist-panel {
+    position: sticky;
+    top: 125px;
+}
+
 .filter-sticky {
     position: sticky;
     top: 150px;
-    z-index: 1200;
+    z-index: 10;
 }
 
 .requests {
@@ -238,17 +261,15 @@ div.sticky {
 }
 
 .request-select {
-    height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
 .request-show {
-    height: 968px;
     min-height: 30px;
     min-width: 30px;
     resize: both;
-    max-width: fit-content;
+    max-width: 100%;
     overflow-y: hidden;
 }
 

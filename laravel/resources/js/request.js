@@ -23,7 +23,7 @@ $( window ).on( "load", () => {
                 let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-tertiary'>For Commercial Uses </span>'";
                 $('#commTag').append(comm);
             } else {
-                let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-secondary'>For Personal Uses </span>";
+                let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-primary'>For Personal Uses </span>";
                 $('#commTag').append(comm);
             }
             console.log(res.title);
@@ -32,7 +32,7 @@ $( window ).on( "load", () => {
                 $('#artTag').append(dig);
             } 
             if (res.tradional_art !== 0) {
-                let trad = "<span class='ms-auto p-2 mx-2 small rounded-pill bg-secondary text-capitalize pill-hover'><i class='fs-6 me-1 bi bi-tags-fill'></i>Traditional Art</span>";
+                let trad = "<span class='ms-auto p-2 mx-2 small rounded-pill bg-secondary text-dark text-capitalize pill-hover'><i class='fs-6 me-1 bi bi-tags-fill'></i>Traditional Art</span>";
                  $('#artTag').append(trad);
             }
             if (res.pixel_art !== 0) {
@@ -93,7 +93,7 @@ $( window ).on( "load", () => {
                             let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-tertiary'>For Commercial Uses </span>'";
                             $('#commTag').append(comm);
                         } else {
-                            let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-secondary'>For Personal Uses </span>";
+                            let comm = "<span class='small text-start text-white d-lg-inline d-block border-bottom border-end border-4 border-muted rounded-pill px-2 px-lg-5 py-0 py-lg-3 bg-primary'>For Personal Uses </span>";
                             $('#commTag').append(comm);
                         }
                         if (response.digital_art !== 0) {
@@ -101,7 +101,7 @@ $( window ).on( "load", () => {
                             $('#artTag').append(dig);
                         } 
                         if (response.tradional_art !== 0) {
-                            let trad = "<span class='ms-auto p-2 mx-2 small rounded-pill bg-secondary text-capitalize pill-hover'><i class='fs-6 me-1 bi bi-tags-fill'></i>Traditional Art</span>";
+                            let trad = "<span class='ms-auto p-2 mx-2 small rounded-pill text-dark bg-secondary text-capitalize pill-hover'><i class='fs-6 me-1 bi bi-tags-fill'></i>Traditional Art</span>";
                              $('#artTag').append(trad);
                         }
                         if (response.pixel_art !== 0) {

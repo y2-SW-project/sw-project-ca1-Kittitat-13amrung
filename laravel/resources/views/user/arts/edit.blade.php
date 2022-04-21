@@ -79,7 +79,7 @@
                             <div class="form-group my-5 d-flex">
                                 <label for="start_date" class="px-2">Starting Date:</label>
                                 <input type="date" class="form-control paragraph h6" id="start_date" name="start_date"
-                                    value="{{ old('start_date', $req->start_date) }}" />
+                                    value="{{ old('start_date', $req->start_date) }}" disabled/>
 
                                 <label for="end_date" class="px-2">Deadline Date:</label>
                                 <input type="date" class="form-control paragraph h6" id="end_date" name="end_date"

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Artist;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Request as Req;
 use Auth;
 
 class UserSettingController extends Controller
@@ -126,11 +128,12 @@ class UserSettingController extends Controller
      */
     public function artist()
     {
+        
         $artist = Artist::firstOrCreate(
             ['user_id' =>  Auth::user()->id],
             ['user_id' => Auth::user()->id]
         );
-
+        
         if (!auth()->user()->hasRole('artist')) {
             $role = Role::where('name', 'artist')->first();
             auth()->user()->roles()->attach($role);
@@ -185,6 +188,26 @@ class UserSettingController extends Controller
         // dd($favourites);
         return view('user.settings.favourites', [
             'favourites' => $favourites
+        ]);
+    }
+
+    public function requests() {
+        $user = Auth::user();
+
+        $requests = Req::with('users')->where('user_id', $user->id)->get();
+        
+
+        foreach ($requests as $request) {
+            $request->description = Str::limit($request->description, 60, ' ...');
+            $request->attachExpire();
+        }
+
+
+        $requests->sortByDesc('expired');
+
+        // echo $requests;
+        return view('user.settings.requests', [
+            'requests' => $requests
         ]);
     }
 

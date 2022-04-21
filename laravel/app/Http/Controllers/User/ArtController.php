@@ -31,30 +31,39 @@ class ArtController extends Controller
 
         
         // $requests = Req::oldest('created_at')->get();
-        $clients = Req::with('users')->oldest('created_at')->get();
+        $commissions = Req::with('users')->latest('created_at')->get();
         
-        foreach ($clients as $client) {
-            $client->description = Str::limit($client->description, 100, ' ...');
+        foreach ($commissions as $commission) {
+            $commission->description = Str::limit($commission->description, 60, ' ...');
+            $commission->attachExpire();
         }
 
-        // dd($clients);
+
+        $sorted = $commissions->sortBy([
+            ['end_date', 'desc']
+        ]);
+        
+
+        $sorted->values()->all();
+
+        // dd($commissions->sortBy('expired'));
 
         // dd($requests);  
         return view($req, [
             // 'requests' => $requests,
-            'clients' => $clients
+            'commissions' => $sorted
         ]);
     }
 
     public function firstReq() {
-        $request = Req::with('users')->first();
+        $commission = Req::with('users')->latest()->get()->first();
         // return $client = json_encode($client);
 
-        $client = User::where('id', $request->user_id)->get('name')->first();
+        $client = User::where('id', $commission->user_id)->get('name')->first();
 
-        $request->user_id = $client->name;
+        $commission->user_id = $client->name;
         
-        return $request->makeHidden('users');
+        return $commission->makeHidden('users');
     }
 
     public function show() {
@@ -164,7 +173,7 @@ class ArtController extends Controller
         $file = $request->file('file');  
         $fileName = time().'.'.$file->extension(); 
         $file->storeAs('portfolio',$fileName,'public');
-        $files[] = $fileName;
+        // $files[] = $fileName;
 
         if (isset($files[0])) {
             $artist->img1 = 'storage/portfolio/'.$files[0];
@@ -201,7 +210,7 @@ class ArtController extends Controller
             'pixel_art' => 'required|accepted',
             'digital_art' => 'required|accepted',
             'commercial_use' => 'required|accepted',
-            'start_date' => 'required|date',
+            'start_date' => 'required|after:yesterday',
             'end_date' => 'required|date|after_or_equal:start_date',
             'start_price' => 'required',
             'end_price' => 'required'
@@ -349,7 +358,7 @@ class ArtController extends Controller
 
      public  function uploadProfile(Request $request)  
      {  
-         dd($request);
+        //  dd($request);
         $user = Auth::user();
  
         $this->deleteOldImage(); 
