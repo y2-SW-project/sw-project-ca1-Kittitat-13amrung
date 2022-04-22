@@ -10,6 +10,7 @@ use Overtrue\LaravelFavorite\Traits\Favoriter;
 use Overtrue\LaravelLike\Traits\Liker;
 use Laravel\Sanctum\HasApiTokens;
 use App\Model\Role;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -108,5 +109,27 @@ class User extends Authenticatable
 
     public function artist() {
         return $this->hasOne(Artist::class);
+    }
+
+    public function getActiveAttribute() {
+        $now = Carbon::now();
+        if ($this->created_at) {
+            $active = Carbon::parse($this->created_at)->diffForHumans();
+            // dd($days);
+        } else {
+            $active = '';
+        }
+        return $active;
+    }
+
+    public function getDaysAttribute() {
+        $now = Carbon::now();
+        if ($this->last_seen) {
+            $days = Carbon::parse($this->last_seen)->diffForHumans();
+            // dd($days);
+        } else {
+            $days = '';
+        }
+        return $days;
     }
 }

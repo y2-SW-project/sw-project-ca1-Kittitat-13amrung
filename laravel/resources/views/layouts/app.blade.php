@@ -36,7 +36,7 @@
                                     <div class="col-lg-5">
                                         @if (Auth::user()->image)
                                             <img class="img-fluid rounded-circle"
-                                                src="{{ asset('/storage/profile/' . Auth::user()->image) }}"
+                                                src="{{ asset('/storage/profile/' . Auth::user()->image . '.jpg') }}"
                                                 alt="profile_image">
                                         @else
                                         <img class="img-fluid w-100 align-self-center mx-3"
@@ -198,7 +198,7 @@
 
                             <div class="row mb-0">
                                 <div class="col-md-12 offset-md-2">
-                                    <button type="submit" class="btn btn-dark col-md-8">
+                                    <button type="submit" class="btn btn-dark col-md-8" data-bs-auto-close="outside">
                                         {{ __('Login') }}
                                     </button>
 
@@ -264,6 +264,17 @@
                                     Explore
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                                    @can ('admin')
+                                    <li><h6 class="dropdown-header">admin</h6></li>
+                                    <li><a class="dropdown-item"
+                                        href="{{ route('admin.index') }}">{{ __('Home') }}</a></li>
+                                    <li><a class="dropdown-item"
+                                            href="{{ route('admin.artists') }}">{{ __('Artists') }}</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.requests') }}">{{ __('Requests') }}</a></li>
+                                    <li><h6 class="dropdown-header">user</h6></li>
+                                    <li><a class="dropdown-item"
+                                        href="{{ route('user.index') }}">{{ __('Home') }}</a></li>
+                                    @endcan
                                     <li><a class="dropdown-item"
                                             href="{{ route('artist.show') }}">{{ __('Artists') }}</a></li>
                                     <li><a class="dropdown-item"
@@ -282,19 +293,19 @@
                                 </li>
 
                                 <li class="navbar-item mx-2">
-                                    <a href="#" class="nav-link nav-size" data-bs-toggle="modal"
-                                        data-bs-target="#loginModal">
+                                    <a href="{{url('/register')}}" class="nav-link nav-size">
                                         <i class="bi bi-pencil pe-2 "></i> Sign up
                                     </a>
                                 </li>
                             @endif
                         @else
+
                             <li class="navbar-item mx-2 dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     @if (Auth::user()->image)
                                         <img class="rounded border border-1 border-dark avatar"
-                                            src="{{ asset('/storage/profile/' . Auth::user()->image) }}" alt=""
+                                            src="{{ asset('/storage/profile/' . Auth::user()->image . '.jpg') }}" alt=""
                                             height="28px" width="28px">
                                     @else
                                         <i class="bi bi-person-circle pe-2 "></i>

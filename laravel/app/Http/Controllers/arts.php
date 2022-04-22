@@ -32,9 +32,9 @@ class arts extends Controller
 
         $index = 'index'; // declaring a local variable
 
-        if($user && $user->hasRole('admin')) {
-            $index = 'admin.index'; //if so route to admin page
-        }
+        // if($user && $user->hasRole('admin')) {
+        //     $index = 'admin.index'; //if so route to admin page
+        // }
         
 
         //get all from the Car Table
@@ -51,7 +51,7 @@ class arts extends Controller
                 $recents = session('recentSearch.artists');
                 foreach ($recents as $recent) {
 
-                    $tempArray[] = Artist::with('users')->where('id', $recent)->distinct()->get()->first();
+                    $tempArray[] = Artist::with('users')->where('id', $recent)->get()->first();
                     $getRecent = collect($tempArray);
 
                 }
@@ -60,17 +60,18 @@ class arts extends Controller
                 // dd($recents->unique());
             //     $recents[] = Artist::with('users')->where('user_id', $recent)->get()->makeHidden('description');
             //     // $recents->reverse();
-            //     dd($recents);
+                // dd($getRecent->unique('id'));
+                // dd($getRecent->filter());
             // } 
-            $getRecents = $getRecent->reverse()->take(3);    
+            $getRecents = $getRecent->unique('id')->reverse()->take(3)->filter();    
             // dd(session('recentSearch'));
                 // $getRecent->get();
             // $recents->makeHidden('description');
         }
 
-        // dd(session('recentSearch'));
+        // dd($recents->collect());
 
-        // dd($getRecent->reverse()->take(3));
+        // dd($getRecents);
 
         return view($index, [
             //the data receive from Car::all will

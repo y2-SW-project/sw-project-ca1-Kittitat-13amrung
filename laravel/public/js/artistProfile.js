@@ -48201,7 +48201,7 @@ var cropper; // artistProfile.confirm = function(question, accepted, rejected) {
 
 dropzone__WEBPACK_IMPORTED_MODULE_0__["default"].options.artistProfile = {
   maxFileSize: 10,
-  uploadMultiple: true,
+  parallelUploads: true,
   init: function init() {
     var button = $('#submit-all');
     button.on("click", function () {

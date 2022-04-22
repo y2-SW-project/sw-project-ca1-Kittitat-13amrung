@@ -10,7 +10,7 @@
             <div class="d-lg-flex d-md-block pe-5">
 
                     @if (Auth::user()->image)
-                    <img class="w-25 h-25 ms-5 d-lg-none d-none d-xl-block user-img rounded avatar border border-dark border-1" src="{{ asset('/storage/profile/' . Auth::user()->image) }}"
+                    <img class="w-25 h-25 ms-5 d-lg-none d-none d-xl-block user-img rounded avatar border border-dark border-1" src="{{ asset('/storage/profile/' . Auth::user()->image) . '.jpg' }}"
                         alt="avatar" id="avatar">
                 @else 
                 <img class="w-25 h-25 ms-5 d-lg-none d-none d-xl-block user-img rounded avatar borde border-dark border-1" id="avatar" alt="avatar" src="https://via.placeholder.com/280">

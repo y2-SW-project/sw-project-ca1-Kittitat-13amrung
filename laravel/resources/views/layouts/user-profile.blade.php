@@ -57,7 +57,7 @@
                               </div>
                                 <label for="user-profile" class="label" data-toggle="tooltip" title="Change your profile image">
                                     @if (Auth::user()->image)
-                                    <img class="rounded-2 img-fluid avatar" src="{{ asset('/storage/profile/' . Auth::user()->image) }}" id="avatar" alt="avatar">
+                                    <img class="rounded-2 img-fluid avatar" src="{{ asset('/storage/profile/' . Auth::user()->image) . '.jpg' }}" id="avatar" alt="avatar">
                                     @else
                                         <img class="rounded-2 img-fluid avatar" id="avatar" alt="avatar" src="https://via.placeholder.com/280">
                                     @endif

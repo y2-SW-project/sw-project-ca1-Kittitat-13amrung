@@ -10,6 +10,7 @@ use App\Models\Artist;
 use App\Models\User;
 use App\Models\Image as Img;
 use Auth;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ArtController extends Controller
 {
@@ -170,21 +171,25 @@ class ArtController extends Controller
         $artist = Artist::where('user_id', $request->user()->id)->first();
         
         
-        $file = $request->file('file');  
-        $fileName = time().'.'.$file->extension(); 
-        $file->storeAs('portfolio',$fileName,'public');
+        $file = $request->file('file');
+        $fileCompressed = Image::make($file);
+        $fileCompressed->widen(600, function ($constraint) {
+            $constraint->upsize();
+        });
+
+        $fileName = time(); 
+        $fileCompressed->save('storage/artists/thumbnails/'.$fileName.'.jpg', 90, 'jpg');
+
+        $fileOriginalName = time().'.'.$file->extension(); 
+        $file->storeAs('artists/arts/',$fileOriginalName,'public');
+
         // $files[] = $fileName;
-
-        if (isset($files[0])) {
-            $artist->img1 = 'storage/portfolio/'.$files[0];
-        }
-
-        if (isset($files[1])) {
-            $artist->img2 = 'storage/portfolio/'.$files[1];
-        }
-
-        if (isset($files[2])) {
-            $artist->img3 = 'storage/portfolio/'.$files[2];
+        if (is_null($artist->img1)) {
+            $artist->img1 = '1.jpg';
+        } else if (is_null($artist->img2)) {
+            $artist->img2 = '2.jpg';
+        } else if (is_null($artist->img3)) {
+            $artist->img3 = '3.jpg';
         }
         $artist->save();
   

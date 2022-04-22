@@ -26,7 +26,7 @@ let cropper;
   
   Dropzone.options.artistProfile = {
     maxFileSize : 10,
-    uploadMultiple: true,
+    parallelUploads: true,
     
     init: () => {
       

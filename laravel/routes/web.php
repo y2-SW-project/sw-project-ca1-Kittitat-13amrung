@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Routes;
 use App\User;
 // importing controllers to be used in routing pages
-use App\Http\Controllers\User\CarController as UserCarController;
-use App\Http\Controllers\Admin\CarController as AdminCarController;
+use App\Http\Controllers\User\HomeController as UserController;
+use App\Http\Controllers\Admin\HomeController as AdminController;
 use App\Http\Controllers\ChatsController as ChatsController;
 use App\Http\Controllers\Auth\LoginController as LoginController;
 use App\Http\Controllers\arts as Arts;
@@ -13,7 +13,7 @@ use App\Http\Controllers\User\UserSettingController as UserSetting;
 use App\Http\Controllers\Admin\UserSettingController as AdminSetting;
 use App\Http\Controllers\User\ArtController as UserArtController;
 use App\Http\Controllers\Admin\ArtController as AdminArtController;
-
+use Intervention\Image\ImageManagerStatic as Image;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,9 +49,14 @@ Route::group([
     'middleware' => 'is_admin',
     'as' => 'admin.',
 ], function() {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/artists', [AdminController::class, 'artists'])->name('artists');
+    Route::get('/requests', [AdminController::class, 'requests'])->name('requests');
     Route::get('profile', [AdminSetting::class, 'index'])->name('profile');
     Route::post('profile', [AdminSetting::class, 'profileUpdate'])->name('profile.update');
 });
+
+Route::get('/', [Arts::class, 'index'])->name('user.index');
 
 Route::group([
     'prefix' => 'user',
@@ -126,6 +131,8 @@ Auth::routes();
 // Route::get('/', [ChatsController::class , 'index']);
 // Route::get('messages', [ChatsController::class , 'fetchMessages']);
 // Route::post('messages', [ChatsController::class , 'sendMessage']);
-
-Route::get('/', [Arts::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/resize', function() {
+    $img = Image::make('storage/portfolio/test.png')->encode('jpg', 75);
+    return $img->response('jpg');
+});

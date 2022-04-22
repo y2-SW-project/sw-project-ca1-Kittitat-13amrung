@@ -33,8 +33,8 @@
             </div>
         </main>
     </div>
-    {{-- {{ dd(session('artists')) }} --}}
-    @if(Auth::check() and !is_null(session('recentSearch')))
+    {{-- {{ dd(session('recentSearch')) }} --}}
+    @if(Auth::check() and session()->has('recentSearch.artists')))
     <div class="container-fluid">
         <section class="container">
                 <div class="text-start py-5">

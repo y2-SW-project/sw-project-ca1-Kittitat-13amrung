@@ -12,6 +12,7 @@ use App\Models\Artist;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Request as Req;
+use Intervention\Image\ImageManagerStatic as Image;
 use Auth;
 
 class UserSettingController extends Controller
@@ -113,8 +114,14 @@ class UserSettingController extends Controller
         
         $this->deleteOldImage(); 
         $file = $request->file('file');  
-        $fileName = time().'.'.$file->extension(); 
-        $file->storeAs('profile',$fileName,'public');  
+        $fileCompressed = Image::make($file);
+        $fileCompressed->widen(1000, function ($constraint) {
+            $constraint->upsize();
+        });
+        $fileName = time(); 
+        $fileCompressed->save('storage/profile/'.$fileName.'.jpg', 100, 'jpg');
+        // $fileName = time().'.'.$file->extension(); 
+        // $file->storeAs('profile',$fileName,'public');  
         $user->update(['image'=> $fileName]);
    
         return response()->json(['success'=>$fileName]);  
