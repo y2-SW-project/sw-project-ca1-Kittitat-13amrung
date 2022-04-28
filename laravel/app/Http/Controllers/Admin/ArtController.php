@@ -248,4 +248,15 @@ class ArtController extends Controller
 
         return redirect()->route('arts.requests');
     }
+
+    public function deleteUser($id)
+    {
+        $this->authorize('admin');
+
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('admin.index');
+    }
 }

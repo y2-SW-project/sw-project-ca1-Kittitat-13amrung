@@ -7,22 +7,22 @@
                 </a>
             </li>
             <li class="nav-item nav-link align-self-center">
-                <a href="" class="text-dark nav-link">
+                <a href="#" class="text-dark nav-link">
                     About Us
                 </a>
             </li>
             <li class="nav-item nav-link align-self-center">
-                <a href="" class="text-dark nav-link">
+                <a href="{{ route('artist.show') }}" class="text-dark nav-link">
                     Artists
                 </a>
             </li>
             <li class="nav-item nav-link align-self-center">
-                <a href="" class="text-dark nav-link">
+                <a href="{{ route('arts.requests') }}" class="text-dark nav-link">
                     Requests
                 </a>
             </li>
             <li class="nav-item nav-link align-self-center">
-                <a href="" class="text-dark nav-link">
+                <a href="#" class="text-dark nav-link">
                     Contact Us
                 </a>
             </li>

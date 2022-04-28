@@ -63,8 +63,12 @@
                     </td>
                     <td>
                         <div class="text-center">
-                            <a href="" class="btn btn-primary px-5">Edit</a>
-                            <a href="" class="btn btn-primary px-5">Delete</a>
+                            {{-- <a href="" class="btn btn-primary px-5">Edit</a> --}}
+                            <form action="{{ route('admin.artist.delete', $artist->id) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE">
+                                @csrf
+                                <button type="submit" class="btn btn-primary px-5">Delete</button>
+                                </form>
                         </div>
                     </td>
                     <td>

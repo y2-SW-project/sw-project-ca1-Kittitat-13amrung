@@ -42,7 +42,7 @@ class arts extends Controller
 
         $popArtists = Artist::limit(6)->withCount('likers')->orderBy('likers_count', 'desc')->get();
         // dd($popArtists);
-        $newArtists = Artist::with('users')->orderBy('created_at', 'asc')->paginate(6);
+        $newArtists = Artist::with('users')->orderBy('created_at', 'desc')->paginate(6);
 
         $getRecents = "";
 
@@ -50,10 +50,8 @@ class arts extends Controller
             // for ($i = count(session('recentSearch')) - 1; $i >= 0; $i--) {
                 $recents = session('recentSearch.artists');
                 foreach ($recents as $recent) {
-
                     $tempArray[] = Artist::with('users')->where('id', $recent)->get()->first();
                     $getRecent = collect($tempArray);
-
                 }
 
                 // $getRecent->make();

@@ -42,15 +42,18 @@
                 <div
                     class="carousel-inner w-100 img-container rounded-top mx-auto">
                     <div class="carousel-item active">
-                        <img src="{{ asset('storage/artists/thumbnails/1.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img1)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img1.'.jpg') : asset('storage/artists/thumbnails/1.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('storage/artists/thumbnails/2.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img2)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img2.'.jpg') : asset('storage/artists/thumbnails/2.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('storage/artists/thumbnails/3.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img3)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img3.'.jpg') : asset('storage/artists/thumbnails/3.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                 </div>

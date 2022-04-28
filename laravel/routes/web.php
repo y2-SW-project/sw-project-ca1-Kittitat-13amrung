@@ -50,6 +50,8 @@ Route::group([
     'as' => 'admin.',
 ], function() {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    Route::delete('/artists/delete/{id}', [AdminController::class, 'deleteArtist'])->name('artist.delete');
     Route::get('/artists', [AdminController::class, 'artists'])->name('artists');
     Route::get('/requests', [AdminController::class, 'requests'])->name('requests');
     Route::get('profile', [AdminSetting::class, 'index'])->name('profile');

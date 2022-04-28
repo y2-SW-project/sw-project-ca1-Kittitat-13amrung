@@ -133,4 +133,30 @@ class HomeController extends Controller
             'commissions' => $commissions
         ]);
     }
+
+    public function deleteUser($id)
+    {
+        $this->authorize('admin');
+
+        $user = User::findOrFail($id);
+        
+
+
+        $user->delete();
+
+        return redirect()->route('admin.index');
+    }
+
+    public function deleteArtist($id)
+    {
+        $this->authorize('admin');
+
+        $artist = Artist::findOrFail($id);
+        
+
+
+        $artist->delete();
+
+        return redirect()->route('admin.artists');
+    }
 }

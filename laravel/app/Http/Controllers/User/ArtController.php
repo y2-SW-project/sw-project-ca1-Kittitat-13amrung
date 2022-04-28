@@ -180,16 +180,16 @@ class ArtController extends Controller
         $fileName = time(); 
         $fileCompressed->save('storage/artists/thumbnails/'.$fileName.'.jpg', 90, 'jpg');
 
-        $fileOriginalName = time().'.'.$file->extension(); 
+        $fileOriginalName = time().'.png'; 
         $file->storeAs('artists/arts/',$fileOriginalName,'public');
 
         // $files[] = $fileName;
         if (is_null($artist->img1)) {
-            $artist->img1 = '1.jpg';
+            $artist->img1 = $fileName;
         } else if (is_null($artist->img2)) {
-            $artist->img2 = '2.jpg';
+            $artist->img2 = $fileName;
         } else if (is_null($artist->img3)) {
-            $artist->img3 = '3.jpg';
+            $artist->img3 = $fileName;
         }
         $artist->save();
   

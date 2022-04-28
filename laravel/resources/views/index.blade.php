@@ -37,20 +37,26 @@
     @if(Auth::check() and session()->has('recentSearch.artists')))
     <div class="container-fluid">
         <section class="container">
-                <div class="text-start py-5">
+                <div class="text-start py-3">
                     <span class="display-5 text-uppercase">
                         <i class="bi bi-file-image"></i>
                         Recent Search
                     </span>
-                    <div class="row mt-5">
+                    <div class="row mt-2">
+                        <h6 class="dropdown-header">Artists</h6>   
                         @each('templates.artist-caroussel', $recents, 'artist')
                     </div>
+
+                    {{-- <div class="row">
+                        <h6 class="dropdown-header">Requests</h6>   
+                        @each('templates.artist-caroussel', $recents, 'artist')
+                    </div> --}}
                 </div>
             </section>
         </div>
+        <hr>
     @endif
 
-    {{-- <hr> --}}
 
     <section class="container">
         <div class="display-5 text-start d-flex my-5">
@@ -75,7 +81,7 @@
         <div class="display-5 text-start d-flex my-5">
             <i class="bi bi-person-plus"></i>
             <span class="text-uppercase pt-1">
-                Artist Freshmen
+                New Artists
             </span>
             <a href="{{ route('artist.show') }}" class="nav-link mx-3 fs-5 align-self-center pt-3">
                 <span>
