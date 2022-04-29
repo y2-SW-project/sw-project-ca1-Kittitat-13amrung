@@ -12,11 +12,11 @@
                 <th>Email Address</th>
                 <th>Last Seen</th>
                 <th>Account Active</th>
-                <th colspan="2"></th>
+                <th></th>
             </tr>
            
             @foreach ($commissions as $commission)
-            <tr class="paragraph h5 m-3 table-primary">
+            <tr class="paragraph h5 table-primary">
                     <td class="">
                         {{$commission->id}}
                     </td>
@@ -43,9 +43,9 @@
                         {{-- Since {{$commission->active}} --}}
                     </td>
                     <td>
-                        <div class="justify-content-around">
-                            <a href="" class="btn btn-primary px-5">Edit</a>
-                            <a href="" class="btn btn-primary px-5">Delete</a>
+                        <div class="">
+                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="" class="btn btn-primary">Delete</a>
                         </div>
                     </td>
                     <td>

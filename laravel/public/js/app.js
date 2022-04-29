@@ -5240,19 +5240,22 @@ module.exports = {
 
 console.log("script loaded");
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // when page loads
+
 
 $(window).on("load", function () {
+  // check if the page has been scrolled
+  // and add classes
   $(window).scroll(function () {
     if ($(this).scrollTop() >= 100) {
-      // console.log("test")
       $('.nav-header').addClass('nav-header-transition');
       $('.nav-header a').addClass('nav-text-transition');
     } else {
       $('.nav-header').removeClass('nav-header-transition');
       $('.nav-header a').removeClass('nav-text-transition');
     }
-  });
+  }); // focus email input 
+
   $('#loginModal').on('shown.bs.modal', function () {
     $('#email').focus();
   });
@@ -5263,7 +5266,7 @@ $(window).on("load", function () {
   });
   $(favTooltip).tooltip({
     trigger: 'manual'
-  });
+  }); //   runs if the user has not logged in has clicked the artist caroussel for likes or favourites
 
   window.guest = function (id) {
     $('#' + id + '[data-toggle="tooltip').tooltip('toggle');
@@ -5271,13 +5274,14 @@ $(window).on("load", function () {
       $('#' + id + '[data-toggle="tooltip').tooltip('toggle');
       $('#loginModal').modal('toggle');
     }, 700);
-  };
+  }; // set up ajax token
+
 
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-  });
+  }); // runs when user is logged in and send ajax request to liked the element
 
   window.fetchLike = function (id) {
     var liker = $('div #liker' + id + "-bs3");
@@ -5292,8 +5296,6 @@ $(window).on("load", function () {
       },
       success: function success(data) {
         if (jQuery.isEmptyObject(data.liked)) {
-          // console.log(liker.val());
-          // $(liker).val(liker.val() - 1);
           $(liker).each(function () {
             $(this).html(parseInt(content) - 1);
           });
@@ -5302,8 +5304,6 @@ $(window).on("load", function () {
             $(this).addClass("bi-hand-thumbs-up");
           });
         } else {
-          // console.log(liker.val());
-          // $(liker).val(liker.val() + 1);
           $(liker).each(function () {
             $(this).html(parseInt(content) + 1);
           });
@@ -5314,7 +5314,8 @@ $(window).on("load", function () {
         }
       }
     });
-  };
+  }; // runs only if the user is logged in
+
 
   window.fetchFavourite = function (id) {
     var obj = $('div #favorite' + id); // console.log(id);
@@ -5337,29 +5338,7 @@ $(window).on("load", function () {
         }
       }
     });
-  }; // window.login = function() {
-  //     $('#login-submit').preventDefault();
-  //     $.ajax({
-  //         headers: {
-  //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-  //         },
-  //         type: 'POST',
-  //         url: '/login/authenticate',
-  //         data: form.serialize(),
-  //         success: function(controllerResponse) {
-  //             console.log(controllerResponse);
-  //             if (!controllerResponse) {
-  //                // here show a hidden field inside your modal by setting his visibility 
-  //                $('#loginModal').modal('toggle');
-  //             } else {
-  //                 $('#loginModal').modal('toggle');
-  //                // controller return was true so you can redirect or do whatever you wish to do here
-  //                window.location.href = $(location).attr("href");
-  //             }
-  //         }
-  //     });
-  // };
-
+  };
 });
 
 /***/ }),

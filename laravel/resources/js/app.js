@@ -2,10 +2,12 @@ console.log("script loaded");
 
 require('./bootstrap');
 
+// when page loads
 $( window ).on( "load", () => {
+    // check if the page has been scrolled
+    // and add classes
     $(window).scroll( function() {
         if($(this).scrollTop() >= 100) {
-            // console.log("test")
            $('.nav-header').addClass('nav-header-transition'); 
            $('.nav-header a').addClass('nav-text-transition'); 
         } else {
@@ -14,6 +16,7 @@ $( window ).on( "load", () => {
         }
     });
 
+    // focus email input 
     $('#loginModal').on('shown.bs.modal', function () {
         $('#email').focus();
       });
@@ -28,7 +31,8 @@ $( window ).on( "load", () => {
         $(favTooltip).tooltip({
             trigger: 'manual'
           });
-        
+      
+        //   runs if the user has not logged in has clicked the artist caroussel for likes or favourites
       window.guest = function(id) {
 
           
@@ -46,6 +50,7 @@ $( window ).on( "load", () => {
     }
 
 
+    // set up ajax token
     $.ajaxSetup({
 
         headers: {
@@ -56,6 +61,7 @@ $( window ).on( "load", () => {
 
     });
 
+    // runs when user is logged in and send ajax request to liked the element
     window.fetchLike = function(id){   
         let liker = $('div #liker'+id+"-bs3");
         
@@ -74,8 +80,7 @@ $( window ).on( "load", () => {
 
            success:function(data){
               if(jQuery.isEmptyObject(data.liked)){
-                // console.log(liker.val());
-                // $(liker).val(liker.val() - 1);
+
                 $(liker).each(function() {
                     $(this).html(parseInt(content)-1);
                 });
@@ -86,8 +91,7 @@ $( window ).on( "load", () => {
                 })
                 
             }else{
-                // console.log(liker.val());
-                // $(liker).val(liker.val() + 1);
+
                 $(liker).each(function() {
                     $(this).html(parseInt(content)+1);
                 });
@@ -106,6 +110,7 @@ $( window ).on( "load", () => {
 
     };
 
+    // runs only if the user is logged in
     window.fetchFavourite = function(id){   
         
         let obj = $('div #favorite'+id);
@@ -138,27 +143,4 @@ $( window ).on( "load", () => {
 
     };
 
-
-    // window.login = function() {
-    //     $('#login-submit').preventDefault();
-    //     $.ajax({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         type: 'POST',
-    //         url: '/login/authenticate',
-    //         data: form.serialize(),
-    //         success: function(controllerResponse) {
-    //             console.log(controllerResponse);
-    //             if (!controllerResponse) {
-    //                // here show a hidden field inside your modal by setting his visibility 
-    //                $('#loginModal').modal('toggle');
-    //             } else {
-    //                 $('#loginModal').modal('toggle');
-    //                // controller return was true so you can redirect or do whatever you wish to do here
-    //                window.location.href = $(location).attr("href");
-    //             }
-    //         }
-    //     });
-    // };
 });

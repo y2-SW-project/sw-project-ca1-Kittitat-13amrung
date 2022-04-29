@@ -25,13 +25,14 @@ class ArtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    // display data to the request page
     public function index(Request $request)
     {
         // authentication
         $req = 'user.arts.request'; // declaring a local variable
 
-        
-        // $requests = Req::oldest('created_at')->get();
+    
         $commissions = Req::with('users')->latest('created_at')->get();
         
         foreach ($commissions as $commission) {
@@ -47,18 +48,14 @@ class ArtController extends Controller
 
         $sorted->values()->all();
 
-        // dd($commissions->sortBy('expired'));
-
-        // dd($requests);  
         return view($req, [
-            // 'requests' => $requests,
             'commissions' => $sorted
         ]);
     }
 
+    // retrieve first request to be used with Ajax
     public function firstReq() {
         $commission = Req::with('users')->latest()->get()->first();
-        // return $client = json_encode($client);
 
         $client = User::where('id', $commission->user_id)->get('name')->first();
 
@@ -67,6 +64,7 @@ class ArtController extends Controller
         return $commission->makeHidden('users');
     }
 
+    // show requests paginated in 6 pages
     public function show() {
         $clients = Req::with('users')->oldest('created_at')->paginate(6);
         
@@ -74,11 +72,11 @@ class ArtController extends Controller
             $client->description = Str::limit($client->description, 60, ' ...');
         }
 
-        // dd($clients);
 
         echo($clients); 
     }
 
+    // update favourite icons to be used with Ajax
     public function ajaxFavourite(Request $request) {
         $this->authorize('favouritable');
 
@@ -99,6 +97,7 @@ class ArtController extends Controller
 
     }
 
+    // update like icon and number to be used with Ajax
     public function ajaxLike(Request $request) {
         $this->authorize('likable');
 
@@ -113,6 +112,7 @@ class ArtController extends Controller
 
     }
 
+    // for when user create request
     /**
      * Show the form for creating a new resource.
      *
@@ -126,46 +126,32 @@ class ArtController extends Controller
     // redirect to artists page
     public function artist()
     {
-        // dd($this->authorize('likable'));
         $artists = Artist::with('users')->latest('created_at')->paginate(12);
-        // dd(Auth::user()->hasFavorited($artist));
-        // dd($artists);
-        // dd(session('recentSearch')[0]->id);
 
-        // if (Auth::user()->hasFavorited($artist)) {
-        //     $response = true;
-        // } else {
-        //     $response = false;
-        // }
         
         return view('user.arts.artist', [
             'artists' => $artists
         ]);
     }
     
+    // view artist page
     public function artistView($id) {
         $artist = Artist::where('id', $id)->with('users')->get()->first();
 
         $user = Auth::user();
-        // $user->favorite($artist);
 
-
-        // dd($user->getFavoriteItems(Artist::class));
-        
 
         if (Auth::check()) {
             session()->push('recentSearch.artists', $id);
         }
 
-        // session()->forget('recentSearch');
 
-        // $artist->users->makeHidden('password');
-// dd(session('recentSearch.artists'));
         return view('user.arts.view', [
             'artist' => $artist
         ]);
     }
  
+    // artist upload image files
     public  function uploadFile(Request $request)  
     {  
         $artist = Artist::where('user_id', $request->user()->id)->first();
@@ -180,16 +166,16 @@ class ArtController extends Controller
         $fileName = time(); 
         $fileCompressed->save('storage/artists/thumbnails/'.$fileName.'.jpg', 90, 'jpg');
 
-        $fileOriginalName = time().'.'.$file->extension(); 
+        $fileOriginalName = time().'.png'; 
         $file->storeAs('artists/arts/',$fileOriginalName,'public');
 
         // $files[] = $fileName;
         if (is_null($artist->img1)) {
-            $artist->img1 = '1.jpg';
+            $artist->img1 = $fileName;
         } else if (is_null($artist->img2)) {
-            $artist->img2 = '2.jpg';
+            $artist->img2 = $fileName;
         } else if (is_null($artist->img3)) {
-            $artist->img3 = '3.jpg';
+            $artist->img3 = $fileName;
         }
         $artist->save();
   
@@ -328,14 +314,7 @@ class ArtController extends Controller
         } else {
             $request->commercial_use = 0;
         }
-        // dd($request->pixel_art);
-            // // store file to the location specified
-            // $request->file->store('image', 'public');
-            
-            // // create a local variable to assign new image to it
-            // $image = $request->file('file')->hashName();
 
-            // dd($request);
         // if validation passes create the new car
         $art->title = $request->title;
         $art->commercial_use = $request->commercial_use;
@@ -375,14 +354,4 @@ class ArtController extends Controller
         return response()->json(['success'=>$fileName]);  
    
      }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-    }
 }

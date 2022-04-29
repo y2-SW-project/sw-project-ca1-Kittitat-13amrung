@@ -32,41 +32,23 @@ class arts extends Controller
 
         $index = 'index'; // declaring a local variable
 
-        // if($user && $user->hasRole('admin')) {
-        //     $index = 'admin.index'; //if so route to admin page
-        // }
-        
-
-        //get all from the Car Table
-        // $artists = DB::select('SELECT * FROM artists LIMIT 6');
-
+        // Sessions
         $popArtists = Artist::limit(6)->withCount('likers')->orderBy('likers_count', 'desc')->get();
-        // dd($popArtists);
-        $newArtists = Artist::with('users')->orderBy('created_at', 'asc')->paginate(6);
+
+        $newArtists = Artist::with('users')->orderBy('created_at', 'desc')->paginate(6); 
 
         $getRecents = "";
 
         if (session()->has('recentSearch.artists')){
-            // for ($i = count(session('recentSearch')) - 1; $i >= 0; $i--) {
                 $recents = session('recentSearch.artists');
-                foreach ($recents as $recent) {
 
+                foreach ($recents as $recent) {
                     $tempArray[] = Artist::with('users')->where('id', $recent)->get()->first();
                     $getRecent = collect($tempArray);
-
                 }
 
-                // $getRecent->make();
-                // dd($recents->unique());
-            //     $recents[] = Artist::with('users')->where('user_id', $recent)->get()->makeHidden('description');
-            //     // $recents->reverse();
-                // dd($getRecent->unique('id'));
-                // dd($getRecent->filter());
-            // } 
             $getRecents = $getRecent->unique('id')->reverse()->take(3)->filter();    
-            // dd(session('recentSearch'));
-                // $getRecent->get();
-            // $recents->makeHidden('description');
+
         }
 
         // dd($recents->collect());
@@ -74,8 +56,6 @@ class arts extends Controller
         // dd($getRecents);
 
         return view($index, [
-            //the data receive from Car::all will
-            // be assigned to 'cars'
             'popArtists' => $popArtists,
             'newArtists' => $newArtists,
             'recents' => $getRecents

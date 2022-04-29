@@ -18,11 +18,11 @@ class Artist extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    // calculate the amount of time user is online
     public function getDaysAttribute() {
         $now = Carbon::now();
         if ($this->users->last_seen) {
             $days = '('.Carbon::parse($this->users->last_seen)->diffForHumans() . ')';
-            // dd($days);
         } else {
             $days = '';
         }

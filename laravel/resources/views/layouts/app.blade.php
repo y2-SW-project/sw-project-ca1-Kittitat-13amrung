@@ -46,13 +46,13 @@
 
                                     <div class="mt-3 col-lg-6 ms-auto">
 
-                                        <h2 class="d-block text-center username">
+                                        <h2 class="d-block text-center text-light">
                                             {{ Auth::user()->name }}
                                         </h2>
                                         <div class="d-block navbar-item dropdown text-center">
                                             <a class="nav-link dropdown-toggle" id="statusDropdown" href="#" role="button"
                                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                <span class="text-dark">
+                                                <span class="text-light">
                                                     <i class="text-success fs-6 bi bi-circle-fill"></i>
                                                     available
                                                 </span>
@@ -81,15 +81,15 @@
             <div class="border-0 border-primary border-bottom border-top fs-2">
                 <ul class="navbar-nav">
 
-                    <li class="nav-menu navbar-item py-4">
+                    {{-- <li class="nav-menu navbar-item py-4">
                         <a href="{{ route('arts.requests') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-compass"></i>
                             {{ __('Explore') }}
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-menu navbar-item py-4">
-                        <a href="{{ url('/') }}" class="nav-link nav-size">
+                        <a href="{{ route('user.favourites') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-heart"></i>
                             {{ __('Favourites') }}
                         </a>
@@ -101,6 +101,15 @@
                             {{ __('Profile') }}
                         </a>
                     </li>
+                    @can ('artist')
+                    <li class="nav-menu navbar-item py-4">
+                        <a href="{{ route('user.profile.artist') }}" class="nav-link nav-size">
+                            <i class="mx-5 bi bi-person-badge-fill"></i>
+                            {{ __('Artist Profile') }}
+                        </a>
+                    </li>
+                    @endcan
+                
                     <li class="nav-menu navbar-item py-4">
                         <a href="{{ url('/') }}" class="nav-link nav-size">
                             <i class="mx-5 bi bi-chat-square-fill"></i>
@@ -270,7 +279,7 @@
                                         href="{{ route('admin.index') }}">{{ __('Home') }}</a></li>
                                     <li><a class="dropdown-item"
                                             href="{{ route('admin.artists') }}">{{ __('Artists') }}</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('admin.requests') }}">{{ __('Requests') }}</a></li>
+                                    {{-- <li><a class="dropdown-item" href="{{ route('admin.requests') }}">{{ __('Requests') }}</a></li> --}}
                                     <li><h6 class="dropdown-header">user</h6></li>
                                     <li><a class="dropdown-item"
                                         href="{{ route('user.index') }}">{{ __('Home') }}</a></li>
@@ -279,7 +288,7 @@
                                             href="{{ route('artist.show') }}">{{ __('Artists') }}</a></li>
                                     <li><a class="dropdown-item"
                                             href="{{ route('arts.requests') }}">{{ __('Requests') }}</a></li>
-                                    <li><a class="dropdown-item" href="#">{{ __('Marketplace') }}</a></li>
+                                    {{-- <li><a class="dropdown-item" href="#">{{ __('Marketplace') }}</a></li> --}}
                                 </ul>
                             </div>
                         </li>
@@ -315,9 +324,13 @@
 
                                 <div class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                                     aria-labelledby="navbarDropdown">
+                                    <a href="{{ route('user.requests.list') }}" class="dropdown-item">{{ __('Your Request') }}</a>
                                     <a href="{{ route('user.profile') }}"
-                                        class="dropdown-item">{{ __('Profile') }}</a>
-                                    <a href="" class="dropdown-item">{{ __('Setting') }}</a>
+                                    class="dropdown-item">{{ __('Profile') }}</a>
+                                    @can ('artist')
+                                    <a href="{{ route('user.profile.artist') }}" class="dropdown-item">{{ __('Artist Profile') }}</a>
+                                    @endcan
+                                    <a href="{{ route('user.favourites') }}" class="dropdown-item">{{ __('Favourites') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                                                                                  document.getElementById('logout-form').submit();">
@@ -332,11 +345,11 @@
                                 </div>
                             </li>
 
-                            <li class="navbar-item mx-2">
+                            {{-- <li class="navbar-item mx-2">
                                 <a href="#" class="nav-link">
                                     <i class="bi bi-bell"></i>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="navbar-item mx-2">
                                 <a class="nav-link" type="button" data-bs-toggle="offcanvas"
                                     data-bs-target="#menu" aria-controls="menuScrolling">

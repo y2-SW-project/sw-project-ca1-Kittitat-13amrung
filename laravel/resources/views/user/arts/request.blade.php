@@ -2,8 +2,7 @@
 <script src="{{ asset('js/request.js') }}" defer></script>
 
 @section('content')
-    {{-- <img src="{{ asset('storage/image/background.svg') }}" alt="background image for main page"
-        class="d-md-block d-none img-fluid background-img"> --}}
+
     <main class="container intro">
         <div class="mt-5 d-flex justify-content-around">
             <div class="display-6">
@@ -31,7 +30,7 @@
             <div class="position-relative col-lg-8 my-5">
 
                 <div class="filter-sticky ms-3 mb-2">
-                    <div class="ms-auto mb-5 col-lg-3">
+                    {{-- <div class="ms-auto mb-5 col-lg-3">
                         <div class="form-floating">
                             <select class="form-select bg-primary text-white" id="sorting" aria-label="Sort by">
                               <option selected>Newest</option>
@@ -41,7 +40,7 @@
                             </select>
                             <label for="sorting" class="text-light">Sort by:</label>
                           </div>
-                    </div>
+                    </div> --}}
 
                 <div class="p-5 request-show border-end border-bottom border-3 ms-3 rounded rounded-5 bg-light"
                     id="req-detail">

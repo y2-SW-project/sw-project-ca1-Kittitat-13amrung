@@ -25,13 +25,9 @@ class ArtController extends Controller
         // authentication
         $req = 'user.arts.request'; // declaring a local variable
 
-        
-        // $requests = Req::oldest('created_at')->get();
         $clients = Req::with('users')->latest('created_at')->get();
 
-        // dd($users);
 
-        // dd($requests);  
         return view($req, [
             // 'requests' => $requests,
             'clients' => $clients
@@ -57,7 +53,7 @@ class ArtController extends Controller
     public function store(Request $request)
     {
         // when user clicks submit on the create view above
-        // the car will be stored in the database
+        // the request will be stored in the database
 
         // data validation
         $request->validate([
@@ -98,15 +94,7 @@ class ArtController extends Controller
         } else {
             $request->commercial_use = 0;
         }
-        // dd($request->pixel_art);
-            // // store file to the location specified
-            // $request->file->store('image', 'public');
-            
-            // // create a local variable to assign new image to it
-            // $image = $request->file('file')->hashName();
 
-            // dd($request);
-        // if validation passes create the new car
         $commission = new Req();
         $commission->title = $request->title;
         $commission->commercial_use = $request->commercial_use;
@@ -126,17 +114,6 @@ class ArtController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -144,6 +121,7 @@ class ArtController extends Controller
      */
     public function edit($id)
     {
+        // for user to edit request
         $req = Req::findOrFail($id);
 
         $this->authorize('isClient', $req);
@@ -207,14 +185,7 @@ class ArtController extends Controller
         } else {
             $request->commercial_use = 0;
         }
-        // dd($request->pixel_art);
-            // // store file to the location specified
-            // $request->file->store('image', 'public');
-            
-            // // create a local variable to assign new image to it
-            // $image = $request->file('file')->hashName();
 
-            // dd($request);
         // if validation passes create the new car
         $commission->title = $request->title;
         $commission->commercial_use = $request->commercial_use;
@@ -240,6 +211,7 @@ class ArtController extends Controller
      */
     public function destroy($id)
     {
+        // for users to delete their requests
         $commission = Req::findOrFail($id);
 
         $this->authorize('isClient', $commission);
@@ -247,5 +219,17 @@ class ArtController extends Controller
         $commission->delete();
 
         return redirect()->route('arts.requests');
+    }
+
+    // admin to delete user
+    public function deleteUser($id)
+    {
+        $this->authorize('admin');
+
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()->route('admin.index');
     }
 }

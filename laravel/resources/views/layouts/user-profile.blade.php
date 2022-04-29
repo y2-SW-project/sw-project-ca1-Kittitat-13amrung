@@ -15,6 +15,7 @@
     @include('layouts.profile')
     <div class="col-lg-7 border">
 
+        {{-- display errors and successful submit --}}
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -41,13 +42,10 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+    {{-- cropping profile picture fucntionality --}}
             <div class="col-lg-12 mx-xl-4 mx-lg-1 mx-md-5 mx-5 mt-4 align-self-end ">
                 <div class="d-xl-flex d-lg-block col-xl-7 col-lg-12">
                     <div class="col-xl-8 col-lg-12">
-                        {{-- <div class="col-lg-12 my-4" class="dropzone" id="user-profile">
-                            <label for="image" class="form-label">Upload your profile picture:</label>
-                            <input class="form-control" type="file" name="image" id="image">
-                        </div> --}}
                         <div class="align-self-center ms-lg-5 ms-xl-0 my-2">
                             <h6 class="h5">Your profile picture:</h6>
                             <div class="progress d-none">
@@ -88,6 +86,7 @@
                             </div>
                         </div>
 
+                        {{-- form for changing their information --}}
                     <div class="col-xxl-12 col-xl-10 col-lg-12">
                         <form action="{{ route('admin.profile.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -121,28 +120,12 @@
                 </div>
             </div>
             
+            {{-- check if the user has created their artist profiles --}}
             @cannot ('artist')
             <div class="flex-fill col-xxl-12 col-xl-12 col-lg-12 border-top border-dark mt-5 p-5 bg-tertiary text-end">
                 
                     <h4 class="h2 text-center text-light py-3 paragraph text-uppercase fw-bold py-5">Wanna take commissions from clients?</h4>
                     <a href="{{ route('user.profile.artist') }}" class="btn btn-lg px-5 py-4 mb-4 btn-dark text-light text-capitalize">Start-up your art career</a>
-                {{-- <h6>Role Identifier:</h6>
-                @foreach ($tags[0]->roles as $tag)
-                    @if ($tag->name == 'user' || $tag->name == 'admin')
-                    @else
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="{{ $tag->name }}"
-                                id="{{ $tag->name }}" value="{{ $tag->name }}">
-                            <label class="form-check-label" for="{{ $tag->name }}">{{ $tag->name }}</label>
-                        </div>
-                    @endif
-                @endforeach
-                <br>
-                <div class="form-group me-4">
-                    <label for="description">Description:</label>
-                    <textarea type="text" class="form-control" name="description"
-                        value="{{ old('description', Auth::user()->description) }}" rows="10"></textarea>
-                </div> --}}
 
             </div>
             @endcannot

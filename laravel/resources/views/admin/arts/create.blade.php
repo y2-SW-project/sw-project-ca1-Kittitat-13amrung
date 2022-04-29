@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <script src="{{ asset('js/createRequest.js') }}" defer></script>
-    <div class="container">
+    <div class="container intro">
         <div class="row justify-content-center">
             <div class="col-md-12 my-5">
                 <div class="card">
@@ -69,22 +69,22 @@
                             <input type="hidden" name="request1" id="request1">
                             <input type="hidden" name="request2" id="request2" value="">
 
-                            <div class="form-group my-5 d-flex">
-                                <label for="start_date" class="px-2">Starting Date:</label>
-                                <input type="date" class="form-control paragraph h6" id="start_date" name="start_date"
+                            <div class="form-group my-5 d-flex col-8">
+                                <label for="start_date" class="pe-5">Starting Date:</label>
+                                <input type="date" class="form-control paragraph h6 " id="start_date" name="start_date"
                                     value="{{ old('start_date') }}" />
 
-                                <label for="end_date" class="px-2">Deadline Date:</label>
+                                <label for="end_date" class="ps-5 pe-5">Deadline Date:</label>
                                 <input type="date" class="form-control paragraph h6" id="end_date" name="end_date"
                                     value="{{ old('end_date') }}" />
                             </div>
 
-                            <div class="form-group my-5 d-flex">
-                                <label for="start_price">Minimum Price</label>
+                            <div class="form-group my-5 d-flex col-8">
+                                <label for="start_price" class="pe-5">Minimum Price: </label>
                                 <input type="number" class="form-control paragraph h6" id="start_price" name="start_price"
                                     value="{{ old('start_price') }}" />
 
-                                <label for="end_price">Maximum Price</label>
+                                <label for="end_price" class="ps-5 pe-5">Maximum Price: </label>
                                 <input type="number" class="form-control paragraph h6" id="end_price" name="end_price"
                                     value="{{ old('end_price') }}" />
                             </div>

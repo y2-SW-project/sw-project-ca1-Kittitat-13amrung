@@ -25,14 +25,6 @@ use Intervention\Image\ImageManagerStatic as Image;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/chat' ,function() {
-    return view('counter');
-});
-
 // Authentication to check for roles
 Auth::routes();
 Route::post('/login/authenticate', [LoginController::class, 'authenticate'])->name('login.authenticate');
@@ -50,6 +42,8 @@ Route::group([
     'as' => 'admin.',
 ], function() {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::delete('/user/delete/{id}', [AdminController::class, 'deleteUser'])->name('users.delete');
+    Route::delete('/artists/delete/{id}', [AdminController::class, 'deleteArtist'])->name('artist.delete');
     Route::get('/artists', [AdminController::class, 'artists'])->name('artists');
     Route::get('/requests', [AdminController::class, 'requests'])->name('requests');
     Route::get('profile', [AdminSetting::class, 'index'])->name('profile');
@@ -102,37 +96,14 @@ Route::group([
     Route::get('request/edit/{id}', [AdminArtController::class, 'edit'])->name('.edit');
     Route::post('delete/{id}', [AdminArtController::class, 'destroy'])->name('.delete');
     Route::post('store/{id}', [AdminArtController::class, 'update'])->name('.update');
-    // allow admin to post these new car data on the database
+    // allow admin to post these new request data on the database
     Route::post('requests/store', [AdminArtController::class, 'store'])->name('.store');
     Route::get('requests/?id={id}', [UserArtController::class, 'show'])->name('.show');
 });
 Route::get('user/art/requests', [UserArtController::class, 'index'])->name('user.arts.requests');
 Route::get('admin/art/requests', [AdminArtController::class, 'index'])->name('admin.arts.requests');
 
-// For Admin auth, go to these routes
-Route::get('/admin/home', [Arts::class, 'index'])->name('admin.home');
-// display car info with editing power
-Route::get('/admin/cars/', [AdminCarController::class, 'index'])->name('admin.cars.index');
-// allow admin to create a new data of car
-Route::get('/admin/cars/create', [AdminCarController::class, 'create'])->name('admin.cars.create');
-// view car details
-Route::get('/admin/cars/{id}', [AdminCarController::class, 'show'])->name('admin.cars.show');
-// allow admin to post these new car data on the database
-Route::post('/admin/cars/store', [AdminCarController::class, 'store'])->name('admin.cars.store');
-// allow admin to edit these car data
-Route::get('/admin/cars/{id}/edit', [AdminCarController::class, 'edit'])->name('admin.cars.edit');
-// allow admin to post these new edited data to the database 
-Route::put('/admin/cars/{id}', [AdminCarController::class, 'update'])->name('admin.cars.update');
-// 
-Route::delete('/admin/cars/{id}', [AdminCarController::class, 'destroy'])->name('admin.cars.destroy');
 Auth::routes();
 
 
-// Route::get('/', [ChatsController::class , 'index']);
-// Route::get('messages', [ChatsController::class , 'fetchMessages']);
-// Route::post('messages', [ChatsController::class , 'sendMessage']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/resize', function() {
-    $img = Image::make('storage/portfolio/test.png')->encode('jpg', 75);
-    return $img->response('jpg');
-});

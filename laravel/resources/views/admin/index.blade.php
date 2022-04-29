@@ -37,15 +37,19 @@
                         {{$user->email}}
                     </td>
                     <td>
-                        {{-- {{$user->days}} --}}
+                        {{$user->days}}
                     </td>
                     <td>
-                        {{-- Since {{$user->active}} --}}
+                        Since {{$user->active}}
                     </td>
                     <td>
-                        <div class="justify-content-around">
-                            <a href="" class="btn btn-primary px-5">Edit</a>
-                            <a href="" class="btn btn-primary px-5">Delete</a>
+                        <div class="d-flex ">
+                            {{-- <a href="" class="btn btn-primary px-5  me-2">Edit</a> --}}
+                            <form method="POST" action="{{ route('admin.users.delete', $user->id)}}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                @csrf
+                                <button  class="btn btn-primary px-5">Delete</button>
+                            </form>
                         </div>
                     </td>
                     <td>

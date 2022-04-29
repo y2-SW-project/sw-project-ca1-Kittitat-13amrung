@@ -1,7 +1,8 @@
+{{-- artist caroussel template --}}
 <div class="col-xl-4 col-lg-6 col-md-12 mb-md-5 mb-5 col-sm-12">
     <div class="artist position-relative">
         <div class="like position-absolute text-light">
-            {{-- {{dd($artist)}} --}}
+            {{-- like icons element --}}
             <i id="like{{ $artist->id }}"
                 @can ('likable' ) 
                 onclick="window.fetchLike({{$artist->id}})"
@@ -16,6 +17,8 @@
                 {{ $artist->likers()->count() }}
             </span>
         </div>
+
+        {{-- favourite element --}}
         <div class="favourite position-absolute text-light">
             <i id="favorite{{ $artist->id }}"
                 @can ('favouritable')
@@ -27,6 +30,7 @@
                 @endcan
                 ></i>
         </div>
+        {{-- caroussel slides --}}
         <a href="{{ route('artist.view', $artist->id) }}" class="nav-item artist-link">
             <div id="popularArtistCarouselIndicators{{ $artist->id }}" class="carousel slide"
                 data-bs-ride="carousel" data-bs-interval="7000">
@@ -42,19 +46,23 @@
                 <div
                     class="carousel-inner w-100 img-container rounded-top mx-auto">
                     <div class="carousel-item active">
-                        <img src="{{ asset('storage/artists/thumbnails/1.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img1)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img1.'.jpg') : asset('storage/artists/thumbnails/1.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('storage/artists/thumbnails/2.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img2)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img2.'.jpg') : asset('storage/artists/thumbnails/2.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ asset('storage/artists/thumbnails/3.jpg') }}" class="d-block img-fluid"
+                        <img src="{{ (!is_null($artist->img3)) ?
+                            asset('storage/artists/thumbnails/'.$artist->img3.'.jpg') : asset('storage/artists/thumbnails/3.jpg') }}" class="d-block img-fluid"
                             alt="...">
                     </div>
                 </div>
             </div>
+            {{-- Artist details --}}
             <div class="col-lg-12 d-flex py-4 px-4 artist-body">
                 <div class="col-lg-2 col-md-2 col-sm-1 col-1 pt-1">
                     @if ($artist->users->image)

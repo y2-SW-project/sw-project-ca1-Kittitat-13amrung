@@ -177,13 +177,6 @@ class UserSettingController extends Controller
 
         return back()->with('message', 'Profile Updated!');
 
-        // $content = $request['editor1'];
-        // $artist->descriptions = $content;
-        // $artist->duration = $request['duration'];
-        // $artist->start_price = $request['start_price'];
-        // $artist->end_price = $request['end_price'];
-        // $artist->status = $request['status'];
-        // $artist->save();
     }
 
     public function favourites()
@@ -218,59 +211,4 @@ class UserSettingController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function Artistshow($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

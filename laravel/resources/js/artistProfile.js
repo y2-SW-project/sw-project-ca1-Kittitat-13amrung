@@ -16,13 +16,6 @@ artistProfile.options.maxFiles = 3;
 let image = document.getElementById('image');
 let profileModal = $('#modal-profile');
 let cropper;
-
-// artistProfile.confirm = function(question, accepted, rejected) {
-  //     // Do your thing, ask the artist for confirmation or rejection, and call
-  //     // accepted() if the artist accepts, or rejected() otherwise. Make
-  //     // sure that rejected is actually defined!
-  //     alert(question);
-  //   };
   
   Dropzone.options.artistProfile = {
     maxFileSize : 10,

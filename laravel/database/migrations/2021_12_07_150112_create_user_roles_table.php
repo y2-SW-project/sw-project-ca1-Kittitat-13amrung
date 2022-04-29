@@ -20,7 +20,7 @@ class CreateUserRolesTable extends Migration
             $table->bigInteger('role_id')->unsigned();
             $table->timestamps();
             // assign foreign keys to the bigIntergers
-            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onUpdate('restrict');
         });
     }

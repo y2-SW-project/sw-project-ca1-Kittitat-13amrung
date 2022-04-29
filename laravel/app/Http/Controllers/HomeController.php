@@ -29,16 +29,16 @@ class HomeController extends Controller
     {
         // authentication
         $user = Auth::user();
-        $home = 'home'; // declaring a local variable
+        $home = 'index'; // declaring a local variable
 
         // check if user is an admin
         if($user->hasRole('admin')) {
-            $home = 'admin.home'; //if so route to admin page
+            $home = 'admin.index'; //if so route to admin page
         }
 
         // if user is an ordinary user
         else if ($user->hasRole('user')) {
-            $home = 'user.home'; //route to user page
+            $home = 'user.index'; //route to user page
         }
         return redirect()->route($home);
     }

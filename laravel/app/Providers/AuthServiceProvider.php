@@ -27,12 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        // define if user has the following roles or has created the request
         Gate::define('admin', fn(User $user) => $user->hasRole('admin'));
         Gate::define('likable', fn(User $user) => $user->hasRole('user') || $user->hasRole('admin'));
         Gate::define('favouritable', fn(User $user) => $user->hasRole('user') || $user->hasRole('admin'));
         Gate::define('artist', fn(User $user) => $user->hasRole('artist'));
         Gate::define('isArtist', fn(User $user, $artist) => $user->id == $artist->users->id);
-        Gate::define('isClient', fn(User $user, $request) => $user->id == $request->user_id);
+        Gate::define('isClient', fn(User $user, $request) => $user->id == $request->user_id || $user->hasRole('admin'));
         
     }
 }
