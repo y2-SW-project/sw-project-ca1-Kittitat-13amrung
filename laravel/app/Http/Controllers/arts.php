@@ -41,7 +41,6 @@ class arts extends Controller
 
         if (session()->has('recentSearch.artists')){
                 $recents = session('recentSearch.artists');
-
                 foreach ($recents as $recent) {
                     $tempArray[] = Artist::with('users')->where('id', $recent)->get()->first();
                     $getRecent = collect($tempArray);
