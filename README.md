@@ -1,2 +1,2 @@
 # CA1
-the Starter for the SW project CA 
+Laravel Project created as part of my assignment for Software Project
